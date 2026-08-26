@@ -1,1646 +1,776 @@
-/* ========================================
-   BRIGHTSIDE DETAILING
-   SHARED WEBSITE STYLES
-======================================== */
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
 
-/* ========================================
-   RESET
-======================================== */
+    <meta charset="UTF-8">
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
+    <title>
+        Brightside Detailing | Mobile Car Detailing
+    </title>
 
-html {
-    scroll-behavior: smooth;
-}
+    <meta
+        name="description"
+        content="Brightside Detailing provides mobile car detailing in Alief and surrounding Houston areas."
+    >
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
-body {
-    font-family: "DM Sans", sans-serif;
-    color: #102a43;
-    background: #ffffff;
-    line-height: 1.6;
-}
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
 
-a {
-    color: inherit;
-    text-decoration: none;
-}
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
+</head>
 
-button,
-input,
-select,
-textarea {
-    font-family: inherit;
-}
 
+<body>
 
 
-/* ========================================
-   GLOBAL
-======================================== */
+<header class="navbar">
 
-:root {
+    <div class="nav-container">
 
-    --blue: #1976d2;
+        <a
+            href="index.html"
+            class="logo"
+        >
 
-    --dark-blue: #0b2a43;
+            <span>
+                BRIGHTSIDE
+            </span>
 
-    --light-blue: #eef7ff;
+            <small>
+                MOBILE DETAILING
+            </small>
 
-    --border: #dce7f0;
+        </a>
 
-    --text: #102a43;
 
-    --muted: #627d98;
+        <nav class="nav-links">
 
-    --white: #ffffff;
+            <a href="index.html">
+                Home
+            </a>
 
-    --radius: 18px;
+            <a href="packages/">
+                Packages
+            </a>
 
-}
+            <a href="results/">
+                Results
+            </a>
 
+            <a href="how-it-works/">
+                How It Works
+            </a>
 
-.container {
-    width: min(1180px, 92%);
-    margin: auto;
-}
+            <a href="about/">
+                About
+            </a>
 
+        </nav>
 
-.eyebrow {
 
-    color: var(--blue);
+        <a
+            href="booking/"
+            class="nav-button"
+        >
+            Book Now
+        </a>
 
-    font-size: 0.78rem;
 
-    font-weight: 700;
+        <button
+            class="menu-button"
+            id="menuButton"
+            type="button"
+        >
+            ☰
+        </button>
 
-    letter-spacing: 0.13em;
+    </div>
 
-    margin-bottom: 14px;
+</header>
 
-}
 
 
+<main>
 
-/* ========================================
-   NAVIGATION
-======================================== */
 
-.navbar {
+<!-- HERO -->
 
-    width: 100%;
+<section class="hero">
 
-    background: rgba(255, 255, 255, 0.96);
+    <div class="hero-content">
 
-    border-bottom: 1px solid #e9eef3;
+        <p class="eyebrow">
+            MOBILE CAR DETAILING • ALIEF, TX
+        </p>
 
-    position: sticky;
 
-    top: 0;
+        <h1>
 
-    z-index: 1000;
+            Detailing That
 
-    backdrop-filter: blur(12px);
+            <span>
+                Comes To You.
+            </span>
 
-}
+        </h1>
 
 
-.nav-container {
+        <p class="hero-text">
 
-    width: min(1180px, 92%);
+            Interior and exterior car detailing
+            brought directly to your location.
 
-    margin: auto;
+        </p>
 
-    min-height: 78px;
 
-    display: flex;
+        <div class="hero-buttons">
 
-    align-items: center;
+            <a
+                href="booking/"
+                class="primary-button"
+            >
+                Book a Detail
+            </a>
 
-    justify-content: space-between;
 
-    gap: 30px;
+            <a
+                href="packages/"
+                class="secondary-button"
+            >
+                View Packages
+            </a>
 
-}
+        </div>
 
+    </div>
 
-.logo {
 
-    display: flex;
+    <div class="hero-image">
 
-    flex-direction: column;
+        <div class="image-placeholder">
 
-    line-height: 1;
+            <span>
+                YOUR DETAILING PHOTO
+            </span>
 
-}
+            <p>
+                Add a photo of your work here.
+            </p>
 
+        </div>
 
-.logo span {
+    </div>
 
-    font-family: "Space Grotesk", sans-serif;
+</section>
 
-    font-weight: 700;
 
-    font-size: 1.2rem;
 
-    letter-spacing: 0.04em;
+<!-- BENEFITS -->
 
-}
+<section class="benefits">
 
+    <div class="benefit">
 
-.logo small {
+        <span class="benefit-number">
+            01
+        </span>
 
-    margin-top: 5px;
+        <h3>
+            Mobile Service
+        </h3>
 
-    font-size: 0.58rem;
+        <p>
+            We come to your home, workplace,
+            or preferred location.
+        </p>
 
-    letter-spacing: 0.16em;
+    </div>
 
-    color: var(--blue);
 
-    font-weight: 700;
+    <div class="benefit">
 
-}
+        <span class="benefit-number">
+            02
+        </span>
 
+        <h3>
+            Interior + Exterior
+        </h3>
 
-.nav-links {
+        <p>
+            Choose the service that fits
+            your vehicle's needs.
+        </p>
 
-    display: flex;
+    </div>
 
-    align-items: center;
 
-    gap: 26px;
+    <div class="benefit">
 
-}
+        <span class="benefit-number">
+            03
+        </span>
 
+        <h3>
+            Local Service
+        </h3>
 
-.nav-links a {
+        <p>
+            Serving Alief and surrounding
+            Houston communities.
+        </p>
 
-    color: #486581;
+    </div>
 
-    font-size: 0.92rem;
+</section>
 
-    font-weight: 600;
 
-    transition: 0.2s;
 
-}
+<!-- SERVICES -->
 
+<section class="packages-preview">
 
-.nav-links a:hover {
+    <div class="section-heading">
 
-    color: var(--blue);
+        <p class="eyebrow">
+            OUR SERVICES
+        </p>
 
-}
+        <h2>
 
+            Choose Your
 
-.nav-button {
+            <span>
+                Detail.
+            </span>
 
-    background: var(--blue);
+        </h2>
 
-    color: white;
+        <p>
+            Straightforward packages with
+            pricing based on vehicle size.
+        </p>
 
-    padding: 11px 20px;
+    </div>
 
-    border-radius: 10px;
 
-    font-weight: 700;
 
-    transition: 0.2s;
+    <div class="package-grid">
 
-}
 
+        <article class="package-card">
 
-.nav-button:hover {
+            <div class="package-top">
 
-    transform: translateY(-2px);
+                <p class="package-label">
+                    EXTERIOR
+                </p>
 
-}
+                <h3>
+                    Express Exterior
+                </h3>
 
+                <p class="price">
+                    $75<span>+</span>
+                </p>
 
-.menu-button {
+            </div>
 
-    display: none;
 
-    border: 0;
+            <ul>
 
-    background: transparent;
+                <li>
+                    Wheels & tires cleaned
+                </li>
 
-    font-size: 1.5rem;
+                <li>
+                    Exterior wash
+                </li>
 
-    cursor: pointer;
+                <li>
+                    Windows cleaned
+                </li>
 
-}
+                <li>
+                    Ceramic protection
+                </li>
 
+            </ul>
 
 
-/* ========================================
-   BUTTONS
-======================================== */
+            <a
+                href="packages/"
+                class="card-link"
+            >
+                Learn More →
+            </a>
 
-.primary-button,
-.secondary-button,
-.submit-button {
+        </article>
 
-    display: inline-flex;
 
-    align-items: center;
 
-    justify-content: center;
+        <article class="package-card">
 
-    gap: 10px;
+            <div class="package-top">
 
-    padding: 13px 22px;
+                <p class="package-label">
+                    INTERIOR
+                </p>
 
-    border-radius: 11px;
+                <h3>
+                    Full Interior
+                </h3>
 
-    font-weight: 700;
+                <p class="price">
+                    $100<span>+</span>
+                </p>
 
-    transition: 0.2s;
+            </div>
 
-}
 
+            <ul>
 
-.primary-button {
+                <li>
+                    Full vacuum
+                </li>
 
-    background: var(--blue);
+                <li>
+                    Pet hair removal
+                </li>
 
-    color: white;
+                <li>
+                    Dashboard & plastics
+                </li>
 
-}
+                <li>
+                    Floor mats
+                </li>
 
+                <li>
+                    Interior glass
+                </li>
 
-.secondary-button {
+            </ul>
 
-    background: white;
 
-    color: var(--blue);
+            <a
+                href="packages/"
+                class="card-link"
+            >
+                Learn More →
+            </a>
 
-    border: 1px solid #cddce8;
+        </article>
 
-}
 
 
-.primary-button:hover,
-.secondary-button:hover,
-.submit-button:hover {
+        <article class="package-card featured">
 
-    transform: translateY(-2px);
+            <div class="popular">
+                MOST POPULAR
+            </div>
 
-}
 
+            <div class="package-top">
 
+                <p class="package-label">
+                    COMPLETE
+                </p>
 
-/* ========================================
-   BOOKING HERO
-======================================== */
+                <h3>
+                    Full Detail
+                </h3>
 
-.booking-hero {
+                <p class="price">
+                    $150<span>+</span>
+                </p>
 
-    background:
-        linear-gradient(
-            135deg,
-            #f1f8ff,
-            #ffffff
-        );
+            </div>
 
-    padding: 85px 6% 70px;
 
-    border-bottom: 1px solid #e7eef4;
+            <ul>
 
-}
+                <li>
+                    Full interior detail
+                </li>
 
+                <li>
+                    Exterior wash
+                </li>
 
-.booking-hero-content {
+                <li>
+                    Wheels & tires
+                </li>
 
-    width: min(900px, 100%);
+                <li>
+                    Windows cleaned
+                </li>
 
-    margin: auto;
+                <li>
+                    Ceramic protection
+                </li>
 
-}
+            </ul>
 
 
-.booking-hero h1 {
+            <a
+                href="packages/"
+                class="card-link"
+            >
+                Learn More →
+            </a>
 
-    font-family: "Space Grotesk", sans-serif;
+        </article>
 
-    font-size: clamp(3rem, 6vw, 5.4rem);
+    </div>
 
-    line-height: 0.98;
 
-    letter-spacing: -0.045em;
+    <div class="center-button">
 
-    margin-bottom: 24px;
+        <a
+            href="packages/"
+            class="secondary-button"
+        >
+            View All Packages
+        </a>
 
-}
+    </div>
 
+</section>
 
-.booking-hero h1 span {
 
-    display: block;
 
-    color: var(--blue);
+<!-- MOBILE -->
 
-}
+<section class="mobile-section">
 
+    <div class="mobile-text">
 
-.booking-hero p:not(.eyebrow) {
+        <p class="eyebrow">
+            WHY MOBILE?
+        </p>
 
-    max-width: 650px;
 
-    color: var(--muted);
+        <h2>
 
-    font-size: 1.1rem;
+            Your schedule.
 
-}
+            <span>
+                Your location.
+            </span>
 
+            Your car.
 
+        </h2>
 
-/* ========================================
-   BOOKING LAYOUT
-======================================== */
 
-.booking-page {
+        <p>
 
-    padding: 75px 5% 100px;
+            Skip the trip to a detailing shop.
+            Brightside Detailing brings the
+            service directly to you.
 
-}
+        </p>
 
 
-.booking-layout {
+        <a
+            href="how-it-works/"
+            class="primary-button"
+        >
+            How It Works
+        </a>
 
-    width: min(1200px, 100%);
+    </div>
 
-    margin: auto;
 
-    display: grid;
 
-    grid-template-columns: 320px minmax(0, 1fr);
+    <div class="mobile-info">
 
-    gap: 45px;
 
-    align-items: start;
+        <div>
 
-}
+            <span>
+                01
+            </span>
 
+            <h3>
+                Choose a Package
+            </h3>
 
+            <p>
+                Select the service your
+                vehicle needs.
+            </p>
 
-/* ========================================
-   BOOKING SIDEBAR
-======================================== */
+        </div>
 
-.booking-sidebar {
 
-    position: sticky;
+        <div>
 
-    top: 110px;
+            <span>
+                02
+            </span>
 
-}
+            <h3>
+                Check Your Location
+            </h3>
 
+            <p>
+                Make sure your location
+                is within our service area.
+            </p>
 
-.sidebar-intro h2 {
+        </div>
 
-    font-family: "Space Grotesk", sans-serif;
 
-    font-size: 2rem;
+        <div>
 
-    line-height: 1.1;
+            <span>
+                03
+            </span>
 
-    margin-bottom: 18px;
+            <h3>
+                We Come To You
+            </h3>
 
-}
+            <p>
+                We arrive at your location
+                and get to work.
+            </p>
 
+        </div>
 
-.sidebar-intro h2 span {
+    </div>
 
-    display: block;
+</section>
 
-    color: var(--blue);
 
-}
 
+<!-- RESULTS -->
 
-.sidebar-intro > p:last-child {
+<section class="results-preview">
 
-    color: var(--muted);
+    <div class="section-heading">
 
-}
+        <p class="eyebrow">
+            OUR RESULTS
+        </p>
 
 
-.booking-process {
+        <h2>
 
-    margin-top: 45px;
+            See The
 
-}
+            <span>
+                Difference.
+            </span>
 
+        </h2>
 
-.process-item {
 
-    display: grid;
+        <p>
+            Real vehicles. Real work.
+            Real results.
+        </p>
 
-    grid-template-columns: 42px 1fr;
+    </div>
 
-    gap: 15px;
 
-}
+    <div class="results-placeholder">
 
+        <div>
 
-.process-number {
+            <strong>
+                BEFORE & AFTER
+            </strong>
 
-    width: 42px;
+            <p>
+                Your detailing results will
+                appear here.
+            </p>
 
-    height: 42px;
+        </div>
 
-    border-radius: 50%;
+    </div>
 
-    display: grid;
 
-    place-items: center;
+    <div class="center-button">
 
-    background: var(--light-blue);
+        <a
+            href="results/"
+            class="secondary-button"
+        >
+            View Results
+        </a>
 
-    color: var(--blue);
+    </div>
 
-    font-size: 0.78rem;
+</section>
 
-    font-weight: 800;
 
-}
 
+<!-- CTA -->
 
-.process-item h3 {
+<section class="cta">
 
-    font-size: 0.98rem;
+    <p class="eyebrow">
+        READY FOR A CLEANER CAR?
+    </p>
 
-    margin-bottom: 4px;
 
-}
+    <h2>
 
+        Let's Get Your Car
 
-.process-item p {
+        <span>
+            Looking Its Best.
+        </span>
 
-    color: var(--muted);
+    </h2>
 
-    font-size: 0.88rem;
 
-}
+    <p>
+        Book a mobile detail in Alief
+        and let us come to you.
+    </p>
 
 
-.process-line {
+    <a
+        href="booking/"
+        class="primary-button"
+    >
+        Request a Detail
+    </a>
 
-    width: 1px;
+</section>
 
-    height: 32px;
 
-    background: #dce7f0;
+</main>
 
-    margin: 8px 0 8px 21px;
 
-}
 
+<footer>
 
-.pricing-note {
+    <div class="footer-container">
 
-    display: flex;
 
-    gap: 12px;
+        <div class="footer-brand">
 
-    margin-top: 45px;
+            <a
+                href="index.html"
+                class="logo"
+            >
 
-    padding: 18px;
+                <span>
+                    BRIGHTSIDE
+                </span>
 
-    border-radius: 15px;
+                <small>
+                    MOBILE DETAILING
+                </small>
 
-    background: #f6fafc;
+            </a>
 
-    border: 1px solid #e2ebf2;
 
-}
+            <p>
+                Detailing that comes to you.
+            </p>
 
+        </div>
 
-.note-icon {
 
-    width: 27px;
 
-    height: 27px;
+        <div class="footer-links">
 
-    border-radius: 50%;
 
-    display: grid;
+            <div>
 
-    place-items: center;
+                <h4>
+                    Explore
+                </h4>
 
-    background: #dff5e8;
+                <a href="packages/">
+                    Packages
+                </a>
 
-    color: #168348;
+                <a href="results/">
+                    Results
+                </a>
 
-    font-weight: 800;
+                <a href="how-it-works/">
+                    How It Works
+                </a>
 
-}
+                <a href="about/">
+                    About
+                </a>
 
+            </div>
 
-.pricing-note strong {
 
-    font-size: 0.9rem;
 
-}
+            <div>
 
+                <h4>
+                    Contact
+                </h4>
 
-.pricing-note p {
+                <a href="mailto:YOUR-EMAIL-HERE">
+                    YOUR-EMAIL-HERE
+                </a>
 
-    color: var(--muted);
+                <a href="tel:YOUR-PHONE-HERE">
+                    YOUR-PHONE-HERE
+                </a>
 
-    font-size: 0.8rem;
+            </div>
 
-    margin-top: 4px;
 
-}
+        </div>
 
+    </div>
 
 
-/* ========================================
-   BOOKING CARD
-======================================== */
 
-.booking-card {
+    <div class="footer-bottom">
 
-    background: white;
+        <p>
+            © 2026 Brightside Detailing.
+            All rights reserved.
+        </p>
 
-    border: 1px solid #dfe8ef;
+        <p>
+            Alief, Houston, TX
+        </p>
 
-    border-radius: 22px;
+    </div>
 
-    box-shadow:
-        0 18px 55px rgba(16, 42, 67, 0.08);
+</footer>
 
-    overflow: visible;
 
-}
 
+<script src="script.js"></script>
 
-.form-header {
+</body>
 
-    padding: 30px;
-
-    border-bottom: 1px solid #e6edf2;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 20px;
-
-}
-
-
-.form-header h2 {
-
-    font-family: "Space Grotesk", sans-serif;
-
-    font-size: 1.7rem;
-
-}
-
-
-.form-header p {
-
-    color: var(--muted);
-
-    margin-top: 4px;
-
-    font-size: 0.9rem;
-
-}
-
-
-.form-badge {
-
-    background: var(--light-blue);
-
-    color: var(--blue);
-
-    padding: 8px 12px;
-
-    border-radius: 8px;
-
-    font-size: 0.65rem;
-
-    font-weight: 800;
-
-    letter-spacing: 0.08em;
-
-    white-space: nowrap;
-
-}
-
-
-
-/* ========================================
-   FORM BLOCKS
-======================================== */
-
-.form-block {
-
-    padding: 32px;
-
-    border-bottom: 1px solid #e8eef3;
-
-}
-
-
-.form-block:last-child {
-
-    border-bottom: 0;
-
-}
-
-
-.form-block-title {
-
-    display: flex;
-
-    gap: 15px;
-
-    align-items: flex-start;
-
-    margin-bottom: 25px;
-
-}
-
-
-.form-block-title > span {
-
-    color: var(--blue);
-
-    font-weight: 800;
-
-    font-size: 0.78rem;
-
-    padding-top: 3px;
-
-}
-
-
-.form-block-title h3 {
-
-    font-size: 1.1rem;
-
-}
-
-
-.form-block-title p {
-
-    color: var(--muted);
-
-    font-size: 0.84rem;
-
-    margin-top: 3px;
-
-}
-
-
-
-/* ========================================
-   INPUTS
-======================================== */
-
-.input-grid {
-
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    gap: 18px;
-
-    margin-bottom: 18px;
-
-}
-
-
-.input-group {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 7px;
-
-    margin-bottom: 18px;
-
-}
-
-
-.input-group label {
-
-    font-size: 0.82rem;
-
-    font-weight: 700;
-
-    color: #334e68;
-
-}
-
-
-.input-group input,
-.input-group select,
-.input-group textarea {
-
-    width: 100%;
-
-    border: 1px solid #cbd8e2;
-
-    border-radius: 11px;
-
-    padding: 13px 14px;
-
-    outline: none;
-
-    color: var(--text);
-
-    background: white;
-
-    font-size: 0.94rem;
-
-    transition: 0.2s;
-
-}
-
-
-.input-group input:focus,
-.input-group select:focus,
-.input-group textarea:focus {
-
-    border-color: var(--blue);
-
-    box-shadow:
-        0 0 0 3px rgba(25, 118, 210, 0.10);
-
-}
-
-
-.input-group textarea {
-
-    min-height: 115px;
-
-    resize: vertical;
-
-}
-
-
-.input-help {
-
-    color: #829ab1;
-
-    font-size: 0.76rem;
-
-}
-
-
-
-/* ========================================
-   SERVICE CARDS
-======================================== */
-
-.service-cards {
-
-    display: grid;
-
-    gap: 12px;
-
-}
-
-
-.service-card {
-
-    position: relative;
-
-    display: block;
-
-    cursor: pointer;
-
-}
-
-
-.service-card input {
-
-    position: absolute;
-
-    opacity: 0;
-
-}
-
-
-.service-card-content {
-
-    border: 1px solid #d9e4ec;
-
-    border-radius: 14px;
-
-    padding: 18px;
-
-    transition: 0.2s;
-
-}
-
-
-.service-card:hover .service-card-content {
-
-    border-color: #9fc7e9;
-
-    background: #fbfdff;
-
-}
-
-
-.service-card input:checked
-+ .service-card-content {
-
-    border-color: var(--blue);
-
-    background: #f4f9ff;
-
-    box-shadow:
-        0 0 0 2px rgba(25, 118, 210, 0.08);
-
-}
-
-
-.service-card-top {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 20px;
-
-}
-
-
-.service-card small {
-
-    color: var(--blue);
-
-    font-weight: 800;
-
-    font-size: 0.65rem;
-
-    letter-spacing: 0.1em;
-
-}
-
-
-.service-card h4 {
-
-    font-size: 1rem;
-
-    margin-top: 3px;
-
-}
-
-
-.service-card strong {
-
-    color: var(--blue);
-
-    font-size: 1rem;
-
-    white-space: nowrap;
-
-}
-
-
-.service-card p {
-
-    color: var(--muted);
-
-    font-size: 0.82rem;
-
-    margin-top: 9px;
-
-}
-
-
-.popular-service {
-
-    margin-top: 4px;
-
-}
-
-
-.popular-label {
-
-    position: absolute;
-
-    right: 13px;
-
-    top: -10px;
-
-    background: var(--blue);
-
-    color: white;
-
-    padding: 4px 8px;
-
-    border-radius: 6px;
-
-    font-size: 0.58rem;
-
-    font-weight: 800;
-
-    letter-spacing: 0.06em;
-
-    z-index: 2;
-
-}
-
-
-.pricing-disclaimer {
-
-    margin-top: 20px;
-
-    padding: 15px;
-
-    border-radius: 11px;
-
-    background: #f7fafc;
-
-}
-
-
-.pricing-disclaimer strong {
-
-    font-size: 0.8rem;
-
-}
-
-
-.pricing-disclaimer p {
-
-    color: var(--muted);
-
-    font-size: 0.76rem;
-
-    margin-top: 4px;
-
-}
-
-
-
-/* ========================================
-   ADDRESS AUTOCOMPLETE
-======================================== */
-
-.address-input-wrapper {
-
-    position: relative;
-
-}
-
-
-.address-suggestions {
-
-    position: absolute;
-
-    top: calc(100% - 12px);
-
-    left: 0;
-
-    right: 0;
-
-    background: white;
-
-    border: 1px solid #d5e1e9;
-
-    border-radius: 12px;
-
-    box-shadow:
-        0 15px 35px rgba(16, 42, 67, 0.14);
-
-    overflow: hidden;
-
-    z-index: 50;
-
-    display: none;
-
-}
-
-
-.address-suggestions.show {
-
-    display: block;
-
-}
-
-
-.address-suggestion {
-
-    width: 100%;
-
-    border: 0;
-
-    background: white;
-
-    padding: 13px 15px;
-
-    text-align: left;
-
-    cursor: pointer;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 2px;
-
-    border-bottom: 1px solid #edf1f4;
-
-}
-
-
-.address-suggestion:last-child {
-
-    border-bottom: 0;
-
-}
-
-
-.address-suggestion:hover {
-
-    background: #f1f8ff;
-
-}
-
-
-.address-suggestion strong {
-
-    color: var(--text);
-
-    font-size: 0.86rem;
-
-}
-
-
-.address-suggestion span {
-
-    color: var(--muted);
-
-    font-size: 0.75rem;
-
-}
-
-
-.address-no-results {
-
-    padding: 15px;
-
-    color: var(--muted);
-
-    font-size: 0.82rem;
-
-}
-
-
-
-/* ========================================
-   MAP
-======================================== */
-
-.service-map {
-
-    width: 100%;
-
-    height: 260px;
-
-    border-radius: 15px;
-
-    overflow: hidden;
-
-    margin-top: 10px;
-
-    border: 1px solid #dce6ed;
-
-    background: #edf3f7;
-
-    position: relative;
-
-}
-
-
-.service-map img {
-
-    width: 100%;
-
-    height: 100%;
-
-    display: block;
-
-    object-fit: cover;
-
-}
-
-
-.map-placeholder {
-
-    height: 100%;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    color: #829ab1;
-
-    text-align: center;
-
-}
-
-
-.map-placeholder span {
-
-    font-size: 0.7rem;
-
-    font-weight: 800;
-
-    letter-spacing: 0.12em;
-
-    color: var(--blue);
-
-}
-
-
-.map-placeholder p {
-
-    font-size: 0.78rem;
-
-    margin-top: 4px;
-
-}
-
-
-.map-overlay {
-
-    position: absolute;
-
-    left: 15px;
-
-    top: 15px;
-
-    background: white;
-
-    padding: 7px 10px;
-
-    border-radius: 7px;
-
-    box-shadow:
-        0 5px 15px rgba(0, 0, 0, 0.12);
-
-}
-
-
-.map-overlay span {
-
-    color: var(--blue);
-
-    font-size: 0.6rem;
-
-    font-weight: 800;
-
-    letter-spacing: 0.08em;
-
-}
-
-
-
-/* ========================================
-   SERVICE AREA RESULT
-======================================== */
-
-.service-area-result {
-
-    display: flex;
-
-    align-items: flex-start;
-
-    gap: 12px;
-
-    margin-top: 15px;
-
-    padding: 16px;
-
-    border-radius: 13px;
-
-    display: none;
-
-}
-
-
-.service-area-result.success {
-
-    display: flex;
-
-    background: #edf9f2;
-
-    border: 1px solid #bde5cb;
-
-    color: #176b3a;
-
-}
-
-
-.service-area-result.outside {
-
-    display: flex;
-
-    background: #fff4f3;
-
-    border: 1px solid #efc7c3;
-
-    color: #9b3029;
-
-}
-
-
-.service-area-result.loading {
-
-    display: flex;
-
-    background: #f5f8fa;
-
-    border: 1px solid #dce5eb;
-
-    color: #526a7d;
-
-}
-
-
-.result-icon {
-
-    width: 28px;
-
-    height: 28px;
-
-    border-radius: 50%;
-
-    display: grid;
-
-    place-items: center;
-
-    flex-shrink: 0;
-
-    font-weight: 800;
-
-    background: rgba(255,255,255,0.7);
-
-}
-
-
-.service-area-result strong {
-
-    font-size: 0.88rem;
-
-}
-
-
-.service-area-result p {
-
-    font-size: 0.77rem;
-
-    margin-top: 3px;
-
-}
-
-
-
-/* ========================================
-   AVAILABILITY
-======================================== */
-
-.booking-availability {
-
-    padding: 20px;
-
-    background: #f7fafc;
-
-    border-radius: 14px;
-
-}
-
-
-.booking-availability > p:first-child {
-
-    color: var(--muted);
-
-    font-size: 0.86rem;
-
-    margin-bottom: 16px;
-
-}
-
-
-.submit-button {
-
-    background: var(--blue);
-
-    color: white;
-
-    border: 0;
-
-    cursor: pointer;
-
-}
-
-
-.disabled-button {
-
-    opacity: 0.45;
-
-    pointer-events: none;
-
-    cursor: not-allowed;
-
-}
-
-
-.booking-availability .input-help {
-
-    margin-top: 10px;
-
-}
-
-
-
-/* ========================================
-   FOOTER
-======================================== */
-
-footer {
-
-    background: #0b2a43;
-
-    color: white;
-
-    padding: 55px 5% 25px;
-
-}
-
-
-.footer-container {
-
-    width: min(1180px, 100%);
-
-    margin: auto;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    gap: 60px;
-
-}
-
-
-.footer-brand p {
-
-    color: #9fb3c8;
-
-    margin-top: 12px;
-
-}
-
-
-.footer-links {
-
-    display: flex;
-
-    gap: 80px;
-
-}
-
-
-.footer-links div {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 8px;
-
-}
-
-
-.footer-links h4 {
-
-    margin-bottom: 5px;
-
-}
-
-
-.footer-links a {
-
-    color: #9fb3c8;
-
-    font-size: 0.85rem;
-
-}
-
-
-.footer-links a:hover {
-
-    color: white;
-
-}
-
-
-.footer-bottom {
-
-    width: min(1180px, 100%);
-
-    margin: 45px auto 0;
-
-    padding-top: 20px;
-
-    border-top: 1px solid rgba(255,255,255,0.1);
-
-    display: flex;
-
-    justify-content: space-between;
-
-    gap: 20px;
-
-    color: #829ab1;
-
-    font-size: 0.75rem;
-
-}
-
-
-
-/* ========================================
-   MOBILE
-======================================== */
-
-@media (max-width: 900px) {
-
-    .nav-links {
-
-        display: none;
-
-        position: absolute;
-
-        top: 78px;
-
-        left: 0;
-
-        right: 0;
-
-        background: white;
-
-        border-bottom: 1px solid #e6edf2;
-
-        padding: 20px;
-
-        flex-direction: column;
-
-        align-items: stretch;
-
-    }
-
-
-    .nav-links.mobile-open {
-
-        display: flex;
-
-    }
-
-
-    .menu-button {
-
-        display: block;
-
-    }
-
-
-    .nav-button {
-
-        display: none;
-
-    }
-
-
-    .booking-layout {
-
-        grid-template-columns: 1fr;
-
-    }
-
-
-    .booking-sidebar {
-
-        position: static;
-
-    }
-
-}
-
-
-
-@media (max-width: 650px) {
-
-    .booking-hero {
-
-        padding: 60px 5% 50px;
-
-    }
-
-
-    .booking-page {
-
-        padding: 45px 4% 70px;
-
-    }
-
-
-    .form-header {
-
-        padding: 22px;
-
-        align-items: flex-start;
-
-        flex-direction: column;
-
-    }
-
-
-    .form-block {
-
-        padding: 23px 20px;
-
-    }
-
-
-    .input-grid {
-
-        grid-template-columns: 1fr;
-
-        gap: 0;
-
-    }
-
-
-    .service-card-top {
-
-        align-items: flex-start;
-
-    }
-
-
-    .service-card strong {
-
-        font-size: 0.9rem;
-
-    }
-
-
-    .footer-container {
-
-        flex-direction: column;
-
-    }
-
-
-    .footer-links {
-
-        gap: 45px;
-
-    }
-
-
-    .footer-bottom {
-
-        flex-direction: column;
-
-    }
-
-
-    .service-map {
-
-        height: 220px;
-
-    }
-
-}
+</html>
