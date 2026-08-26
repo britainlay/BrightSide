@@ -1188,4 +1188,24 @@ footer {
         padding: 15px;
     }
 
+   /* =========================================
+   BOOKING AVAILABILITY
+========================================= */
+
+.booking-availability {
+    padding: 25px;
+    background: #F5FAFD;
+    border: 1px solid #D5E5EE;
+    border-radius: 12px;
+}
+
+.booking-availability p {
+    color: #667885;
+    font-size: 0.85rem;
+    margin-bottom: 18px;
+}
+
+.booking-availability .submit-button {
+    text-decoration: none;
+}
 }
