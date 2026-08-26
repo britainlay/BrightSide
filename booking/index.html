@@ -577,50 +577,79 @@
                 </div>
 
 
-                <!-- SERVICE LOCATION -->
+<!-- SERVICE LOCATION -->
 
-                <div class="form-block">
+<div class="form-block">
 
-                    <div class="form-block-title">
+    <div class="form-block-title">
 
-                        <span>04</span>
+        <span>04</span>
 
-                        <div>
+        <div>
 
-                            <h3>
-                                Service Location
-                            </h3>
+            <h3>
+                Service Location
+            </h3>
 
-                            <p>
-                                Where will the vehicle be detailed?
-                            </p>
+            <p>
+                Let's make sure we can come to you.
+            </p>
 
-                        </div>
+        </div>
 
-                    </div>
+    </div>
 
 
-                    <div class="input-group">
+    <div class="input-group">
 
-                        <label for="address">
-                            Service Address
-                        </label>
+        <label for="address">
+            Service Address
+        </label>
 
-                        <input
-                            type="text"
-                            id="address"
-                            placeholder="Street address, city, ZIP"
-                            required
-                        >
+        <input
+            type="text"
+            id="address"
+            name="address"
+            placeholder="Street address, city, ZIP"
+            autocomplete="street-address"
+            required
+        >
 
-                        <span class="input-help">
-                            Service is currently available within
-                            approximately 30 miles of our service area.
-                        </span>
+        <span class="input-help">
+            Enter the location where your vehicle will be detailed.
+        </span>
 
-                    </div>
+    </div>
 
-                </div>
+
+    <!-- SERVICE AREA STATUS -->
+
+    <div
+        id="service-area-status"
+        class="service-area-status"
+        aria-live="polite"
+    >
+
+        <div class="service-area-icon">
+            ?
+        </div>
+
+        <div>
+
+            <strong>
+                Service area check
+            </strong>
+
+            <p>
+                Enter your address above to see if
+                you're within our current service area.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
 
 
                 <!-- APPOINTMENT -->
