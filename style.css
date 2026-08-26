@@ -987,7 +987,97 @@ footer {
     .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+/* =========================================
+   SERVICE AREA CHECKER
+========================================= */
 
+.service-area-status {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+
+    margin-top: 18px;
+    padding: 16px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background: var(--blue-soft);
+
+    transition: 0.2s ease;
+}
+
+.service-area-icon {
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--blue-light);
+    color: var(--blue);
+
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.service-area-status strong {
+    display: block;
+
+    color: var(--blue-dark);
+
+    font-size: 0.82rem;
+    margin-bottom: 3px;
+}
+
+.service-area-status p {
+    font-size: 0.72rem;
+    margin: 0;
+}
+
+
+/* CHECKING */
+
+.service-area-status.checking {
+    border-color: #C9DCE6;
+    background: #F7FBFD;
+}
+
+.service-area-status.checking .service-area-icon {
+    background: #E7F2F7;
+    color: var(--blue);
+}
+
+
+/* ELIGIBLE */
+
+.service-area-status.eligible {
+    border-color: #B9DCCB;
+    background: #F3FAF6;
+}
+
+.service-area-status.eligible .service-area-icon {
+    background: #DDF2E6;
+    color: #26734D;
+}
+
+
+/* OUTSIDE SERVICE AREA */
+
+.service-area-status.ineligible {
+    border-color: #E3C4C4;
+    background: #FFF7F7;
+}
+
+.service-area-status.ineligible .service-area-icon {
+    background: #F7E1E1;
+    color: #A33A3A;
+}
 }
 
 
