@@ -1,5 +1,6 @@
 // ============================================
-// BRIGHTSIDE DETAILING - MAIN SCRIPT
+// BRIGHTSIDE DETAILING
+// MAIN JAVASCRIPT
 // ============================================
 
 
@@ -11,174 +12,494 @@ const menuButton = document.getElementById("menuButton");
 const navLinks = document.querySelector(".nav-links");
 
 if (menuButton && navLinks) {
+
     menuButton.addEventListener("click", () => {
         navLinks.classList.toggle("active");
     });
+
 }
 
 
 // ============================================
-// MAPBOX ADDRESS CHECKER
+// MAPBOX
 // ============================================
-
 
 const MAPBOX_TOKEN = "pk.eyJ1IjoiYnJpZ2h0c2lkZWRldGFpbGluZyIsImEiOiJjbXQ5bGEzdTAwMGg0Mnlwd2M1MHlyYWV0In0.Usd3fiKRnMZq1oE6cYy1Jg";
 
+
+// ============================================
+// SERVICE AREA
+// ============================================
+
+const SERVICE_LAT = 29.7047;
+const SERVICE_LNG = -95.5903;
+
+const SERVICE_RADIUS = 30;
+
+
+// ============================================
+// BOOKING PAGE ELEMENTS
+// ============================================
+
 const addressInput = document.getElementById("address");
-const addressSuggestions = document.getElementById("address-suggestions");
-const mapContainer = document.getElementById("map");
-const serviceStatus = document.getElementById("service-status");
+const addressSuggestions =
+    document.getElementById("address-suggestions");
 
+const serviceStatus =
+    document.getElementById("service-status");
 
-// Your service center
-// 71 E Park W Dr, Houston, TX
-
-const SERVICE_LAT = 29.6567;
-const SERVICE_LNG = -95.5967;
-
-// Service radius
-const SERVICE_RADIUS_MILES = 30;
+const mapElement =
+    document.getElementById("map");
 
 
 // ============================================
-// CALCULATE DISTANCE
+// VEHICLE PRICING
 // ============================================
 
-function calculateDistance(lat1, lon1, lat2, lon2) {
+const vehicleSize =
+    document.getElementById("vehicle-size");
+
+const vehiclePrice =
+    document.getElementById("vehicle-price");
+
+const servicePrices =
+    document.querySelectorAll(".service-price");
+
+
+const prices = {
+
+    sedan: {
+
+        express: 75,
+        interior: 100,
+        full: 150
+
+    },
+
+    suv: {
+
+        express: 95,
+        interior: 120,
+        full: 180
+
+    },
+
+    truck: {
+
+        express: 110,
+        interior: 140,
+        full: 200
+
+    }
+
+};
+
+
+// ============================================
+// UPDATE PRICES
+// ============================================
+
+function updatePrices() {
+
+    if (!vehicleSize) return;
+
+    const vehicle = vehicleSize.value;
+
+    if (!vehicle) {
+
+        vehiclePrice.textContent =
+            "Choose your vehicle type to see your price.";
+
+        servicePrices.forEach(price => {
+
+            price.textContent =
+                "Select Vehicle";
+
+        });
+
+        return;
+    }
+
+
+    const selectedPrices = prices[vehicle];
+
+
+    vehiclePrice.innerHTML = `
+        <strong>Estimated pricing:</strong>
+        Express $${selectedPrices.express} •
+        Interior $${selectedPrices.interior} •
+        Full Detail $${selectedPrices.full}
+    `;
+
+
+    servicePrices.forEach(priceElement => {
+
+        const card =
+            priceElement.closest(".service-card");
+
+        if (!card) return;
+
+        const service =
+            card.querySelector("input[name='service']");
+
+        if (!service) return;
+
+
+        if (service.value === "express") {
+
+            priceElement.textContent =
+                `$${selectedPrices.express}`;
+
+        }
+
+        if (service.value === "interior") {
+
+            priceElement.textContent =
+                `$${selectedPrices.interior}`;
+
+        }
+
+        if (service.value === "full-detail") {
+
+            priceElement.textContent =
+                `$${selectedPrices.full}`;
+
+        }
+
+    });
+
+}
+
+
+if (vehicleSize) {
+
+    vehicleSize.addEventListener(
+        "change",
+        updatePrices
+    );
+
+}
+
+
+// ============================================
+// DISTANCE CALCULATOR
+// ============================================
+
+function calculateDistance(
+    lat1,
+    lon1,
+    lat2,
+    lon2
+) {
 
     const earthRadius = 3958.8;
 
-    const latDifference = (lat2 - lat1) * Math.PI / 180;
-    const lonDifference = (lon2 - lon1) * Math.PI / 180;
+    const latDifference =
+        (lat2 - lat1) * Math.PI / 180;
+
+    const lonDifference =
+        (lon2 - lon1) * Math.PI / 180;
+
 
     const a =
         Math.sin(latDifference / 2) *
         Math.sin(latDifference / 2) +
+
         Math.cos(lat1 * Math.PI / 180) *
         Math.cos(lat2 * Math.PI / 180) *
+
         Math.sin(lonDifference / 2) *
         Math.sin(lonDifference / 2);
 
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    const c =
+        2 *
+        Math.atan2(
+            Math.sqrt(a),
+            Math.sqrt(1 - a)
+        );
+
 
     return earthRadius * c;
+
 }
 
 
 // ============================================
-// SEARCH ADDRESS
+// MAP VARIABLES
 // ============================================
 
-let searchTimeout;
+let map = null;
+let marker = null;
+
+
+// ============================================
+// INITIALIZE MAPBOX
+// ============================================
+
+function initializeMap() {
+
+    if (!mapElement) return;
+
+
+    if (
+        !MAPBOX_TOKEN ||
+        MAPBOX_TOKEN === "PASTE_YOUR_PK_TOKEN_HERE"
+    ) {
+
+        console.error(
+            "Mapbox token has not been added."
+        );
+
+        mapElement.innerHTML = `
+            <div style="
+                padding: 20px;
+                text-align: center;
+            ">
+                Map is currently unavailable.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    if (typeof mapboxgl === "undefined") {
+
+        console.error(
+            "Mapbox GL JS has not loaded."
+        );
+
+        return;
+    }
+
+
+    mapboxgl.accessToken =
+        MAPBOX_TOKEN;
+
+
+    map = new mapboxgl.Map({
+
+        container: "map",
+
+        style:
+            "mapbox://styles/mapbox/streets-v12",
+
+        center: [
+            SERVICE_LNG,
+            SERVICE_LAT
+        ],
+
+        zoom: 10
+
+    });
+
+
+    map.addControl(
+        new mapboxgl.NavigationControl()
+    );
+
+}
+
+
+if (mapElement) {
+
+    if (document.readyState === "loading") {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            initializeMap
+        );
+
+    } else {
+
+        initializeMap();
+
+    }
+
+}
+
+
+// ============================================
+// ADDRESS SEARCH
+// ============================================
+
+let searchTimer = null;
+
 
 if (addressInput) {
 
-    addressInput.addEventListener("input", () => {
+    addressInput.addEventListener(
+        "input",
+        function () {
 
-        clearTimeout(searchTimeout);
+            clearTimeout(searchTimer);
 
-        const query = addressInput.value.trim();
 
-        if (query.length < 3) {
+            const query =
+                addressInput.value.trim();
 
-            if (addressSuggestions) {
-                addressSuggestions.innerHTML = "";
-                addressSuggestions.style.display = "none";
+
+            if (query.length < 3) {
+
+                if (addressSuggestions) {
+
+                    addressSuggestions.innerHTML = "";
+
+                    addressSuggestions.style.display =
+                        "none";
+
+                }
+
+                return;
             }
 
-            return;
+
+            searchTimer = setTimeout(
+                () => {
+
+                    searchAddress(query);
+
+                },
+                400
+            );
+
         }
+    );
 
-        searchTimeout = setTimeout(() => {
-
-            searchAddress(query);
-
-        }, 400);
-
-    });
 }
 
 
 // ============================================
-// MAPBOX SEARCH
+// SEARCH MAPBOX
 // ============================================
 
 async function searchAddress(query) {
 
-    if (!MAPBOX_TOKEN || MAPBOX_TOKEN === "PASTE_YOUR_NEW_TOKEN_HERE") {
-
-        console.error("Mapbox token has not been added.");
-
-        return;
-    }
-
     try {
 
         const url =
-            `https://api.mapbox.com/search/geocode/v6/forward` +
-            `?q=${encodeURIComponent(query)}` +
-            `&country=US` +
-            `&limit=5` +
-            `&access_token=${MAPBOX_TOKEN}`;
+            "https://api.mapbox.com/search/geocode/v6/forward" +
 
-        const response = await fetch(url);
+            "?q=" +
+            encodeURIComponent(query) +
+
+            "&country=US" +
+
+            "&limit=5" +
+
+            "&access_token=" +
+            MAPBOX_TOKEN;
+
+
+        const response =
+            await fetch(url);
+
 
         if (!response.ok) {
-            throw new Error("Mapbox request failed.");
+
+            throw new Error(
+                "Mapbox address search failed."
+            );
+
         }
 
-        const data = await response.json();
 
-        displaySuggestions(data.features);
+        const data =
+            await response.json();
+
+
+        displayAddressSuggestions(
+            data.features
+        );
+
 
     } catch (error) {
 
-        console.error("Address search error:", error);
+        console.error(
+            "Mapbox search error:",
+            error
+        );
 
     }
+
 }
 
 
 // ============================================
-// DISPLAY ADDRESS SUGGESTIONS
+// DISPLAY SUGGESTIONS
 // ============================================
 
-function displaySuggestions(features) {
+function displayAddressSuggestions(
+    features
+) {
 
     if (!addressSuggestions) return;
 
+
     addressSuggestions.innerHTML = "";
 
-    if (!features || features.length === 0) {
 
-        addressSuggestions.style.display = "none";
+    if (
+        !features ||
+        features.length === 0
+    ) {
+
+        addressSuggestions.style.display =
+            "none";
 
         return;
     }
 
+
     features.forEach(feature => {
 
-        const button = document.createElement("button");
+        const button =
+            document.createElement("button");
+
 
         button.type = "button";
-        button.className = "address-suggestion";
 
-        button.textContent =
-            feature.properties?.full_address ||
+        button.className =
+            "address-suggestion";
+
+
+        const name =
             feature.properties?.name ||
-            "Address";
+            "";
 
-        button.addEventListener("click", () => {
+        const address =
+            feature.properties?.full_address ||
+            feature.properties?.place_formatted ||
+            "";
 
-            selectAddress(feature);
 
-        });
+        button.innerHTML = `
+            <strong>${name}</strong>
+            <span>${address}</span>
+        `;
 
-        addressSuggestions.appendChild(button);
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                selectAddress(feature);
+
+            }
+        );
+
+
+        addressSuggestions.appendChild(
+            button
+        );
 
     });
 
-    addressSuggestions.style.display = "block";
+
+    addressSuggestions.style.display =
+        "block";
+
 }
 
 
@@ -188,28 +509,63 @@ function displaySuggestions(features) {
 
 function selectAddress(feature) {
 
-    const coordinates = feature.geometry.coordinates;
+    const coordinates =
+        feature.geometry.coordinates;
 
-    const longitude = coordinates[0];
-    const latitude = coordinates[1];
+
+    const longitude =
+        coordinates[0];
+
+    const latitude =
+        coordinates[1];
+
 
     const address =
         feature.properties?.full_address ||
+        feature.properties?.place_formatted ||
         feature.properties?.name ||
         "";
 
+
+    // Put address into input
+
     if (addressInput) {
-        addressInput.value = address;
+
+        addressInput.value =
+            address;
+
     }
+
+
+    // Hide suggestions
 
     if (addressSuggestions) {
-        addressSuggestions.innerHTML = "";
-        addressSuggestions.style.display = "none";
+
+        addressSuggestions.innerHTML =
+            "";
+
+        addressSuggestions.style.display =
+            "none";
+
     }
 
-    checkServiceArea(latitude, longitude);
 
-    showMap(latitude, longitude, address);
+    // Check distance
+
+    checkServiceArea(
+        latitude,
+        longitude
+    );
+
+
+    // Move map
+
+    moveMap(
+        latitude,
+        longitude,
+        address
+    );
+
 }
 
 
@@ -217,77 +573,152 @@ function selectAddress(feature) {
 // CHECK SERVICE AREA
 // ============================================
 
-function checkServiceArea(latitude, longitude) {
-
-    const distance = calculateDistance(
-        SERVICE_LAT,
-        SERVICE_LNG,
-        latitude,
-        longitude
-    );
-
-    const roundedDistance = Math.round(distance * 10) / 10;
+function checkServiceArea(
+    latitude,
+    longitude
+) {
 
     if (!serviceStatus) return;
 
-    if (distance <= SERVICE_RADIUS_MILES) {
 
-        serviceStatus.className = "service-status eligible";
+    const distance =
+        calculateDistance(
+            SERVICE_LAT,
+            SERVICE_LNG,
+            latitude,
+            longitude
+        );
+
+
+    const roundedDistance =
+        Math.round(
+            distance * 10
+        ) / 10;
+
+
+    if (
+        distance <= SERVICE_RADIUS
+    ) {
+
+        serviceStatus.className =
+            "service-status eligible";
+
 
         serviceStatus.innerHTML = `
-            <strong>✓ You're within our service area</strong>
+            <strong>
+                ✓ You're within our service area
+            </strong>
+
             <span>
-                Approximately ${roundedDistance} miles from our service area.
+                Approximately
+                ${roundedDistance}
+                miles from our service area.
             </span>
         `;
 
     } else {
 
-        serviceStatus.className = "service-status not-eligible";
+        serviceStatus.className =
+            "service-status not-eligible";
+
 
         serviceStatus.innerHTML = `
-            <strong>✕ Outside our current service area</strong>
+            <strong>
+                ✕ Outside our current service area
+            </strong>
+
             <span>
-                This address is approximately ${roundedDistance} miles away.
-                Brightside currently services locations within 30 miles.
+                This address is approximately
+                ${roundedDistance}
+                miles away.
+                Brightside currently services
+                locations within 30 miles.
             </span>
         `;
 
     }
+
 }
 
 
 // ============================================
-// SHOW MAP
+// MOVE MAP TO ADDRESS
 // ============================================
 
-function showMap(latitude, longitude, address) {
+function moveMap(
+    latitude,
+    longitude,
+    address
+) {
 
-    if (!mapContainer) return;
+    if (!map) return;
 
-    mapContainer.innerHTML = "";
 
-    const iframe = document.createElement("iframe");
+    map.flyTo({
 
-    iframe.width = "100%";
-    iframe.height = "100%";
-    iframe.style.border = "0";
-    iframe.style.borderRadius = "16px";
+        center: [
+            longitude,
+            latitude
+        ],
 
-    iframe.loading = "lazy";
+        zoom: 14,
 
-    iframe.src =
-        `https://www.mapbox.com/` +
-        `?center=${longitude},${latitude}` +
-        `&zoom=13`;
+        essential: true
 
-    /*
-        NOTE:
-        Mapbox's interactive map requires the Mapbox GL JS
-        library for a fully interactive map.
+    });
 
-        The address checking itself works independently.
-    */
 
-    mapContainer.appendChild(iframe);
+    // Remove previous marker
+
+    if (marker) {
+
+        marker.remove();
+
+    }
+
+
+    // Create new marker
+
+    marker =
+        new mapboxgl.Marker()
+            .setLngLat([
+                longitude,
+                latitude
+            ])
+            .setPopup(
+
+                new mapboxgl.Popup({
+                    offset: 25
+                }).setText(address)
+
+            )
+            .addTo(map);
+
+
+    marker.togglePopup();
+
 }
+
+
+// ============================================
+// CLOSE SUGGESTIONS WHEN CLICKING ELSEWHERE
+// ============================================
+
+document.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            addressInput &&
+            addressSuggestions &&
+            !addressInput.contains(event.target) &&
+            !addressSuggestions.contains(event.target)
+        ) {
+
+            addressSuggestions.style.display =
+                "none";
+
+        }
+
+    }
+);
