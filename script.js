@@ -71,5 +71,73 @@ document.addEventListener("DOMContentLoaded", function () {
         "change",
         updatePrices
     );
+    // ========================================
+// BOOKING PAGE - DYNAMIC PRICING
+// ========================================
+
+const vehicleSize = document.getElementById("vehicle-size");
+
+if (vehicleSize) {
+
+    const prices = {
+
+        sedan: {
+            express: 75,
+            interior: 100,
+            "full-detail": 150
+        },
+
+        suv: {
+            express: 90,
+            interior: 115,
+            "full-detail": 175
+        },
+
+        truck: {
+            express: 100,
+            interior: 130,
+            "full-detail": 200
+        }
+
+    };
+
+
+    vehicleSize.addEventListener("change", function () {
+
+        const selectedVehicle = this.value;
+
+        const priceElements =
+            document.querySelectorAll(".dynamic-price");
+
+
+        // Nothing selected yet
+        if (!selectedVehicle) {
+
+            priceElements.forEach(function (price) {
+
+                price.textContent = "Choose vehicle";
+
+            });
+
+            return;
+
+        }
+
+
+        // Update each service price
+        priceElements.forEach(function (price) {
+
+            const service = price.dataset.service;
+
+            const amount =
+                prices[selectedVehicle][service];
+
+            price.textContent = `From $${amount}`;
+
+        });
+
+    });
+
+}
 
 });
