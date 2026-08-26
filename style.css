@@ -1,776 +1,1296 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>
-        Brightside Detailing | Mobile Car Detailing
-    </title>
-
-    <meta
-        name="description"
-        content="Brightside Detailing provides mobile car detailing in Alief and surrounding Houston areas."
-    >
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
-        rel="stylesheet"
-    >
-
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
-
-</head>
-
-
-<body>
-
-
-<header class="navbar">
-
-    <div class="nav-container">
-
-        <a
-            href="index.html"
-            class="logo"
-        >
-
-            <span>
-                BRIGHTSIDE
-            </span>
-
-            <small>
-                MOBILE DETAILING
-            </small>
-
-        </a>
-
-
-        <nav class="nav-links">
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="packages/">
-                Packages
-            </a>
-
-            <a href="results/">
-                Results
-            </a>
-
-            <a href="how-it-works/">
-                How It Works
-            </a>
-
-            <a href="about/">
-                About
-            </a>
-
-        </nav>
-
-
-        <a
-            href="booking/"
-            class="nav-button"
-        >
-            Book Now
-        </a>
-
-
-        <button
-            class="menu-button"
-            id="menuButton"
-            type="button"
-        >
-            ☰
-        </button>
-
-    </div>
-
-</header>
-
-
-
-<main>
-
-
-<!-- HERO -->
-
-<section class="hero">
-
-    <div class="hero-content">
-
-        <p class="eyebrow">
-            MOBILE CAR DETAILING • ALIEF, TX
-        </p>
-
-
-        <h1>
-
-            Detailing That
-
-            <span>
-                Comes To You.
-            </span>
-
-        </h1>
-
-
-        <p class="hero-text">
-
-            Interior and exterior car detailing
-            brought directly to your location.
-
-        </p>
-
-
-        <div class="hero-buttons">
-
-            <a
-                href="booking/"
-                class="primary-button"
-            >
-                Book a Detail
-            </a>
-
-
-            <a
-                href="packages/"
-                class="secondary-button"
-            >
-                View Packages
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <div class="hero-image">
-
-        <div class="image-placeholder">
-
-            <span>
-                YOUR DETAILING PHOTO
-            </span>
-
-            <p>
-                Add a photo of your work here.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- BENEFITS -->
-
-<section class="benefits">
-
-    <div class="benefit">
-
-        <span class="benefit-number">
-            01
-        </span>
-
-        <h3>
-            Mobile Service
-        </h3>
-
-        <p>
-            We come to your home, workplace,
-            or preferred location.
-        </p>
-
-    </div>
-
-
-    <div class="benefit">
-
-        <span class="benefit-number">
-            02
-        </span>
-
-        <h3>
-            Interior + Exterior
-        </h3>
-
-        <p>
-            Choose the service that fits
-            your vehicle's needs.
-        </p>
-
-    </div>
-
-
-    <div class="benefit">
-
-        <span class="benefit-number">
-            03
-        </span>
-
-        <h3>
-            Local Service
-        </h3>
-
-        <p>
-            Serving Alief and surrounding
-            Houston communities.
-        </p>
-
-    </div>
-
-</section>
-
-
-
-<!-- SERVICES -->
-
-<section class="packages-preview">
-
-    <div class="section-heading">
-
-        <p class="eyebrow">
-            OUR SERVICES
-        </p>
-
-        <h2>
-
-            Choose Your
-
-            <span>
-                Detail.
-            </span>
-
-        </h2>
-
-        <p>
-            Straightforward packages with
-            pricing based on vehicle size.
-        </p>
-
-    </div>
-
-
-
-    <div class="package-grid">
-
-
-        <article class="package-card">
-
-            <div class="package-top">
-
-                <p class="package-label">
-                    EXTERIOR
-                </p>
-
-                <h3>
-                    Express Exterior
-                </h3>
-
-                <p class="price">
-                    $75<span>+</span>
-                </p>
-
-            </div>
-
-
-            <ul>
-
-                <li>
-                    Wheels & tires cleaned
-                </li>
-
-                <li>
-                    Exterior wash
-                </li>
-
-                <li>
-                    Windows cleaned
-                </li>
-
-                <li>
-                    Ceramic protection
-                </li>
-
-            </ul>
-
-
-            <a
-                href="packages/"
-                class="card-link"
-            >
-                Learn More →
-            </a>
-
-        </article>
-
-
-
-        <article class="package-card">
-
-            <div class="package-top">
-
-                <p class="package-label">
-                    INTERIOR
-                </p>
-
-                <h3>
-                    Full Interior
-                </h3>
-
-                <p class="price">
-                    $100<span>+</span>
-                </p>
-
-            </div>
-
-
-            <ul>
-
-                <li>
-                    Full vacuum
-                </li>
-
-                <li>
-                    Pet hair removal
-                </li>
-
-                <li>
-                    Dashboard & plastics
-                </li>
-
-                <li>
-                    Floor mats
-                </li>
-
-                <li>
-                    Interior glass
-                </li>
-
-            </ul>
-
-
-            <a
-                href="packages/"
-                class="card-link"
-            >
-                Learn More →
-            </a>
-
-        </article>
-
-
-
-        <article class="package-card featured">
-
-            <div class="popular">
-                MOST POPULAR
-            </div>
-
-
-            <div class="package-top">
-
-                <p class="package-label">
-                    COMPLETE
-                </p>
-
-                <h3>
-                    Full Detail
-                </h3>
-
-                <p class="price">
-                    $150<span>+</span>
-                </p>
-
-            </div>
-
-
-            <ul>
-
-                <li>
-                    Full interior detail
-                </li>
-
-                <li>
-                    Exterior wash
-                </li>
-
-                <li>
-                    Wheels & tires
-                </li>
-
-                <li>
-                    Windows cleaned
-                </li>
-
-                <li>
-                    Ceramic protection
-                </li>
-
-            </ul>
-
-
-            <a
-                href="packages/"
-                class="card-link"
-            >
-                Learn More →
-            </a>
-
-        </article>
-
-    </div>
-
-
-    <div class="center-button">
-
-        <a
-            href="packages/"
-            class="secondary-button"
-        >
-            View All Packages
-        </a>
-
-    </div>
-
-</section>
-
-
-
-<!-- MOBILE -->
-
-<section class="mobile-section">
-
-    <div class="mobile-text">
-
-        <p class="eyebrow">
-            WHY MOBILE?
-        </p>
-
-
-        <h2>
-
-            Your schedule.
-
-            <span>
-                Your location.
-            </span>
-
-            Your car.
-
-        </h2>
-
-
-        <p>
-
-            Skip the trip to a detailing shop.
-            Brightside Detailing brings the
-            service directly to you.
-
-        </p>
-
-
-        <a
-            href="how-it-works/"
-            class="primary-button"
-        >
-            How It Works
-        </a>
-
-    </div>
-
-
-
-    <div class="mobile-info">
-
-
-        <div>
-
-            <span>
-                01
-            </span>
-
-            <h3>
-                Choose a Package
-            </h3>
-
-            <p>
-                Select the service your
-                vehicle needs.
-            </p>
-
-        </div>
-
-
-        <div>
-
-            <span>
-                02
-            </span>
-
-            <h3>
-                Check Your Location
-            </h3>
-
-            <p>
-                Make sure your location
-                is within our service area.
-            </p>
-
-        </div>
-
-
-        <div>
-
-            <span>
-                03
-            </span>
-
-            <h3>
-                We Come To You
-            </h3>
-
-            <p>
-                We arrive at your location
-                and get to work.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- RESULTS -->
-
-<section class="results-preview">
-
-    <div class="section-heading">
-
-        <p class="eyebrow">
-            OUR RESULTS
-        </p>
-
-
-        <h2>
-
-            See The
-
-            <span>
-                Difference.
-            </span>
-
-        </h2>
-
-
-        <p>
-            Real vehicles. Real work.
-            Real results.
-        </p>
-
-    </div>
-
-
-    <div class="results-placeholder">
-
-        <div>
-
-            <strong>
-                BEFORE & AFTER
-            </strong>
-
-            <p>
-                Your detailing results will
-                appear here.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="center-button">
-
-        <a
-            href="results/"
-            class="secondary-button"
-        >
-            View Results
-        </a>
-
-    </div>
-
-</section>
-
-
-
-<!-- CTA -->
-
-<section class="cta">
-
-    <p class="eyebrow">
-        READY FOR A CLEANER CAR?
-    </p>
-
-
-    <h2>
-
-        Let's Get Your Car
-
-        <span>
-            Looking Its Best.
-        </span>
-
-    </h2>
-
-
-    <p>
-        Book a mobile detail in Alief
-        and let us come to you.
-    </p>
-
-
-    <a
-        href="booking/"
-        class="primary-button"
-    >
-        Request a Detail
-    </a>
-
-</section>
-
-
-</main>
-
-
-
-<footer>
-
-    <div class="footer-container">
-
-
-        <div class="footer-brand">
-
-            <a
-                href="index.html"
-                class="logo"
-            >
-
-                <span>
-                    BRIGHTSIDE
-                </span>
-
-                <small>
-                    MOBILE DETAILING
-                </small>
-
-            </a>
-
-
-            <p>
-                Detailing that comes to you.
-            </p>
-
-        </div>
-
-
-
-        <div class="footer-links">
-
-
-            <div>
-
-                <h4>
-                    Explore
-                </h4>
-
-                <a href="packages/">
-                    Packages
-                </a>
-
-                <a href="results/">
-                    Results
-                </a>
-
-                <a href="how-it-works/">
-                    How It Works
-                </a>
-
-                <a href="about/">
-                    About
-                </a>
-
-            </div>
-
-
-
-            <div>
-
-                <h4>
-                    Contact
-                </h4>
-
-                <a href="mailto:YOUR-EMAIL-HERE">
-                    YOUR-EMAIL-HERE
-                </a>
-
-                <a href="tel:YOUR-PHONE-HERE">
-                    YOUR-PHONE-HERE
-                </a>
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-
-
-    <div class="footer-bottom">
-
-        <p>
-            © 2026 Brightside Detailing.
-            All rights reserved.
-        </p>
-
-        <p>
-            Alief, Houston, TX
-        </p>
-
-    </div>
-
-</footer>
-
-
-
-<script src="script.js"></script>
-
-</body>
-
-</html>
+/* =========================================
+   BRIGHTSIDE DETAILING
+   SHARED WEBSITE STYLES
+========================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "DM Sans", sans-serif;
+    color: #102033;
+    background: #f7faff;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+.navbar {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.96);
+    border-bottom: 1px solid #e5edf5;
+    position: relative;
+    z-index: 100;
+}
+
+.nav-container {
+    width: min(1180px, 92%);
+    margin: auto;
+    min-height: 78px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.logo span {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.logo small {
+    margin-top: 5px;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: #6b7d91;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.nav-links a {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4d6075;
+    transition: 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: #1769aa;
+}
+
+.nav-button {
+    padding: 12px 20px;
+    background: #1769aa;
+    color: white;
+    border-radius: 9px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: 0.2s ease;
+}
+
+.nav-button:hover {
+    background: #0f548b;
+    transform: translateY(-1px);
+}
+
+.menu-button {
+    display: none;
+    border: 0;
+    background: transparent;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+
+/* =========================================
+   GENERAL
+========================================= */
+
+.eyebrow {
+    color: #1769aa;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.primary-button,
+.secondary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 23px;
+    border-radius: 9px;
+    font-weight: 700;
+    transition: 0.2s ease;
+}
+
+.primary-button {
+    background: #1769aa;
+    color: white;
+}
+
+.primary-button:hover {
+    background: #0f548b;
+    transform: translateY(-2px);
+}
+
+.secondary-button {
+    border: 1px solid #cbd9e7;
+    background: white;
+    color: #17324d;
+}
+
+.secondary-button:hover {
+    border-color: #1769aa;
+    color: #1769aa;
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   HOMEPAGE HERO
+========================================= */
+
+.hero {
+    width: min(1180px, 92%);
+    margin: auto;
+    min-height: 610px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 70px;
+    padding: 75px 0;
+}
+
+.hero-content {
+    max-width: 590px;
+}
+
+.hero h1 {
+    margin-top: 16px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(3rem, 6vw, 5.3rem);
+    line-height: 0.98;
+    letter-spacing: -0.05em;
+    color: #102033;
+}
+
+.hero h1 span,
+.mobile-text h2 span,
+.section-heading h2 span,
+.cta h2 span {
+    color: #1769aa;
+    display: block;
+}
+
+.hero-text {
+    max-width: 520px;
+    margin-top: 25px;
+    color: #627589;
+    font-size: 1.08rem;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 13px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+}
+
+.hero-image {
+    min-height: 430px;
+}
+
+.image-placeholder {
+    width: 100%;
+    height: 430px;
+    border-radius: 22px;
+    background:
+        linear-gradient(
+            135deg,
+            #dcecf9,
+            #eef5fb
+        );
+
+    border: 1px solid #d5e4f0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    color: #547089;
+}
+
+.image-placeholder span {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.image-placeholder p {
+    margin-top: 8px;
+    font-size: 0.9rem;
+}
+
+
+/* =========================================
+   BENEFITS
+========================================= */
+
+.benefits {
+    width: min(1180px, 92%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid #dce6ef;
+    border-bottom: 1px solid #dce6ef;
+}
+
+.benefit {
+    padding: 34px 30px;
+    border-right: 1px solid #dce6ef;
+}
+
+.benefit:last-child {
+    border-right: 0;
+}
+
+.benefit-number {
+    color: #1769aa;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.benefit h3 {
+    margin-top: 7px;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.benefit p {
+    margin-top: 7px;
+    color: #718296;
+}
+
+
+/* =========================================
+   SECTION HEADINGS
+========================================= */
+
+.section-heading {
+    max-width: 680px;
+    margin: auto;
+    text-align: center;
+}
+
+.section-heading h2 {
+    margin-top: 10px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+}
+
+.section-heading > p:last-child {
+    margin-top: 18px;
+    color: #718296;
+}
+
+
+/* =========================================
+   PACKAGES
+========================================= */
+
+.packages-preview {
+    width: min(1180px, 92%);
+    margin: auto;
+    padding: 115px 0;
+}
+
+.package-grid {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.package-card {
+    position: relative;
+    background: white;
+    border: 1px solid #dce6ef;
+    border-radius: 17px;
+    padding: 31px;
+    box-shadow: 0 12px 35px rgba(30, 60, 90, 0.05);
+}
+
+.package-card.featured {
+    border: 2px solid #1769aa;
+}
+
+.popular {
+    position: absolute;
+    top: -13px;
+    right: 22px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background: #1769aa;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.package-label {
+    color: #1769aa;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+.package-card h3 {
+    margin-top: 5px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.45rem;
+}
+
+.price {
+    margin-top: 16px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+}
+
+.price span {
+    font-size: 1rem;
+    color: #718296;
+}
+
+.package-card ul {
+    list-style: none;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #e5edf5;
+}
+
+.package-card li {
+    padding: 7px 0;
+    color: #64778b;
+}
+
+.package-card li::before {
+    content: "✓";
+    margin-right: 9px;
+    color: #1769aa;
+    font-weight: 700;
+}
+
+.card-link {
+    display: inline-block;
+    margin-top: 25px;
+    color: #1769aa;
+    font-weight: 700;
+}
+
+.center-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 38px;
+}
+
+
+/* =========================================
+   MOBILE SECTION
+========================================= */
+
+.mobile-section {
+    background: #102033;
+    color: white;
+    padding: 100px max(4%, calc((100% - 1180px) / 2));
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+}
+
+.mobile-text {
+    max-width: 520px;
+}
+
+.mobile-text h2 {
+    margin-top: 12px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+}
+
+.mobile-text > p:not(.eyebrow) {
+    margin-top: 22px;
+    color: #b6c6d6;
+}
+
+.mobile-text .primary-button {
+    margin-top: 28px;
+}
+
+.mobile-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-info > div {
+    padding: 23px 0;
+    border-bottom: 1px solid #304255;
+}
+
+.mobile-info span {
+    color: #72b8ed;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.mobile-info h3 {
+    margin-top: 4px;
+}
+
+.mobile-info p {
+    color: #aebdcc;
+    margin-top: 4px;
+}
+
+
+/* =========================================
+   RESULTS
+========================================= */
+
+.results-preview {
+    width: min(1180px, 92%);
+    margin: auto;
+    padding: 115px 0;
+}
+
+.results-placeholder {
+    margin-top: 48px;
+    min-height: 380px;
+    border-radius: 20px;
+    border: 1px dashed #b9cad9;
+    background: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.results-placeholder strong {
+    font-family: "Space Grotesk", sans-serif;
+    color: #1769aa;
+}
+
+.results-placeholder p {
+    margin-top: 7px;
+    color: #718296;
+}
+
+
+/* =========================================
+   CTA
+========================================= */
+
+.cta {
+    text-align: center;
+    padding: 105px 20px;
+    background: #eaf4fc;
+}
+
+.cta h2 {
+    max-width: 760px;
+    margin: 12px auto 0;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+}
+
+.cta > p:not(.eyebrow) {
+    margin: 20px auto;
+    color: #65788c;
+}
+
+.cta .primary-button {
+    margin-top: 5px;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+    background: #0b1827;
+    color: white;
+}
+
+.footer-container {
+    width: min(1180px, 92%);
+    margin: auto;
+    padding: 60px 0;
+
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+}
+
+.footer-brand p {
+    margin-top: 14px;
+    color: #8fa2b5;
+}
+
+.footer-links {
+    display: flex;
+    gap: 85px;
+}
+
+.footer-links h4 {
+    margin-bottom: 13px;
+}
+
+.footer-links a {
+    display: block;
+    margin: 8px 0;
+    color: #91a5b8;
+    font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    width: min(1180px, 92%);
+    margin: auto;
+    padding: 20px 0;
+    border-top: 1px solid #243548;
+
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+    color: #73889c;
+    font-size: 0.78rem;
+}
+
+
+/* =========================================
+   BOOKING PAGE
+========================================= */
+
+.booking-hero {
+    background: #eaf4fc;
+    padding: 80px 20px;
+}
+
+.booking-hero-content {
+    width: min(1180px, 92%);
+    margin: auto;
+}
+
+.booking-hero h1 {
+    margin-top: 12px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    line-height: 1;
+    letter-spacing: -0.05em;
+}
+
+.booking-hero h1 span {
+    color: #1769aa;
+}
+
+.booking-hero-content > p:last-child {
+    max-width: 600px;
+    margin-top: 18px;
+    color: #627589;
+}
+
+.booking-page {
+    width: min(1180px, 92%);
+    margin: auto;
+    padding: 80px 0;
+}
+
+.booking-layout {
+    display: grid;
+    grid-template-columns: 0.8fr 1.4fr;
+    gap: 30px;
+    align-items: start;
+}
+
+.booking-sidebar {
+    position: sticky;
+    top: 25px;
+}
+
+.sidebar-intro h2 {
+    margin-top: 10px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 2.3rem;
+    line-height: 1.05;
+}
+
+.sidebar-intro h2 span {
+    color: #1769aa;
+    display: block;
+}
+
+.sidebar-intro > p:last-child {
+    margin-top: 18px;
+    color: #687c90;
+}
+
+.booking-process {
+    margin-top: 40px;
+}
+
+.process-item {
+    display: flex;
+    gap: 16px;
+}
+
+.process-number {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e6f2fb;
+    color: #1769aa;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.process-item h3 {
+    font-size: 1rem;
+}
+
+.process-item p {
+    margin-top: 3px;
+    color: #718296;
+    font-size: 0.9rem;
+}
+
+.process-line {
+    width: 1px;
+    height: 28px;
+    margin-left: 20px;
+    background: #d7e2ec;
+}
+
+.pricing-note {
+    display: flex;
+    gap: 13px;
+    margin-top: 38px;
+    padding: 18px;
+    border-radius: 12px;
+    background: #f0f7fc;
+    border: 1px solid #dceaf4;
+}
+
+.note-icon {
+    flex-shrink: 0;
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    background: #1769aa;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 0.8rem;
+}
+
+.pricing-note strong {
+    font-size: 0.9rem;
+}
+
+.pricing-note p {
+    margin-top: 4px;
+    color: #718296;
+    font-size: 0.82rem;
+}
+
+.booking-card {
+    background: white;
+    border: 1px solid #dce6ef;
+    border-radius: 18px;
+    box-shadow: 0 18px 50px rgba(30, 60, 90, 0.07);
+    overflow: visible;
+}
+
+.form-header {
+    padding: 28px 30px;
+    border-bottom: 1px solid #e2eaf1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.form-header h2 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.6rem;
+}
+
+.form-badge {
+    padding: 7px 11px;
+    border-radius: 20px;
+    background: #eaf4fc;
+    color: #1769aa;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.form-block {
+    padding: 30px;
+    border-bottom: 1px solid #e2eaf1;
+}
+
+.form-block:last-child {
+    border-bottom: 0;
+}
+
+.form-block-title {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.form-block-title > span {
+    color: #1769aa;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.form-block-title h3 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.1rem;
+}
+
+.form-block-title p {
+    margin-top: 2px;
+    color: #7a8b9d;
+    font-size: 0.85rem;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.input-group {
+    margin-top: 16px;
+}
+
+.input-grid .input-group {
+    margin-top: 0;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 7px;
+    color: #344b61;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #cedbe7;
+    border-radius: 9px;
+    outline: none;
+    background: #fbfdff;
+    color: #20364c;
+    transition: 0.2s ease;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    border-color: #1769aa;
+    box-shadow: 0 0 0 3px rgba(23, 105, 170, 0.1);
+}
+
+.input-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.input-help {
+    display: block;
+    margin-top: 7px;
+    color: #8494a5;
+    font-size: 0.75rem;
+}
+
+
+/* =========================================
+   VEHICLE PRICE
+========================================= */
+
+.vehicle-price-display {
+    margin-top: 17px;
+    padding: 14px 16px;
+    border-radius: 9px;
+    background: #f1f7fc;
+    color: #496277;
+    font-size: 0.86rem;
+}
+
+.vehicle-price-display strong {
+    color: #1769aa;
+}
+
+
+/* =========================================
+   SERVICE CARDS
+========================================= */
+
+.service-cards {
+    display: grid;
+    gap: 12px;
+}
+
+.service-card {
+    position: relative;
+    display: block;
+    cursor: pointer;
+}
+
+.service-card input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.service-card-content {
+    padding: 18px;
+    border: 1px solid #d8e3ed;
+    border-radius: 12px;
+    transition: 0.2s ease;
+}
+
+.service-card:hover .service-card-content {
+    border-color: #9bbbd4;
+}
+
+.service-card input:checked + .service-card-content {
+    border-color: #1769aa;
+    background: #f2f8fd;
+    box-shadow: 0 0 0 2px rgba(23, 105, 170, 0.08);
+}
+
+.service-card-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.service-card small {
+    color: #1769aa;
+    font-size: 0.63rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+.service-card h4 {
+    margin-top: 3px;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.service-card strong {
+    white-space: nowrap;
+    color: #1769aa;
+}
+
+.service-card p {
+    margin-top: 8px;
+    color: #718296;
+    font-size: 0.83rem;
+}
+
+.popular-service {
+    margin-top: 4px;
+}
+
+.popular-label {
+    position: absolute;
+    top: -9px;
+    right: 15px;
+    z-index: 2;
+
+    padding: 4px 9px;
+    border-radius: 20px;
+
+    background: #1769aa;
+    color: white;
+
+    font-size: 0.6rem;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   ADDRESS SEARCH
+========================================= */
+
+.address-container {
+    position: relative;
+}
+
+.address-suggestions {
+    position: absolute;
+    z-index: 50;
+    top: 76px;
+    left: 0;
+    right: 0;
+
+    display: none;
+
+    background: white;
+    border: 1px solid #cedbe7;
+    border-radius: 10px;
+
+    box-shadow: 0 15px 35px rgba(30, 60, 90, 0.12);
+
+    overflow: hidden;
+}
+
+.address-suggestion {
+    width: 100%;
+    display: block;
+    padding: 13px 15px;
+
+    border: 0;
+    border-bottom: 1px solid #edf2f6;
+
+    background: white;
+    text-align: left;
+    cursor: pointer;
+}
+
+.address-suggestion:last-child {
+    border-bottom: 0;
+}
+
+.address-suggestion:hover {
+    background: #f2f8fd;
+}
+
+.address-suggestion strong {
+    display: block;
+    color: #243b50;
+    font-size: 0.86rem;
+}
+
+.address-suggestion span {
+    display: block;
+    margin-top: 2px;
+    color: #7a8b9d;
+    font-size: 0.76rem;
+}
+
+
+/* =========================================
+   SERVICE STATUS
+========================================= */
+
+.service-status {
+    display: none;
+    margin-top: 18px;
+    padding: 15px 16px;
+    border-radius: 10px;
+}
+
+.service-status.eligible,
+.service-status.not-eligible {
+    display: block;
+}
+
+.service-status.eligible {
+    background: #edf9f2;
+    border: 1px solid #bfe5cc;
+    color: #21633a;
+}
+
+.service-status.not-eligible {
+    background: #fff2f1;
+    border: 1px solid #efc6c2;
+    color: #8a332c;
+}
+
+.service-status strong {
+    display: block;
+}
+
+.service-status span {
+    display: block;
+    margin-top: 3px;
+    font-size: 0.8rem;
+}
+
+
+/* =========================================
+   MAP
+========================================= */
+
+.service-map {
+    width: 100%;
+    height: 350px;
+    margin-top: 18px;
+
+    border-radius: 12px;
+    overflow: hidden;
+
+    border: 1px solid #d8e3ed;
+}
+
+.map-help {
+    margin-top: 8px;
+    color: #8494a5;
+    font-size: 0.75rem;
+}
+
+
+/* =========================================
+   AVAILABILITY
+========================================= */
+
+.availability-locked,
+.availability-unlocked {
+    margin-top: 22px;
+    padding: 18px;
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.availability-locked {
+    background: #f5f7f9;
+    border: 1px solid #e0e6eb;
+}
+
+.availability-unlocked {
+    background: #edf8f1;
+    border: 1px solid #c6e5d0;
+}
+
+.availability-message strong {
+    font-size: 0.9rem;
+}
+
+.availability-message p {
+    margin-top: 3px;
+    color: #728396;
+    font-size: 0.78rem;
+}
+
+.availability-unlocked .availability-message strong {
+    color: #21633a;
+}
+
+.disabled-button {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+
+/* =========================================
+   BOOKING NOTE
+========================================= */
+
+.booking-submit {
+    padding: 25px 30px;
+}
+
+.booking-submit p {
+    color: #7a8b9d;
+    font-size: 0.78rem;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .nav-links {
+        display: none;
+    }
+
+    .nav-button {
+        margin-left: auto;
+    }
+
+    .menu-button {
+        display: block;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 55px 0;
+    }
+
+    .hero-image,
+    .image-placeholder {
+        min-height: 330px;
+        height: 330px;
+    }
+
+    .benefits {
+        grid-template-columns: 1fr;
+    }
+
+    .benefit {
+        border-right: 0;
+        border-bottom: 1px solid #dce6ef;
+    }
+
+    .benefit:last-child {
+        border-bottom: 0;
+    }
+
+    .package-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mobile-section {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    .booking-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-sidebar {
+        position: static;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .nav-container {
+        min-height: 68px;
+    }
+
+    .nav-button {
+        display: none;
+    }
+
+    .hero h1 {
+        font-size: 3rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .hero-buttons a {
+        width: 100%;
+    }
+
+    .packages-preview,
+    .results-preview {
+        padding: 75px 0;
+    }
+
+    .mobile-section {
+        padding: 75px 4%;
+    }
+
+    .footer-container {
+        flex-direction: column;
+    }
+
+    .footer-links {
+        gap: 50px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+    }
+
+    .form-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .form-block {
+        padding: 22px;
+    }
+
+    .input-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .input-grid .input-group {
+        margin-top: 16px;
+    }
+
+    .input-grid .input-group:first-child {
+        margin-top: 0;
+    }
+
+    .service-card-top {
+        flex-direction: column;
+    }
+
+    .availability-locked,
+    .availability-unlocked {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+}
