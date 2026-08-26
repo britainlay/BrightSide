@@ -737,4 +737,317 @@ footer {
     .footer-links {
         flex-direction: column;
     }
+   /* ================================
+   BOOKING PAGE
+================================ */
+
+.booking-header {
+    background: var(--navy);
+    color: white;
+    text-align: center;
+
+    padding: 90px 6% 100px;
+}
+
+.booking-header h1 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    line-height: 1;
+    letter-spacing: -2px;
+}
+
+.booking-header h1 span {
+    color: var(--light-blue);
+}
+
+.booking-header > p:last-child {
+    max-width: 600px;
+    margin: 25px auto 0;
+    color: var(--gray);
+    font-size: 1.05rem;
+}
+
+
+.booking-section {
+    padding: 100px 5%;
+    background: var(--white);
+}
+
+.booking-container {
+    width: min(1150px, 100%);
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 0.75fr 1.25fr;
+
+    gap: 70px;
+    align-items: start;
+}
+
+
+.booking-info h2 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.booking-info > p {
+    color: #657585;
+    margin-bottom: 40px;
+}
+
+
+.booking-step {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+
+    gap: 15px;
+
+    margin-bottom: 30px;
+}
+
+.booking-step > span {
+    color: var(--blue);
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+}
+
+.booking-step h3 {
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.booking-step p {
+    color: #657585;
+    font-size: 0.9rem;
+}
+
+
+.booking-note {
+    background: #EAF4FB;
+
+    border-left: 3px solid var(--blue);
+
+    padding: 20px;
+
+    margin-top: 40px;
+
+    border-radius: 0 8px 8px 0;
+}
+
+.booking-note strong {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.booking-note p {
+    color: #536675;
+    font-size: 0.85rem;
+}
+
+
+/* Form */
+
+.booking-form {
+    background: white;
+
+    border: 1px solid #DCE5EB;
+    border-radius: 14px;
+
+    padding: 40px;
+
+    box-shadow: 0 15px 40px rgba(7, 26, 43, 0.06);
+}
+
+.form-section {
+    padding-bottom: 35px;
+    margin-bottom: 35px;
+
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.form-section h3 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.25rem;
+    margin-bottom: 22px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+
+    font-size: 0.85rem;
+    font-weight: 700;
+
+    margin-bottom: 7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+
+    border: 1px solid #CBD7DF;
+    border-radius: 7px;
+
+    padding: 12px 13px;
+
+    background: #FBFCFD;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.9rem;
+
+    color: var(--navy);
+
+    outline: none;
+
+    transition: 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--blue);
+
+    box-shadow: 0 0 0 3px rgba(22, 119, 200, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+
+/* Service Options */
+
+.service-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.service-option {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+
+    gap: 12px;
+
+    border: 1px solid #D5E0E7;
+    border-radius: 9px;
+
+    padding: 17px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.service-option:hover {
+    border-color: var(--blue);
+}
+
+.service-option input {
+    margin-top: 4px;
+    accent-color: var(--blue);
+}
+
+.service-option strong {
+    font-size: 0.95rem;
+}
+
+.service-option span {
+    float: right;
+
+    color: var(--blue);
+
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+}
+
+.service-option small {
+    display: block;
+
+    color: #71808D;
+
+    margin-top: 4px;
+
+    font-size: 0.8rem;
+}
+
+.featured-option {
+    border-color: var(--blue);
+    background: #F3F9FD;
+}
+
+
+/* Submit */
+
+.form-submit {
+    text-align: center;
+}
+
+.form-submit .primary-button {
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.form-submit p {
+    color: #7A8995;
+
+    font-size: 0.75rem;
+
+    margin-top: 12px;
+}
+
+
+/* Booking Mobile */
+
+@media (max-width: 850px) {
+
+    .booking-container {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .booking-header {
+        padding: 65px 6% 75px;
+    }
+
+    .booking-section {
+        padding: 70px 5%;
+    }
+
+    .booking-form {
+        padding: 25px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .booking-info h2 {
+        font-size: 2rem;
+    }
+
+}
 }
