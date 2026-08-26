@@ -6,14 +6,20 @@
 
     <title>Book a Detail | Brightside Detailing</title>
 
-    <meta name="description" content="Request a mobile car detailing appointment with Brightside Detailing in Alief, Houston.">
+    <meta
+        name="description"
+        content="Request a mobile car detailing appointment with Brightside Detailing in Alief, Houston."
+    >
 
     <link rel="stylesheet" href="../style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
 </head>
 
 <body>
@@ -47,10 +53,10 @@
     </header>
 
 
-    <!-- Booking Header -->
-    <main>
+    <!-- Booking Hero -->
+    <section class="booking-hero">
 
-        <section class="booking-header">
+        <div class="booking-hero-content">
 
             <p class="eyebrow">MOBILE DETAILING • ALIEF, TX</p>
 
@@ -60,102 +66,154 @@
             </h1>
 
             <p>
-                Tell us a little about your vehicle and we'll get back
-                to you to confirm your appointment.
+                Tell us about your vehicle and the service you're looking for.
+                We'll review your request and contact you to confirm your appointment.
             </p>
 
-        </section>
+        </div>
+
+    </section>
 
 
-        <!-- Booking Section -->
-        <section class="booking-section">
+    <!-- Booking Area -->
+    <main class="booking-page">
 
-            <div class="booking-container">
+        <div class="booking-layout">
 
-                <div class="booking-info">
 
-                    <p class="eyebrow">HOW IT WORKS</p>
+            <!-- Left Information -->
+            <aside class="booking-sidebar">
+
+                <div class="sidebar-intro">
+
+                    <p class="eyebrow">THE PROCESS</p>
 
                     <h2>
-                        Request a Detail
+                        Simple.
+                        <span>Convenient.</span>
                     </h2>
 
                     <p>
-                        Fill out the form with your vehicle and
-                        preferred appointment information. We'll review
-                        your request and contact you to confirm the details.
+                        Getting your vehicle detailed shouldn't be complicated.
+                        Choose a package, tell us where you are, and we'll take it
+                        from there.
                     </p>
 
+                </div>
 
-                    <div class="booking-step">
 
-                        <span>01</span>
+                <div class="booking-process">
+
+                    <div class="process-item">
+
+                        <div class="process-number">01</div>
 
                         <div>
-                            <h3>Choose Your Package</h3>
+                            <h3>Choose a Package</h3>
+
                             <p>
-                                Select the service that best fits your vehicle.
+                                Pick the service that best fits your vehicle.
                             </p>
                         </div>
 
                     </div>
 
 
-                    <div class="booking-step">
+                    <div class="process-line"></div>
 
-                        <span>02</span>
+
+                    <div class="process-item">
+
+                        <div class="process-number">02</div>
 
                         <div>
-                            <h3>Tell Us About Your Vehicle</h3>
+                            <h3>Send Your Details</h3>
+
                             <p>
-                                Vehicle size and condition help us determine
-                                the final price.
+                                Tell us about your vehicle and preferred time.
                             </p>
                         </div>
 
                     </div>
 
 
-                    <div class="booking-step">
+                    <div class="process-line"></div>
 
-                        <span>03</span>
+
+                    <div class="process-item">
+
+                        <div class="process-number">03</div>
 
                         <div>
-                            <h3>We'll Confirm</h3>
+                            <h3>Get Confirmed</h3>
+
                             <p>
-                                We'll contact you to confirm the appointment
-                                before your detail is scheduled.
+                                We'll contact you to confirm your appointment.
                             </p>
                         </div>
-
-                    </div>
-
-
-                    <div class="booking-note">
-
-                        <strong>Pricing Note</strong>
-
-                        <p>
-                            All prices shown on our website are starting
-                            prices. Final pricing may vary depending on
-                            vehicle size and condition.
-                        </p>
 
                     </div>
 
                 </div>
 
 
-                <!-- Form -->
-                <form class="booking-form">
+                <div class="pricing-note">
 
-                    <div class="form-section">
+                    <div class="note-icon">$</div>
 
-                        <h3>Contact Information</h3>
+                    <div>
+                        <strong>Starting Prices</strong>
 
-                        <div class="form-grid">
+                        <p>
+                            Final pricing may vary based on vehicle size
+                            and condition.
+                        </p>
+                    </div>
 
-                            <div class="form-group">
+                </div>
+
+            </aside>
+
+
+            <!-- Form -->
+            <section class="booking-card">
+
+                <div class="form-header">
+
+                    <div>
+                        <p class="eyebrow">REQUEST A DETAIL</p>
+
+                        <h2>
+                            Let's Get Started
+                        </h2>
+                    </div>
+
+                    <div class="form-badge">
+                        ALIEF, TX
+                    </div>
+
+                </div>
+
+
+                <form id="bookingForm">
+
+
+                    <!-- Contact -->
+                    <div class="form-block">
+
+                        <div class="form-block-title">
+                            <span>01</span>
+                            <div>
+                                <h3>Contact Information</h3>
+                                <p>How can we reach you?</p>
+                            </div>
+                        </div>
+
+
+                        <div class="input-grid">
+
+                            <div class="input-group">
+
                                 <label for="name">
                                     Full Name
                                 </label>
@@ -167,10 +225,12 @@
                                     placeholder="Your name"
                                     required
                                 >
+
                             </div>
 
 
-                            <div class="form-group">
+                            <div class="input-group">
+
                                 <label for="phone">
                                     Phone Number
                                 </label>
@@ -182,12 +242,13 @@
                                     placeholder="(713) 555-0000"
                                     required
                                 >
+
                             </div>
 
                         </div>
 
 
-                        <div class="form-group">
+                        <div class="input-group">
 
                             <label for="email">
                                 Email Address
@@ -206,13 +267,22 @@
                     </div>
 
 
-                    <div class="form-section">
+                    <!-- Vehicle -->
+                    <div class="form-block">
 
-                        <h3>Vehicle Information</h3>
+                        <div class="form-block-title">
+                            <span>02</span>
 
-                        <div class="form-grid">
+                            <div>
+                                <h3>Your Vehicle</h3>
+                                <p>Help us identify what we're detailing.</p>
+                            </div>
+                        </div>
 
-                            <div class="form-group">
+
+                        <div class="input-grid">
+
+                            <div class="input-group">
 
                                 <label for="vehicle">
                                     Vehicle
@@ -229,7 +299,7 @@
                             </div>
 
 
-                            <div class="form-group">
+                            <div class="input-group">
 
                                 <label for="vehicle-type">
                                     Vehicle Type
@@ -278,68 +348,117 @@
                     </div>
 
 
-                    <div class="form-section">
+                    <!-- Service -->
+                    <div class="form-block">
 
-                        <h3>Choose Your Service</h3>
+                        <div class="form-block-title">
 
-                        <div class="service-options">
+                            <span>03</span>
 
-                            <label class="service-option">
+                            <div>
+                                <h3>Choose Your Service</h3>
+                                <p>Select the package you'd like.</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="service-cards">
+
+
+                            <label class="service-card">
 
                                 <input
                                     type="radio"
                                     name="service"
-                                    value="exterior"
+                                    value="Express Exterior"
                                     required
                                 >
 
-                                <div>
-                                    <strong>Express Exterior</strong>
-                                    <span>$75+</span>
-                                    <small>
-                                        Exterior wash, wheels, windows,
+                                <div class="service-card-content">
+
+                                    <div class="service-card-top">
+
+                                        <div>
+                                            <small>EXTERIOR</small>
+                                            <h4>Express Exterior</h4>
+                                        </div>
+
+                                        <strong>$75+</strong>
+
+                                    </div>
+
+                                    <p>
+                                        Wheels, exterior wash, windows,
                                         and ceramic protection.
-                                    </small>
+                                    </p>
+
                                 </div>
 
                             </label>
 
 
-                            <label class="service-option">
+                            <label class="service-card">
 
                                 <input
                                     type="radio"
                                     name="service"
-                                    value="interior"
+                                    value="Full Interior"
                                 >
 
-                                <div>
-                                    <strong>Full Interior</strong>
-                                    <span>$100+</span>
-                                    <small>
-                                        Vacuum, pet hair removal,
-                                        plastics, mats, and glass.
-                                    </small>
+                                <div class="service-card-content">
+
+                                    <div class="service-card-top">
+
+                                        <div>
+                                            <small>INTERIOR</small>
+                                            <h4>Full Interior</h4>
+                                        </div>
+
+                                        <strong>$100+</strong>
+
+                                    </div>
+
+                                    <p>
+                                        Vacuum, pet hair removal, plastics,
+                                        mats, and interior glass.
+                                    </p>
+
                                 </div>
 
                             </label>
 
 
-                            <label class="service-option featured-option">
+                            <label class="service-card popular-service">
+
+                                <div class="popular-label">
+                                    MOST POPULAR
+                                </div>
 
                                 <input
                                     type="radio"
                                     name="service"
-                                    value="full-detail"
+                                    value="Full Detail"
                                 >
 
-                                <div>
-                                    <strong>Full Detail</strong>
-                                    <span>$150+</span>
-                                    <small>
+                                <div class="service-card-content">
+
+                                    <div class="service-card-top">
+
+                                        <div>
+                                            <small>COMPLETE</small>
+                                            <h4>Full Detail</h4>
+                                        </div>
+
+                                        <strong>$150+</strong>
+
+                                    </div>
+
+                                    <p>
                                         Complete interior and exterior
                                         detailing service.
-                                    </small>
+                                    </p>
+
                                 </div>
 
                             </label>
@@ -349,13 +468,24 @@
                     </div>
 
 
-                    <div class="form-section">
+                    <!-- Appointment -->
+                    <div class="form-block">
 
-                        <h3>Appointment Preferences</h3>
+                        <div class="form-block-title">
 
-                        <div class="form-grid">
+                            <span>04</span>
 
-                            <div class="form-group">
+                            <div>
+                                <h3>Appointment Details</h3>
+                                <p>When and where would you like your detail?</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="input-grid">
+
+                            <div class="input-group">
 
                                 <label for="date">
                                     Preferred Date
@@ -371,7 +501,7 @@
                             </div>
 
 
-                            <div class="form-group">
+                            <div class="input-group">
 
                                 <label for="time">
                                     Preferred Time
@@ -384,18 +514,18 @@
                                 >
 
                                     <option value="">
-                                        Select time
+                                        Select a time
                                     </option>
 
-                                    <option>
+                                    <option value="Morning">
                                         Morning
                                     </option>
 
-                                    <option>
+                                    <option value="Afternoon">
                                         Afternoon
                                     </option>
 
-                                    <option>
+                                    <option value="Evening">
                                         Evening
                                     </option>
 
@@ -406,7 +536,7 @@
                         </div>
 
 
-                        <div class="form-group">
+                        <div class="input-group">
 
                             <label for="address">
                                 Service Address
@@ -420,26 +550,42 @@
                                 required
                             >
 
+                            <small class="input-help">
+                                Please provide the location where the vehicle
+                                will be detailed.
+                            </small>
+
                         </div>
 
                     </div>
 
 
-                    <div class="form-section">
+                    <!-- Vehicle Condition -->
+                    <div class="form-block">
 
-                        <h3>Tell Us More</h3>
+                        <div class="form-block-title">
 
-                        <div class="form-group">
+                            <span>05</span>
+
+                            <div>
+                                <h3>Vehicle Condition</h3>
+                                <p>Anything we should know beforehand?</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="input-group">
 
                             <label for="condition">
-                                Vehicle Condition
+                                Tell Us About Your Vehicle
                             </label>
 
                             <textarea
                                 id="condition"
                                 name="condition"
                                 rows="5"
-                                placeholder="Tell us about any heavy dirt, stains, pet hair, spills, or anything else we should know."
+                                placeholder="Examples: heavy dirt, stains, pet hair, spills, muddy interior, etc."
                             ></textarea>
 
                         </div>
@@ -447,27 +593,30 @@
                     </div>
 
 
-                    <div class="form-submit">
+                    <!-- Submit -->
+                    <div class="booking-submit">
 
                         <button
                             type="submit"
-                            class="primary-button"
+                            class="submit-button"
                         >
-                            Request Appointment
+                            Request My Detail
+                            <span>→</span>
                         </button>
 
                         <p>
-                            Submitting this form does not automatically
-                            confirm your appointment.
+                            This is a booking request, not an automatic appointment
+                            confirmation. We'll contact you before your appointment
+                            is finalized.
                         </p>
 
                     </div>
 
                 </form>
 
-            </div>
+            </section>
 
-        </section>
+        </div>
 
     </main>
 
