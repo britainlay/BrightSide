@@ -2,27 +2,46 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Book Your Detail | Brightside Detailing</title>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Book Your Detail | Brightside Detailing
+    </title>
 
     <meta
         name="description"
-        content="Book a mobile car detailing service with Brightside Detailing in Alief and surrounding Houston areas."
+        content="Book a mobile car detailing appointment with Brightside Detailing."
     >
 
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
         rel="stylesheet"
     >
 
-    <link rel="stylesheet" href="../style.css">
 
-    <!-- Mapbox -->
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+
+    <!-- MAPBOX -->
+
     <link
         href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css"
         rel="stylesheet"
@@ -35,835 +54,981 @@
 
 </head>
 
+
 <body>
 
-    <!-- NAVIGATION -->
 
-    <nav class="navbar">
+<!-- ======================================
+     NAVIGATION
+====================================== -->
 
-        <div class="nav-container">
+<header class="navbar">
 
-            <a href="../index.html" class="logo">
-                <span>BRIGHTSIDE</span>
-                <small>DETAILING</small>
+    <div class="nav-container">
+
+
+        <a
+            href="../index.html"
+            class="logo"
+        >
+
+            <span>
+                BRIGHTSIDE
+            </span>
+
+            <small>
+                MOBILE DETAILING
+            </small>
+
+        </a>
+
+
+        <nav class="nav-links">
+
+            <a href="../index.html">
+                Home
             </a>
 
-            <div class="nav-links">
+            <a href="../packages/">
+                Packages
+            </a>
 
-                <a href="../index.html">Home</a>
-                <a href="../packages/index.html">Packages</a>
-                <a href="../results/index.html">Results</a>
-                <a href="../about/index.html">About</a>
-                <a href="../how-it-works/index.html">How It Works</a>
+            <a href="../results/">
+                Results
+            </a>
+
+            <a href="../how-it-works/">
+                How It Works
+            </a>
+
+            <a href="../about/">
+                About
+            </a>
+
+        </nav>
+
+
+        <a
+            href="index.html"
+            class="nav-button"
+        >
+            Book Now
+        </a>
+
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            type="button"
+        >
+            ☰
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- ======================================
+     HERO
+====================================== -->
+
+<section class="booking-hero">
+
+    <div class="booking-hero-content">
+
+        <p class="eyebrow">
+            MOBILE DETAILING • ALIEF & HOUSTON
+        </p>
+
+
+        <h1>
+
+            Book Your
+
+            <span>
+                Detail.
+            </span>
+
+        </h1>
+
+
+        <p>
+
+            Choose your service,
+            check your location,
+            and find an available
+            weekend appointment.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- ======================================
+     BOOKING
+====================================== -->
+
+<main
+    id="booking-page"
+    class="booking-page"
+>
+
+
+    <div class="booking-layout">
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="booking-sidebar">
+
+
+            <div class="sidebar-intro">
+
+                <p class="eyebrow">
+                    SIMPLE PROCESS
+                </p>
+
+
+                <h2>
+
+                    Clean car.
+
+                    <span>
+                        Simple booking.
+                    </span>
+
+                </h2>
+
+
+                <p>
+
+                    Brightside is a mobile detailing
+                    service. Choose your service,
+                    check your location, and select
+                    an available weekend appointment.
+
+                </p>
 
             </div>
 
-            <a href="index.html" class="nav-button">
-                Book Now
-            </a>
-
-        </div>
-
-    </nav>
 
 
-    <!-- HERO -->
-
-    <section class="booking-hero">
-
-        <div class="booking-hero-content">
-
-            <p class="eyebrow">
-                MOBILE DETAILING • ALIEF & HOUSTON
-            </p>
-
-            <h1>
-                Book Your
-                <span>Detail.</span>
-            </h1>
-
-            <p>
-                Choose your service, check our service area,
-                and find an available weekend appointment.
-            </p>
-
-        </div>
-
-    </section>
+            <div class="booking-process">
 
 
-    <!-- BOOKING -->
+                <div class="process-item">
 
-    <main class="booking-page">
-
-        <div class="booking-layout">
-
-
-            <!-- SIDEBAR -->
-
-            <aside class="booking-sidebar">
-
-                <div class="sidebar-intro">
-
-                    <p class="eyebrow">
-                        SIMPLE PROCESS
-                    </p>
-
-                    <h2>
-                        Clean car.
-                        <span>Simple booking.</span>
-                    </h2>
-
-                    <p>
-                        Brightside is a mobile detailing service.
-                        Choose your service, enter your location,
-                        and select an available weekend appointment.
-                    </p>
-
-                </div>
-
-
-                <div class="booking-process">
-
-                    <div class="process-item">
-
-                        <div class="process-number">
-                            01
-                        </div>
-
-                        <div>
-
-                            <h3>Choose Your Service</h3>
-
-                            <p>
-                                Pick the detailing package
-                                that fits your vehicle.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="process-line"></div>
-
-
-                    <div class="process-item">
-
-                        <div class="process-number">
-                            02
-                        </div>
-
-                        <div>
-
-                            <h3>Check Your Location</h3>
-
-                            <p>
-                                Enter your address to see
-                                whether you're within our
-                                service area.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="process-line"></div>
-
-
-                    <div class="process-item">
-
-                        <div class="process-number">
-                            03
-                        </div>
-
-                        <div>
-
-                            <h3>Book Your Time</h3>
-
-                            <p>
-                                Choose an available weekend
-                                appointment through Calendly.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="pricing-note">
-
-                    <div class="note-icon">
-                        ✓
+                    <div class="process-number">
+                        01
                     </div>
 
                     <div>
 
-                        <strong>
-                            Mobile Service Area
-                        </strong>
+                        <h3>
+                            Choose Your Service
+                        </h3>
 
                         <p>
-                            Serving Alief and surrounding
-                            Houston communities within
-                            approximately 30 miles of the
-                            Alief Community Center.
+                            Pick the detailing package
+                            that fits your vehicle.
                         </p>
 
                     </div>
 
                 </div>
 
-            </aside>
+
+                <div class="process-line"></div>
 
 
-            <!-- BOOKING CARD -->
+                <div class="process-item">
 
-            <section class="booking-card">
-
-
-                <!-- HEADER -->
-
-                <div class="form-header">
+                    <div class="process-number">
+                        02
+                    </div>
 
                     <div>
 
-                        <h2>
-                            Request a Detail
-                        </h2>
+                        <h3>
+                            Check Your Location
+                        </h3>
 
-                    </div>
-
-                    <div class="form-badge">
-                        WEEKEND SERVICE
-                    </div>
-
-                </div>
-
-
-                <!-- CONTACT -->
-
-                <div class="form-block">
-
-                    <div class="form-block-title">
-
-                        <span>01</span>
-
-                        <div>
-
-                            <h3>
-                                Contact Information
-                            </h3>
-
-                            <p>
-                                How should we contact you?
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="input-grid">
-
-                        <div class="input-group">
-
-                            <label for="name">
-                                Full Name
-                            </label>
-
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                placeholder="Your name"
-                                required
-                            >
-
-                        </div>
-
-
-                        <div class="input-group">
-
-                            <label for="phone">
-                                Phone Number
-                            </label>
-
-                            <input
-                                type="tel"
-                                id="phone"
-                                name="phone"
-                                placeholder="(713) 555-0000"
-                                required
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="input-group">
-
-                        <label for="email">
-                            Email
-                        </label>
-
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="you@example.com"
-                            required
-                        >
+                        <p>
+                            Enter your address to see
+                            whether you're within our
+                            service area.
+                        </p>
 
                     </div>
 
                 </div>
 
 
-                <!-- VEHICLE -->
+                <div class="process-line"></div>
 
-                <div class="form-block">
 
-                    <div class="form-block-title">
+                <div class="process-item">
 
-                        <span>02</span>
-
-                        <div>
-
-                            <h3>
-                                Your Vehicle
-                            </h3>
-
-                            <p>
-                                Tell us what we'll be detailing.
-                            </p>
-
-                        </div>
-
+                    <div class="process-number">
+                        03
                     </div>
 
-
-                    <div class="input-grid">
-
-                        <div class="input-group">
-
-                            <label for="vehicle-make">
-                                Make
-                            </label>
-
-                            <input
-                                type="text"
-                                id="vehicle-make"
-                                placeholder="Toyota"
-                                required
-                            >
-
-                        </div>
-
-
-                        <div class="input-group">
-
-                            <label for="vehicle-model">
-                                Model
-                            </label>
-
-                            <input
-                                type="text"
-                                id="vehicle-model"
-                                placeholder="Camry"
-                                required
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="input-grid">
-
-                        <div class="input-group">
-
-                            <label for="vehicle-year">
-                                Year
-                            </label>
-
-                            <input
-                                type="number"
-                                id="vehicle-year"
-                                placeholder="2022"
-                                min="1980"
-                                max="2030"
-                                required
-                            >
-
-                        </div>
-
-
-                        <div class="input-group">
-
-                            <label for="vehicle-size">
-                                Vehicle Type
-                            </label>
-
-                            <select id="vehicle-size" required>
-
-                                <option value="">
-                                    Choose vehicle to see price
-                                </option>
-
-                                <option value="sedan">
-                                    Sedan / Coupe
-                                </option>
-
-                                <option value="suv">
-                                    SUV
-                                </option>
-
-                                <option value="truck">
-                                    Truck / Large SUV
-                                </option>
-
-                            </select>
-
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        id="vehicle-price"
-                        class="vehicle-price-display"
-                    >
-                        Choose your vehicle type to see your price.
-                    </div>
-
-                </div>
-
-
-                <!-- SERVICE -->
-
-                <div class="form-block">
-
-                    <div class="form-block-title">
-
-                        <span>03</span>
-
-                        <div>
-
-                            <h3>
-                                Choose Your Service
-                            </h3>
-
-                            <p>
-                                Pricing updates based on vehicle size.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="service-cards">
-
-
-                        <!-- EXPRESS -->
-
-                        <label class="service-card">
-
-                            <input
-                                type="radio"
-                                name="service"
-                                value="express"
-                                required
-                            >
-
-                            <div class="service-card-content">
-
-                                <div class="service-card-top">
-
-                                    <div>
-
-                                        <small>
-                                            EXTERIOR
-                                        </small>
-
-                                        <h4>
-                                            Express Exterior Wash
-                                        </h4>
-
-                                    </div>
-
-                                    <strong class="service-price">
-                                        Select Vehicle
-                                    </strong>
-
-                                </div>
-
-                                <p>
-                                    Wheels, tires, exterior wash,
-                                    windows, and ceramic protection.
-                                </p>
-
-                            </div>
-
-                        </label>
-
-
-                        <!-- INTERIOR -->
-
-                        <label class="service-card">
-
-                            <input
-                                type="radio"
-                                name="service"
-                                value="interior"
-                            >
-
-                            <div class="service-card-content">
-
-                                <div class="service-card-top">
-
-                                    <div>
-
-                                        <small>
-                                            INTERIOR
-                                        </small>
-
-                                        <h4>
-                                            Full Interior Detail
-                                        </h4>
-
-                                    </div>
-
-                                    <strong class="service-price">
-                                        Select Vehicle
-                                    </strong>
-
-                                </div>
-
-                                <p>
-                                    Vacuuming, pet hair removal,
-                                    plastics, mats, and glass.
-                                </p>
-
-                            </div>
-
-                        </label>
-
-
-                        <!-- FULL DETAIL -->
-
-                        <label class="service-card popular-service">
-
-                            <div class="popular-label">
-                                BEST VALUE
-                            </div>
-
-                            <input
-                                type="radio"
-                                name="service"
-                                value="full-detail"
-                            >
-
-                            <div class="service-card-content">
-
-                                <div class="service-card-top">
-
-                                    <div>
-
-                                        <small>
-                                            COMPLETE
-                                        </small>
-
-                                        <h4>
-                                            Full Detail
-                                        </h4>
-
-                                    </div>
-
-                                    <strong class="service-price">
-                                        Select Vehicle
-                                    </strong>
-
-                                </div>
-
-                                <p>
-                                    Complete interior and exterior
-                                    detailing in one service.
-                                </p>
-
-                            </div>
-
-                        </label>
+                    <div>
+
+                        <h3>
+                            Book Your Time
+                        </h3>
+
+                        <p>
+                            Choose an available weekend
+                            appointment through Calendly.
+                        </p>
 
                     </div>
 
                 </div>
 
-
-                <!-- LOCATION -->
-
-                <div class="form-block">
-
-                    <div class="form-block-title">
-
-                        <span>04</span>
-
-                        <div>
-
-                            <h3>
-                                Service Location
-                            </h3>
-
-                            <p>
-                                Check whether your address is
-                                within our 30-mile service area.
-                            </p>
-
-                        </div>
-
-                    </div>
+            </div>
 
 
-                    <div class="input-group address-container">
 
-                        <label for="address">
-                            Service Address
-                        </label>
+            <div class="pricing-note">
 
-                        <input
-                            type="text"
-                            id="address"
-                            autocomplete="off"
-                            placeholder="Start typing your address..."
-                            required
-                        >
-
-                        <div
-                            id="address-suggestions"
-                            class="address-suggestions"
-                        ></div>
-
-                        <span class="input-help">
-                            Select your exact address from the
-                            suggestions that appear.
-                        </span>
-
-                    </div>
-
-
-                    <!-- SERVICE STATUS -->
-
-                    <div
-                        id="service-status"
-                        class="service-status"
-                    ></div>
-
-
-                    <!-- MAP -->
-
-                    <div
-                        id="map"
-                        class="service-map"
-                    ></div>
-
-
-                    <p class="map-help">
-                        Select an address above to see it on the map
-                        and check your service eligibility.
-                    </p>
-
-
-                    <!-- CALENDLY -->
-
-                    <div
-                        id="availability-container"
-                        class="availability-locked"
-                    >
-
-                        <div class="availability-message">
-
-                            <strong>
-                                Check Availability
-                            </strong>
-
-                            <p>
-                                Confirm that your address is within
-                                our service area to continue.
-                            </p>
-
-                        </div>
-
-                        <a
-                            id="availability-button"
-                            href="https://calendly.com/brightsidemdetails/30min"
-                            class="submit-button disabled-button"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-disabled="true"
-                        >
-                            Check Availability
-                            <span>→</span>
-                        </a>
-
-                    </div>
-
+                <div class="note-icon">
+                    ✓
                 </div>
 
 
-                <!-- CONDITION -->
+                <div>
 
-                <div class="form-block">
+                    <strong>
+                        Mobile Service Area
+                    </strong>
 
-                    <div class="form-block-title">
-
-                        <span>05</span>
-
-                        <div>
-
-                            <h3>
-                                Vehicle Condition
-                            </h3>
-
-                            <p>
-                                Anything we should know beforehand?
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="input-group">
-
-                        <textarea
-                            id="condition"
-                            placeholder="Example: heavy pet hair, stains, mud, etc."
-                        ></textarea>
-
-                        <span class="input-help">
-                            Please be as accurate as possible so we
-                            can estimate the time needed.
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- FINAL NOTE -->
-
-                <div class="booking-submit">
 
                     <p>
-                        Starting prices are based on vehicle size.
-                        Final pricing may vary depending on vehicle
-                        condition. Any additional charge will be
-                        discussed before service begins.
+
+                        Serving Alief and surrounding
+                        Houston communities within
+                        approximately 30 miles of the
+                        Alief Community Center.
+
                     </p>
 
                 </div>
 
-            </section>
+            </div>
 
-        </div>
-
-    </main>
+        </aside>
 
 
-    <!-- FOOTER -->
 
-    <footer>
+        <!-- FORM -->
 
-        <div class="footer-container">
+        <section class="booking-card">
 
-            <div class="footer-brand">
 
-                <div class="logo">
+            <div class="form-header">
 
-                    <span>BRIGHTSIDE</span>
+                <h2>
+                    Request a Detail
+                </h2>
 
-                    <small>
-                        DETAILING
-                    </small>
+
+                <div class="form-badge">
+                    WEEKEND SERVICE
+                </div>
+
+            </div>
+
+
+
+            <!-- CONTACT -->
+
+            <div class="form-block">
+
+                <div class="form-block-title">
+
+                    <span>
+                        01
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Contact Information
+                        </h3>
+
+                        <p>
+                            How should we contact you?
+                        </p>
+
+                    </div>
 
                 </div>
 
+
+
+                <div class="input-grid">
+
+
+                    <div class="input-group">
+
+                        <label for="name">
+                            Full Name
+                        </label>
+
+                        <input
+                            id="name"
+                            type="text"
+                            placeholder="Your name"
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="phone">
+                            Phone Number
+                        </label>
+
+                        <input
+                            id="phone"
+                            type="tel"
+                            placeholder="(713) 555-0000"
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="input-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        id="email"
+                        type="email"
+                        placeholder="you@example.com"
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <!-- VEHICLE -->
+
+            <div class="form-block">
+
+                <div class="form-block-title">
+
+                    <span>
+                        02
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Your Vehicle
+                        </h3>
+
+                        <p>
+                            Tell us what we'll be detailing.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="input-grid">
+
+
+                    <div class="input-group">
+
+                        <label for="vehicle-make">
+                            Make
+                        </label>
+
+                        <input
+                            id="vehicle-make"
+                            type="text"
+                            placeholder="Toyota"
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="vehicle-model">
+                            Model
+                        </label>
+
+                        <input
+                            id="vehicle-model"
+                            type="text"
+                            placeholder="Camry"
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="input-grid">
+
+
+                    <div class="input-group">
+
+                        <label for="vehicle-year">
+                            Year
+                        </label>
+
+                        <input
+                            id="vehicle-year"
+                            type="number"
+                            placeholder="2022"
+                            min="1980"
+                            max="2030"
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="vehicle-size">
+                            Vehicle Type
+                        </label>
+
+
+                        <select id="vehicle-size">
+
+                            <option value="">
+                                Choose vehicle to see price
+                            </option>
+
+                            <option value="sedan">
+                                Sedan / Coupe
+                            </option>
+
+                            <option value="suv">
+                                SUV
+                            </option>
+
+                            <option value="truck">
+                                Truck / Large SUV
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+
+                <div
+                    id="vehicle-price"
+                    class="vehicle-price-display"
+                >
+                    Choose your vehicle type to see your price.
+                </div>
+
+            </div>
+
+
+
+            <!-- SERVICE -->
+
+            <div class="form-block">
+
+                <div class="form-block-title">
+
+                    <span>
+                        03
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Choose Your Service
+                        </h3>
+
+                        <p>
+                            Pricing updates based on vehicle size.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="service-cards">
+
+
+                    <label class="service-card">
+
+                        <input
+                            type="radio"
+                            name="service"
+                            value="express"
+                        >
+
+
+                        <div class="service-card-content">
+
+                            <div class="service-card-top">
+
+                                <div>
+
+                                    <small>
+                                        EXTERIOR
+                                    </small>
+
+                                    <h4>
+                                        Express Exterior Wash
+                                    </h4>
+
+                                </div>
+
+
+                                <strong class="service-price">
+                                    Select Vehicle
+                                </strong>
+
+                            </div>
+
+
+                            <p>
+                                Wheels, tires, exterior wash,
+                                windows, and ceramic protection.
+                            </p>
+
+                        </div>
+
+                    </label>
+
+
+
+                    <label class="service-card">
+
+                        <input
+                            type="radio"
+                            name="service"
+                            value="interior"
+                        >
+
+
+                        <div class="service-card-content">
+
+                            <div class="service-card-top">
+
+                                <div>
+
+                                    <small>
+                                        INTERIOR
+                                    </small>
+
+                                    <h4>
+                                        Full Interior Detail
+                                    </h4>
+
+                                </div>
+
+
+                                <strong class="service-price">
+                                    Select Vehicle
+                                </strong>
+
+                            </div>
+
+
+                            <p>
+                                Vacuuming, pet hair removal,
+                                plastics, mats, and glass.
+                            </p>
+
+                        </div>
+
+                    </label>
+
+
+
+                    <label
+                        class="service-card popular-service"
+                    >
+
+                        <div class="popular-label">
+                            BEST VALUE
+                        </div>
+
+
+                        <input
+                            type="radio"
+                            name="service"
+                            value="full-detail"
+                        >
+
+
+                        <div class="service-card-content">
+
+                            <div class="service-card-top">
+
+                                <div>
+
+                                    <small>
+                                        COMPLETE
+                                    </small>
+
+                                    <h4>
+                                        Full Detail
+                                    </h4>
+
+                                </div>
+
+
+                                <strong class="service-price">
+                                    Select Vehicle
+                                </strong>
+
+                            </div>
+
+
+                            <p>
+                                Complete interior and exterior
+                                detailing in one service.
+                            </p>
+
+                        </div>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- LOCATION -->
+
+            <div class="form-block">
+
+                <div class="form-block-title">
+
+                    <span>
+                        04
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Service Location
+                        </h3>
+
+                        <p>
+                            Check whether your address is
+                            within our 30-mile service area.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div
+                    class="input-group address-container"
+                >
+
+                    <label for="address">
+                        Service Address
+                    </label>
+
+
+                    <input
+                        id="address"
+                        type="text"
+                        autocomplete="off"
+                        placeholder="Start typing your address..."
+                    >
+
+
+                    <div
+                        id="address-suggestions"
+                        class="address-suggestions"
+                    ></div>
+
+
+                    <span class="input-help">
+
+                        Select your exact address
+                        from the suggestions.
+
+                    </span>
+
+                </div>
+
+
+
+                <div
+                    id="service-status"
+                    class="service-status"
+                ></div>
+
+
+
+                <div
+                    id="map"
+                    class="service-map"
+                ></div>
+
+
+                <p class="map-help">
+
+                    Select an address above to see it
+                    on the map and check eligibility.
+
+                </p>
+
+
+
+                <!-- AVAILABILITY -->
+
+                <div
+                    id="availability-container"
+                    class="availability-locked"
+                >
+
+
+                    <div
+                        class="availability-message"
+                    >
+
+                        <strong>
+                            Check Availability
+                        </strong>
+
+                        <p>
+                            Confirm your address is
+                            within our service area
+                            to continue.
+                        </p>
+
+                    </div>
+
+
+
+                    <a
+                        id="availability-button"
+                        href="https://calendly.com/brightsidemdetails/30min"
+                        class="primary-button disabled-button"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-disabled="true"
+                    >
+
+                        Check Availability
+
+                        <span>
+                            →
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CONDITION -->
+
+            <div class="form-block">
+
+                <div class="form-block-title">
+
+                    <span>
+                        05
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Vehicle Condition
+                        </h3>
+
+                        <p>
+                            Anything we should know beforehand?
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="input-group">
+
+                    <textarea
+                        id="condition"
+                        placeholder="Example: heavy pet hair, stains, mud, etc."
+                    ></textarea>
+
+
+                    <span class="input-help">
+
+                        Please be as accurate as possible
+                        so we can estimate the time needed.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- NOTE -->
+
+            <div class="booking-submit">
+
                 <p>
-                    Mobile car detailing in Alief & Houston.
+
+                    Starting prices are based on vehicle size.
+                    Final pricing may vary depending on vehicle
+                    condition. Any additional charge will be
+                    discussed before service begins.
+
                 </p>
 
             </div>
 
+        </section>
 
-            <div class="footer-links">
+    </div>
 
-                <div>
-
-                    <h4>
-                        Explore
-                    </h4>
-
-                    <a href="../index.html">
-                        Home
-                    </a>
-
-                    <a href="../packages/index.html">
-                        Packages
-                    </a>
-
-                    <a href="../results/index.html">
-                        Results
-                    </a>
-
-                </div>
+</main>
 
 
-                <div>
 
-                    <h4>
-                        Connect
-                    </h4>
+<!-- FOOTER -->
 
-                    <a href="../about/index.html">
-                        About
-                    </a>
+<footer>
 
-                    <a href="../how-it-works/index.html">
-                        How It Works
-                    </a>
+    <div class="footer-container">
 
-                    <a href="index.html">
-                        Book
-                    </a>
 
-                </div>
+        <div class="footer-brand">
+
+            <a
+                href="../index.html"
+                class="logo"
+            >
+
+                <span>
+                    BRIGHTSIDE
+                </span>
+
+                <small>
+                    MOBILE DETAILING
+                </small>
+
+            </a>
+
+
+            <p>
+                Detailing that comes to you.
+            </p>
+
+        </div>
+
+
+
+        <div class="footer-links">
+
+
+            <div>
+
+                <h4>
+                    Explore
+                </h4>
+
+                <a href="../packages/">
+                    Packages
+                </a>
+
+                <a href="../results/">
+                    Results
+                </a>
+
+                <a href="../how-it-works/">
+                    How It Works
+                </a>
+
+                <a href="../about/">
+                    About
+                </a>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Contact
+                </h4>
+
+                <a href="mailto:YOUR-EMAIL-HERE">
+                    YOUR-EMAIL-HERE
+                </a>
+
+                <a href="tel:YOUR-PHONE-HERE">
+                    YOUR-PHONE-HERE
+                </a>
 
             </div>
 
         </div>
 
-
-        <div class="footer-bottom">
-
-            <span>
-                © 2026 Brightside Detailing
-            </span>
-
-            <span>
-                Mobile Detailing • Alief, Houston
-            </span>
-
-        </div>
-
-    </footer>
+    </div>
 
 
-    <script src="../script.js"></script>
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 Brightside Detailing.
+            All rights reserved.
+        </p>
+
+        <p>
+            Alief, Houston, TX
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+<script src="../script.js"></script>
 
 </body>
 
