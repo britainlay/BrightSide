@@ -12,16 +12,14 @@ const menuButton = document.getElementById("menuButton");
 const navLinks = document.querySelector(".nav-links");
 
 if (menuButton && navLinks) {
-
     menuButton.addEventListener("click", () => {
         navLinks.classList.toggle("active");
     });
-
 }
 
 
 // ============================================
-// MAPBOX
+// MAPBOX TOKEN
 // ============================================
 
 const MAPBOX_TOKEN = "pk.eyJ1IjoiYnJpZ2h0c2lkZWRldGFpbGluZyIsImEiOiJjbXQ5bGEzdTAwMGg0Mnlwd2M1MHlyYWV0In0.Usd3fiKRnMZq1oE6cYy1Jg";
@@ -31,17 +29,23 @@ const MAPBOX_TOKEN = "pk.eyJ1IjoiYnJpZ2h0c2lkZWRldGFpbGluZyIsImEiOiJjbXQ5bGEzdTA
 // SERVICE AREA
 // ============================================
 
-const SERVICE_LAT = 29.7047;
-const SERVICE_LNG = -95.5903;
+// Alief Community Center
+// 11903 Bellaire Blvd.
+// Houston, TX 77072
+
+const SERVICE_LAT = 29.70254;
+const SERVICE_LNG = -95.58891;
 
 const SERVICE_RADIUS = 30;
 
 
 // ============================================
-// BOOKING PAGE ELEMENTS
+// ELEMENTS
 // ============================================
 
-const addressInput = document.getElementById("address");
+const addressInput =
+    document.getElementById("address");
+
 const addressSuggestions =
     document.getElementById("address-suggestions");
 
@@ -51,10 +55,11 @@ const serviceStatus =
 const mapElement =
     document.getElementById("map");
 
+const availabilityContainer =
+    document.getElementById("availability-container");
 
-// ============================================
-// VEHICLE PRICING
-// ============================================
+const availabilityButton =
+    document.getElementById("availability-button");
 
 const vehicleSize =
     document.getElementById("vehicle-size");
@@ -66,42 +71,38 @@ const servicePrices =
     document.querySelectorAll(".service-price");
 
 
+// ============================================
+// VEHICLE PRICING
+// ============================================
+
 const prices = {
 
     sedan: {
-
         express: 75,
         interior: 100,
         full: 150
-
     },
 
     suv: {
-
         express: 95,
         interior: 120,
         full: 180
-
     },
 
     truck: {
-
         express: 110,
         interior: 140,
         full: 200
-
     }
 
 };
 
 
-// ============================================
-// UPDATE PRICES
-// ============================================
-
 function updatePrices() {
 
-    if (!vehicleSize) return;
+    if (!vehicleSize || !vehiclePrice) {
+        return;
+    }
 
     const vehicle = vehicleSize.value;
 
@@ -111,24 +112,19 @@ function updatePrices() {
             "Choose your vehicle type to see your price.";
 
         servicePrices.forEach(price => {
-
-            price.textContent =
-                "Select Vehicle";
-
+            price.textContent = "Select Vehicle";
         });
 
         return;
     }
 
-
     const selectedPrices = prices[vehicle];
-
 
     vehiclePrice.innerHTML = `
         <strong>Estimated pricing:</strong>
-        Express $${selectedPrices.express} •
-        Interior $${selectedPrices.interior} •
-        Full Detail $${selectedPrices.full}
+        Express $${selectedPrices.express}
+        • Interior $${selectedPrices.interior}
+        • Full Detail $${selectedPrices.full}
     `;
 
 
@@ -172,12 +168,10 @@ function updatePrices() {
 
 
 if (vehicleSize) {
-
     vehicleSize.addEventListener(
         "change",
         updatePrices
     );
-
 }
 
 
@@ -221,21 +215,16 @@ function calculateDistance(
 
 
     return earthRadius * c;
-
 }
 
 
 // ============================================
-// MAP VARIABLES
+// MAP
 // ============================================
 
 let map = null;
 let marker = null;
 
-
-// ============================================
-// INITIALIZE MAPBOX
-// ============================================
 
 function initializeMap() {
 
@@ -250,15 +239,6 @@ function initializeMap() {
         console.error(
             "Mapbox token has not been added."
         );
-
-        mapElement.innerHTML = `
-            <div style="
-                padding: 20px;
-                text-align: center;
-            ">
-                Map is currently unavailable.
-            </div>
-        `;
 
         return;
     }
@@ -290,7 +270,7 @@ function initializeMap() {
             SERVICE_LAT
         ],
 
-        zoom: 10
+        zoom: 11
 
     });
 
@@ -321,7 +301,7 @@ if (mapElement) {
 
 
 // ============================================
-// ADDRESS SEARCH
+// ADDRESS AUTOCOMPLETE
 // ============================================
 
 let searchTimer = null;
@@ -335,6 +315,8 @@ if (addressInput) {
 
             clearTimeout(searchTimer);
 
+            resetLocationStatus();
+
 
             const query =
                 addressInput.value.trim();
@@ -342,14 +324,7 @@ if (addressInput) {
 
             if (query.length < 3) {
 
-                if (addressSuggestions) {
-
-                    addressSuggestions.innerHTML = "";
-
-                    addressSuggestions.style.display =
-                        "none";
-
-                }
+                hideSuggestions();
 
                 return;
             }
@@ -361,7 +336,7 @@ if (addressInput) {
                     searchAddress(query);
 
                 },
-                400
+                350
             );
 
         }
@@ -371,12 +346,25 @@ if (addressInput) {
 
 
 // ============================================
-// SEARCH MAPBOX
+// SEARCH ADDRESS
 // ============================================
 
 async function searchAddress(query) {
 
     try {
+
+        if (
+            !MAPBOX_TOKEN ||
+            MAPBOX_TOKEN === "PASTE_YOUR_PK_TOKEN_HERE"
+        ) {
+
+            console.error(
+                "Mapbox token is missing."
+            );
+
+            return;
+        }
+
 
         const url =
             "https://api.mapbox.com/search/geocode/v6/forward" +
@@ -385,6 +373,8 @@ async function searchAddress(query) {
             encodeURIComponent(query) +
 
             "&country=US" +
+
+            "&language=en" +
 
             "&limit=5" +
 
@@ -399,7 +389,7 @@ async function searchAddress(query) {
         if (!response.ok) {
 
             throw new Error(
-                "Mapbox address search failed."
+                `Mapbox returned ${response.status}`
             );
 
         }
@@ -410,16 +400,18 @@ async function searchAddress(query) {
 
 
         displayAddressSuggestions(
-            data.features
+            data.features || []
         );
 
 
     } catch (error) {
 
         console.error(
-            "Mapbox search error:",
+            "Address search error:",
             error
         );
+
+        hideSuggestions();
 
     }
 
@@ -427,12 +419,10 @@ async function searchAddress(query) {
 
 
 // ============================================
-// DISPLAY SUGGESTIONS
+// SHOW ADDRESS SUGGESTIONS
 // ============================================
 
-function displayAddressSuggestions(
-    features
-) {
+function displayAddressSuggestions(features) {
 
     if (!addressSuggestions) return;
 
@@ -440,13 +430,9 @@ function displayAddressSuggestions(
     addressSuggestions.innerHTML = "";
 
 
-    if (
-        !features ||
-        features.length === 0
-    ) {
+    if (features.length === 0) {
 
-        addressSuggestions.style.display =
-            "none";
+        hideSuggestions();
 
         return;
     }
@@ -464,25 +450,32 @@ function displayAddressSuggestions(
             "address-suggestion";
 
 
-        const name =
-            feature.properties?.name ||
-            "";
+        const properties =
+            feature.properties || {};
 
-        const address =
-            feature.properties?.full_address ||
-            feature.properties?.place_formatted ||
+
+        const name =
+            properties.name ||
+            feature.text ||
+            "Address";
+
+
+        const fullAddress =
+            properties.full_address ||
+            properties.place_formatted ||
+            feature.place_name ||
             "";
 
 
         button.innerHTML = `
-            <strong>${name}</strong>
-            <span>${address}</span>
+            <strong>${escapeHTML(name)}</strong>
+            <span>${escapeHTML(fullAddress)}</span>
         `;
 
 
         button.addEventListener(
             "click",
-            () => {
+            function () {
 
                 selectAddress(feature);
 
@@ -509,6 +502,15 @@ function displayAddressSuggestions(
 
 function selectAddress(feature) {
 
+    if (
+        !feature ||
+        !feature.geometry ||
+        !feature.geometry.coordinates
+    ) {
+        return;
+    }
+
+
     const coordinates =
         feature.geometry.coordinates;
 
@@ -520,14 +522,19 @@ function selectAddress(feature) {
         coordinates[1];
 
 
+    const properties =
+        feature.properties || {};
+
+
     const address =
-        feature.properties?.full_address ||
-        feature.properties?.place_formatted ||
-        feature.properties?.name ||
+        properties.full_address ||
+        properties.place_formatted ||
+        feature.place_name ||
+        properties.name ||
         "";
 
 
-    // Put address into input
+    // Put selected address into input
 
     if (addressInput) {
 
@@ -539,18 +546,10 @@ function selectAddress(feature) {
 
     // Hide suggestions
 
-    if (addressSuggestions) {
-
-        addressSuggestions.innerHTML =
-            "";
-
-        addressSuggestions.style.display =
-            "none";
-
-    }
+    hideSuggestions();
 
 
-    // Check distance
+    // Check eligibility
 
     checkServiceArea(
         latitude,
@@ -596,9 +595,9 @@ function checkServiceArea(
         ) / 10;
 
 
-    if (
-        distance <= SERVICE_RADIUS
-    ) {
+    if (distance <= SERVICE_RADIUS) {
+
+        // ELIGIBLE
 
         serviceStatus.className =
             "service-status eligible";
@@ -610,13 +609,17 @@ function checkServiceArea(
             </strong>
 
             <span>
-                Approximately
-                ${roundedDistance}
-                miles from our service area.
+                Approximately ${roundedDistance}
+                miles from the Alief Community Center.
             </span>
         `;
 
+
+        enableAvailability();
+
     } else {
+
+        // NOT ELIGIBLE
 
         serviceStatus.className =
             "service-status not-eligible";
@@ -630,10 +633,67 @@ function checkServiceArea(
             <span>
                 This address is approximately
                 ${roundedDistance}
-                miles away.
-                Brightside currently services
-                locations within 30 miles.
+                miles from the Alief Community Center.
+                Our current service radius is 30 miles.
             </span>
+        `;
+
+
+        disableAvailability();
+
+    }
+
+}
+
+
+// ============================================
+// ENABLE CALENDLY
+// ============================================
+
+function enableAvailability() {
+
+    if (!availabilityContainer ||
+        !availabilityButton) {
+        return;
+    }
+
+
+    availabilityContainer.className =
+        "availability-unlocked";
+
+
+    availabilityButton.classList.remove(
+        "disabled-button"
+    );
+
+
+    availabilityButton.setAttribute(
+        "aria-disabled",
+        "false"
+    );
+
+
+    availabilityButton.style.pointerEvents =
+        "auto";
+
+
+    const message =
+        availabilityContainer.querySelector(
+            ".availability-message"
+        );
+
+
+    if (message) {
+
+        message.innerHTML = `
+            <strong>
+                ✓ Location confirmed
+            </strong>
+
+            <p>
+                You're within our service area.
+                You can now check our available appointments.
+            </p>
         `;
 
     }
@@ -642,7 +702,83 @@ function checkServiceArea(
 
 
 // ============================================
-// MOVE MAP TO ADDRESS
+// DISABLE CALENDLY
+// ============================================
+
+function disableAvailability() {
+
+    if (!availabilityContainer ||
+        !availabilityButton) {
+        return;
+    }
+
+
+    availabilityContainer.className =
+        "availability-locked";
+
+
+    availabilityButton.classList.add(
+        "disabled-button"
+    );
+
+
+    availabilityButton.setAttribute(
+        "aria-disabled",
+        "true"
+    );
+
+
+    availabilityButton.style.pointerEvents =
+        "none";
+
+
+    const message =
+        availabilityContainer.querySelector(
+            ".availability-message"
+        );
+
+
+    if (message) {
+
+        message.innerHTML = `
+            <strong>
+                Check Availability
+            </strong>
+
+            <p>
+                Confirm that your address is within
+                our service area to continue.
+            </p>
+        `;
+
+    }
+
+}
+
+
+// ============================================
+// RESET LOCATION
+// ============================================
+
+function resetLocationStatus() {
+
+    if (serviceStatus) {
+
+        serviceStatus.className =
+            "service-status";
+
+        serviceStatus.innerHTML = "";
+
+    }
+
+
+    disableAvailability();
+
+}
+
+
+// ============================================
+// MOVE MAP
 // ============================================
 
 function moveMap(
@@ -668,16 +804,12 @@ function moveMap(
     });
 
 
-    // Remove previous marker
-
     if (marker) {
 
         marker.remove();
 
     }
 
-
-    // Create new marker
 
     marker =
         new mapboxgl.Marker()
@@ -701,7 +833,41 @@ function moveMap(
 
 
 // ============================================
-// CLOSE SUGGESTIONS WHEN CLICKING ELSEWHERE
+// HIDE SUGGESTIONS
+// ============================================
+
+function hideSuggestions() {
+
+    if (!addressSuggestions) return;
+
+
+    addressSuggestions.innerHTML =
+        "";
+
+    addressSuggestions.style.display =
+        "none";
+
+}
+
+
+// ============================================
+// BASIC HTML ESCAPING
+// ============================================
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+// ============================================
+// CLOSE SUGGESTIONS WHEN CLICKING OUTSIDE
 // ============================================
 
 document.addEventListener(
@@ -715,8 +881,7 @@ document.addEventListener(
             !addressSuggestions.contains(event.target)
         ) {
 
-            addressSuggestions.style.display =
-                "none";
+            hideSuggestions();
 
         }
 
