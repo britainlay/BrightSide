@@ -14,9 +14,7 @@ const navLinks = document.querySelector(".nav-links");
 if (menuButton && navLinks) {
 
     menuButton.addEventListener("click", () => {
-
         navLinks.classList.toggle("mobile-open");
-
     });
 
 }
@@ -31,9 +29,129 @@ const bookingPage =
 
 
 // If this is NOT the booking page,
-// don't run the Mapbox / booking code.
+// don't run booking-specific code.
 
 if (bookingPage) {
+
+
+    // ========================================
+    // PACKAGE SELECTION FROM URL
+    // ========================================
+
+    function selectPackageFromURL() {
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const selectedService =
+            params.get("service");
+
+
+        if (!selectedService) {
+            return;
+        }
+
+
+        const serviceRadio =
+            document.querySelector(
+                `input[name="service"][value="${selectedService}"]`
+            );
+
+
+        if (serviceRadio) {
+
+            serviceRadio.checked = true;
+
+            // Make the selected card visually active
+            const selectedCard =
+                serviceRadio.closest(
+                    ".service-card"
+                );
+
+            if (selectedCard) {
+
+                document
+                    .querySelectorAll(
+                        ".service-card"
+                    )
+                    .forEach(card => {
+
+                        card.classList.remove(
+                            "selected-service"
+                        );
+
+                    });
+
+
+                selectedCard.classList.add(
+                    "selected-service"
+                );
+
+            }
+
+        }
+
+    }
+
+
+    // Run after page loads
+    selectPackageFromURL();
+
+
+
+    // ========================================
+    // SERVICE CARD SELECTION
+    // ========================================
+
+    const serviceRadios =
+        document.querySelectorAll(
+            "input[name='service']"
+        );
+
+
+    serviceRadios.forEach(radio => {
+
+        radio.addEventListener(
+            "change",
+            () => {
+
+                document
+                    .querySelectorAll(
+                        ".service-card"
+                    )
+                    .forEach(card => {
+
+                        card.classList.remove(
+                            "selected-service"
+                        );
+
+                    });
+
+
+                const selectedCard =
+                    radio.closest(
+                        ".service-card"
+                    );
+
+
+                if (selectedCard) {
+
+                    selectedCard.classList.add(
+                        "selected-service"
+                    );
+
+                }
+
+
+                updateAvailabilityLink();
+
+            }
+        );
+
+    });
+
 
 
     // ========================================
@@ -41,10 +159,11 @@ if (bookingPage) {
     // ========================================
 
     const MAPBOX_TOKEN =
-        "pk.eyJ1IjoiYnJpZ2h0c2lkZWRldGFpbGluZyIsImEiOiJjbXQ5bGEzdTAwMGg0Mnlwd2M1MHlyYWV0In0.Usd3fiKRnMZq1oE6cYy1Jg";
+        "pk.eyJ1IjoiYnJpZ2h0c2lkZWRldGFpbGluZyIsImEiOiJjbXQ5bGEzdTAwMGg0Mnlwd2M1MHlyZWF0In0.Usd3fiKRnMZq1oE6cYy1Jg";
 
 
     // Alief Community Center
+
     const SERVICE_LAT =
         29.70254;
 
@@ -53,6 +172,7 @@ if (bookingPage) {
 
     const SERVICE_RADIUS =
         30;
+
 
 
     // ========================================
@@ -96,8 +216,9 @@ if (bookingPage) {
         );
 
 
+
     // ========================================
-    // SERVICE / CALENDLY LINKS
+    // CALENDLY LINKS
     // ========================================
 
     const calendlyLinks = {
@@ -114,127 +235,12 @@ if (bookingPage) {
     };
 
 
-    // ========================================
-    // VEHICLE PRICING
-    // ========================================
-
-    const prices = {
-
-        sedan: {
-
-            express: 75,
-            interior: 100,
-            full: 150
-
-        },
-
-        suv: {
-
-            express: 90,
-            interior: 115,
-            full: 175
-
-        },
-
-        truck: {
-
-            express: 100,
-            interior: 130,
-            full: 200
-
-        }
-
-    };
-
-
-    // ========================================
-    // PACKAGE SELECTION
-    // ========================================
-
-    const serviceRadios =
-        document.querySelectorAll(
-            "input[name='service']"
-        );
-
-
-    // Get package from URL
-    //
-    // Examples:
-    //
-    // booking/?service=express
-    // booking/?service=interior
-    // booking/?service=full-detail
-
-    const urlParams =
-        new URLSearchParams(
-            window.location.search
-        );
-
-    const requestedService =
-        urlParams.get("service");
-
-
-    function selectService(
-        serviceName
-    ) {
-
-        if (!serviceName) {
-            return;
-        }
-
-
-        const radio =
-            document.querySelector(
-                `input[name="service"][value="${serviceName}"]`
-            );
-
-
-        if (!radio) {
-            return;
-        }
-
-
-        radio.checked = true;
-
-
-        // Update visual card
-
-        document
-            .querySelectorAll(".service-card")
-            .forEach(card => {
-
-                card.classList.remove(
-                    "selected"
-                );
-
-            });
-
-
-        const card =
-            radio.closest(
-                ".service-card"
-            );
-
-
-        if (card) {
-
-            card.classList.add(
-                "selected"
-            );
-
-        }
-
-
-        updateCalendlyLink();
-
-    }
-
 
     // ========================================
     // UPDATE CALENDLY LINK
     // ========================================
 
-    function updateCalendlyLink() {
+    function updateAvailabilityLink() {
 
         if (!availabilityButton) {
             return;
@@ -250,7 +256,14 @@ if (bookingPage) {
         if (!selectedService) {
 
             availabilityButton.href =
-                calendlyLinks["full-detail"];
+                "#";
+
+            availabilityButton.classList.add(
+                "disabled-button"
+            );
+
+            availabilityButton.style.pointerEvents =
+                "none";
 
             return;
 
@@ -261,73 +274,58 @@ if (bookingPage) {
             selectedService.value;
 
 
-        if (
-            calendlyLinks[service]
-        ) {
+        const calendlyURL =
+            calendlyLinks[service];
 
-            availabilityButton.href =
-                calendlyLinks[service];
 
+        if (!calendlyURL) {
+            return;
         }
+
+
+        availabilityButton.href =
+            calendlyURL;
+
+
+        availabilityButton.classList.remove(
+            "disabled-button"
+        );
+
+
+        availabilityButton.style.pointerEvents =
+            "auto";
 
     }
 
-
-    // ========================================
-    // SERVICE RADIO EVENTS
-    // ========================================
-
-    serviceRadios.forEach(
-        radio => {
-
-            radio.addEventListener(
-                "change",
-                () => {
-
-                    // Update selected card
-
-                    document
-                        .querySelectorAll(
-                            ".service-card"
-                        )
-                        .forEach(card => {
-
-                            card.classList.remove(
-                                "selected"
-                            );
-
-                        });
-
-
-                    const card =
-                        radio.closest(
-                            ".service-card"
-                        );
-
-
-                    if (card) {
-
-                        card.classList.add(
-                            "selected"
-                        );
-
-                    }
-
-
-                    // Update Calendly
-
-                    updateCalendlyLink();
-
-                }
-            );
-
-        }
-    );
 
 
     // ========================================
     // VEHICLE PRICING
     // ========================================
+
+    const prices = {
+
+        sedan: {
+            express: 75,
+            interior: 100,
+            full: 150
+        },
+
+        suv: {
+            express: 95,
+            interior: 120,
+            full: 180
+        },
+
+        truck: {
+            express: 110,
+            interior: 140,
+            full: 200
+        }
+
+    };
+
+
 
     function updatePrices() {
 
@@ -346,8 +344,6 @@ if (bookingPage) {
             );
 
 
-        // No vehicle selected
-
         if (!vehicle) {
 
             if (vehiclePrice) {
@@ -358,14 +354,12 @@ if (bookingPage) {
             }
 
 
-            priceElements.forEach(
-                element => {
+            priceElements.forEach(element => {
 
-                    element.textContent =
-                        "Select Vehicle";
+                element.textContent =
+                    "Select Vehicle";
 
-                }
-            );
+            });
 
 
             return;
@@ -377,87 +371,69 @@ if (bookingPage) {
             prices[vehicle];
 
 
-        if (!selected) {
-            return;
-        }
-
-
-        // Main pricing message
-
         if (vehiclePrice) {
 
-            vehiclePrice.innerHTML = `
-
-                <strong>
-                    Estimated pricing:
-                </strong>
-
-                Express $${selected.express}
-
-                • Interior $${selected.interior}
-
-                • Full Detail $${selected.full}
-
-            `;
+            vehiclePrice.innerHTML =
+                `<strong>Estimated pricing:</strong>
+                 Express $${selected.express}
+                 • Interior $${selected.interior}
+                 • Full Detail $${selected.full}`;
 
         }
 
 
-        // Update individual service cards
+        priceElements.forEach(element => {
 
-        priceElements.forEach(
-            element => {
-
-                const card =
-                    element.closest(
-                        ".service-card"
-                    );
+            const card =
+                element.closest(
+                    ".service-card"
+                );
 
 
-                const radio =
-                    card?.querySelector(
-                        "input[name='service']"
-                    );
+            const radio =
+                card?.querySelector(
+                    "input[name='service']"
+                );
 
 
-                if (!radio) {
-                    return;
-                }
+            if (!radio) {
+                return;
+            }
 
 
-                if (
-                    radio.value === "express"
-                ) {
+            if (
+                radio.value === "express"
+            ) {
 
-                    element.textContent =
-                        `$${selected.express}`;
-
-                }
-
-
-                if (
-                    radio.value === "interior"
-                ) {
-
-                    element.textContent =
-                        `$${selected.interior}`;
-
-                }
-
-
-                if (
-                    radio.value === "full-detail"
-                ) {
-
-                    element.textContent =
-                        `$${selected.full}`;
-
-                }
+                element.textContent =
+                    `$${selected.express}`;
 
             }
-        );
+
+
+            if (
+                radio.value === "interior"
+            ) {
+
+                element.textContent =
+                    `$${selected.interior}`;
+
+            }
+
+
+            if (
+                radio.value === "full-detail"
+            ) {
+
+                element.textContent =
+                    `$${selected.full}`;
+
+            }
+
+        });
 
     }
+
 
 
     if (vehicleSize) {
@@ -465,22 +441,6 @@ if (bookingPage) {
         vehicleSize.addEventListener(
             "change",
             updatePrices
-        );
-
-    }
-
-
-    // ========================================
-    // INITIAL PACKAGE SELECTION
-    // ========================================
-
-    if (
-        requestedService &&
-        calendlyLinks[requestedService]
-    ) {
-
-        selectService(
-            requestedService
         );
 
     }
@@ -505,7 +465,7 @@ if (bookingPage) {
         if (
             !MAPBOX_TOKEN ||
             MAPBOX_TOKEN ===
-                "PASTE_YOUR_CURRENT_PK_TOKEN_HERE"
+                "PASTE_YOUR_PK_TOKEN_HERE"
         ) {
 
             console.error(
@@ -545,10 +505,8 @@ if (bookingPage) {
                     "mapbox://styles/mapbox/streets-v12",
 
                 center: [
-
                     SERVICE_LNG,
                     SERVICE_LAT
-
                 ],
 
                 zoom: 11
@@ -580,6 +538,7 @@ if (bookingPage) {
     }
 
 
+
     // ========================================
     // SEARCH SESSION
     // ========================================
@@ -589,6 +548,7 @@ if (bookingPage) {
 
 
     let searchTimer;
+
 
 
     // ========================================
@@ -640,6 +600,7 @@ if (bookingPage) {
         );
 
     }
+
 
 
     // ========================================
@@ -713,6 +674,7 @@ if (bookingPage) {
         }
 
     }
+
 
 
     // ========================================
@@ -806,8 +768,9 @@ if (bookingPage) {
     }
 
 
+
     // ========================================
-    // RETRIEVE SELECTED ADDRESS
+    // RETRIEVE ADDRESS
     // ========================================
 
     async function retrieveAddress(
@@ -921,6 +884,7 @@ if (bookingPage) {
     }
 
 
+
     // ========================================
     // UPDATE MAP
     // ========================================
@@ -978,6 +942,7 @@ if (bookingPage) {
         marker.togglePopup();
 
     }
+
 
 
     // ========================================
@@ -1044,6 +1009,7 @@ if (bookingPage) {
         return radius * c;
 
     }
+
 
 
     // ========================================
@@ -1130,6 +1096,7 @@ if (bookingPage) {
     }
 
 
+
     // ========================================
     // AVAILABILITY
     // ========================================
@@ -1163,12 +1130,6 @@ if (bookingPage) {
         );
 
 
-        // Make sure Calendly matches
-        // the selected package.
-
-        updateCalendlyLink();
-
-
         const message =
             availability.querySelector(
                 ".availability-message"
@@ -1185,15 +1146,20 @@ if (bookingPage) {
 
                 <p>
                     Your address is within our
-                    service area. Check the available
-                    appointments for your selected service.
+                    service area. Check our
+                    available appointments.
                 </p>
 
             `;
 
         }
 
+
+        // Update Calendly based on selected service
+        updateAvailabilityLink();
+
     }
+
 
 
     function lockAvailability() {
@@ -1252,6 +1218,7 @@ if (bookingPage) {
     }
 
 
+
     // ========================================
     // RESET LOCATION
     // ========================================
@@ -1274,6 +1241,7 @@ if (bookingPage) {
     }
 
 
+
     // ========================================
     // HIDE SUGGESTIONS
     // ========================================
@@ -1294,6 +1262,7 @@ if (bookingPage) {
     }
 
 
+
     // ========================================
     // ESCAPE HTML
     // ========================================
@@ -1303,33 +1272,29 @@ if (bookingPage) {
     ) {
 
         return String(value)
-
             .replace(
                 /&/g,
                 "&amp;"
             )
-
             .replace(
                 /</g,
                 "&lt;"
             )
-
             .replace(
                 />/g,
                 "&gt;"
             )
-
             .replace(
                 /"/g,
                 "&quot;"
             )
-
             .replace(
                 /'/g,
                 "&#039;"
             );
 
     }
+
 
 
     // ========================================
