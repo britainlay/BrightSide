@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -21,21 +22,33 @@
     >
 
     <link rel="stylesheet" href="../style.css">
+
 </head>
 
 
 <body>
 
+
+    <!-- ============================= -->
     <!-- NAVIGATION -->
+    <!-- ============================= -->
 
     <header class="navbar">
 
         <div class="nav-container">
 
             <a href="../index.html" class="logo">
-                <span>BRIGHTSIDE</span>
-                <small>MOBILE DETAILING</small>
+
+                <span>
+                    BRIGHTSIDE
+                </span>
+
+                <small>
+                    MOBILE DETAILING
+                </small>
+
             </a>
+
 
             <nav class="nav-links">
 
@@ -61,9 +74,14 @@
 
             </nav>
 
-            <a href="index.html" class="nav-button">
+
+            <a
+                href="index.html"
+                class="nav-button"
+            >
                 Book Now
             </a>
+
 
             <button
                 class="menu-button"
@@ -78,7 +96,10 @@
     </header>
 
 
-    <!-- BOOKING HERO -->
+
+    <!-- ============================= -->
+    <!-- HERO -->
+    <!-- ============================= -->
 
     <section class="booking-hero">
 
@@ -94,9 +115,9 @@
             </h1>
 
             <p>
-                Choose your vehicle and service,
-                check our availability, and request
-                a time that works for you.
+                Choose your vehicle, see your starting price,
+                confirm your service area, and find an
+                available weekend appointment.
             </p>
 
         </div>
@@ -104,14 +125,19 @@
     </section>
 
 
-    <!-- BOOKING CONTENT -->
+
+    <!-- ============================= -->
+    <!-- BOOKING PAGE -->
+    <!-- ============================= -->
 
     <main class="booking-page">
 
         <div class="booking-layout">
 
 
-            <!-- LEFT SIDEBAR -->
+            <!-- ============================= -->
+            <!-- SIDEBAR -->
+            <!-- ============================= -->
 
             <aside class="booking-sidebar">
 
@@ -128,16 +154,15 @@
 
                     <p>
                         Brightside is a mobile detailing service.
-                        Choose your service and an available
-                        weekend appointment, and we'll come to you.
+                        Choose your service, check your location,
+                        and select an available weekend appointment.
                     </p>
 
                 </div>
 
 
-                <!-- PROCESS -->
-
                 <div class="booking-process">
+
 
                     <div class="process-item">
 
@@ -173,12 +198,12 @@
                         <div>
 
                             <h3>
-                                Check Availability
+                                Check Your Location
                             </h3>
 
                             <p>
-                                Choose an available weekend
-                                date and time.
+                                We'll check whether your address
+                                is inside our current service area.
                             </p>
 
                         </div>
@@ -198,12 +223,12 @@
                         <div>
 
                             <h3>
-                                Get Confirmed
+                                Pick a Time
                             </h3>
 
                             <p>
-                                We'll review your request and
-                                confirm the appointment.
+                                Choose an available weekend
+                                appointment through Calendly.
                             </p>
 
                         </div>
@@ -212,8 +237,6 @@
 
                 </div>
 
-
-                <!-- SERVICE AREA -->
 
                 <div class="pricing-note">
 
@@ -228,10 +251,9 @@
                         </strong>
 
                         <p>
-                            Currently serving Alief and
-                            surrounding Houston areas within
-                            approximately 30 miles of our
-                            service area.
+                            Brightside currently services
+                            locations within approximately
+                            30 miles of our service area.
                         </p>
 
                     </div>
@@ -242,12 +264,16 @@
 
 
 
+            <!-- ============================= -->
             <!-- BOOKING CARD -->
+            <!-- ============================= -->
 
             <section class="booking-card">
 
 
-                <!-- FORM HEADER -->
+                <!-- ============================= -->
+                <!-- HEADER -->
+                <!-- ============================= -->
 
                 <div class="form-header">
 
@@ -258,7 +284,8 @@
                         </h2>
 
                         <p>
-                            Start by telling us about your vehicle.
+                            Fill out the information below
+                            before checking availability.
                         </p>
 
                     </div>
@@ -271,7 +298,9 @@
 
 
 
-                <!-- CONTACT INFORMATION -->
+                <!-- ============================= -->
+                <!-- CONTACT -->
+                <!-- ============================= -->
 
                 <div class="form-block">
 
@@ -298,6 +327,7 @@
 
                     <div class="input-grid">
 
+
                         <div class="input-group">
 
                             <label for="name">
@@ -309,6 +339,7 @@
                                 id="name"
                                 name="name"
                                 placeholder="Your name"
+                                autocomplete="name"
                                 required
                             >
 
@@ -326,6 +357,7 @@
                                 id="phone"
                                 name="phone"
                                 placeholder="(713) 555-0000"
+                                autocomplete="tel"
                                 required
                             >
 
@@ -345,6 +377,7 @@
                             id="email"
                             name="email"
                             placeholder="you@example.com"
+                            autocomplete="email"
                             required
                         >
 
@@ -354,7 +387,9 @@
 
 
 
-                <!-- VEHICLE INFORMATION -->
+                <!-- ============================= -->
+                <!-- VEHICLE -->
+                <!-- ============================= -->
 
                 <div class="form-block">
 
@@ -381,6 +416,7 @@
 
                     <div class="input-grid">
 
+
                         <div class="input-group">
 
                             <label for="vehicle-make">
@@ -391,6 +427,7 @@
                                 type="text"
                                 id="vehicle-make"
                                 placeholder="Toyota"
+                                autocomplete="off"
                                 required
                             >
 
@@ -407,6 +444,7 @@
                                 type="text"
                                 id="vehicle-model"
                                 placeholder="Camry"
+                                autocomplete="off"
                                 required
                             >
 
@@ -416,6 +454,7 @@
 
 
                     <div class="input-grid">
+
 
                         <div class="input-group">
 
@@ -447,7 +486,7 @@
                             >
 
                                 <option value="">
-                                    Choose your vehicle
+                                    Choose your vehicle to see pricing
                                 </option>
 
                                 <option value="sedan">
@@ -464,9 +503,10 @@
 
                             </select>
 
+
                             <span class="input-help">
-                                Select your vehicle type to see
-                                the exact starting prices below.
+                                Your vehicle type determines the
+                                starting price for each service.
                             </span>
 
                         </div>
@@ -477,7 +517,9 @@
 
 
 
+                <!-- ============================= -->
                 <!-- SERVICE -->
+                <!-- ============================= -->
 
                 <div class="form-block">
 
@@ -494,13 +536,13 @@
                             </h3>
 
                             <p>
-                                Select a service after viewing
-                                the price for your vehicle.
+                                Select the service you'd like.
                             </p>
 
                         </div>
 
                     </div>
+
 
 
                     <div class="service-cards">
@@ -541,6 +583,7 @@
                                     </strong>
 
                                 </div>
+
 
                                 <p>
                                     Wheels, tires, exterior wash,
@@ -589,6 +632,7 @@
 
                                 </div>
 
+
                                 <p>
                                     Vacuuming, pet hair removal,
                                     plastics, mats, and interior glass.
@@ -608,12 +652,14 @@
                                 BEST VALUE
                             </div>
 
+
                             <input
                                 type="radio"
                                 name="service"
                                 value="full-detail"
                                 required
                             >
+
 
                             <div class="service-card-content">
 
@@ -640,6 +686,7 @@
 
                                 </div>
 
+
                                 <p>
                                     Complete interior and exterior
                                     detailing in one service.
@@ -655,16 +702,17 @@
                     <div class="pricing-disclaimer">
 
                         <strong>
-                            Pricing shown is based on vehicle size.
+                            Transparent starting prices
                         </strong>
 
                         <p>
+                            Pricing is based on vehicle size.
                             Vehicles with excessive pet hair,
                             heavy stains, mud, or other conditions
-                            requiring additional work may receive
-                            an additional charge. Any additional
-                            charge will be discussed before service
-                            begins.
+                            requiring significantly more work may
+                            receive an additional charge. Any
+                            additional charge will be discussed
+                            before service begins.
                         </p>
 
                     </div>
@@ -673,7 +721,9 @@
 
 
 
-                <!-- SERVICE LOCATION -->
+                <!-- ============================= -->
+                <!-- LOCATION -->
+                <!-- ============================= -->
 
                 <div class="form-block">
 
@@ -704,35 +754,61 @@
                             Service Address
                         </label>
 
+
                         <input
                             type="text"
                             id="address"
-                            placeholder="Street address, city, ZIP"
+                            placeholder="Enter your street address"
+                            autocomplete="street-address"
                             required
                         >
 
+
                         <span class="input-help">
-                            We'll check whether your address is
-                            within our current service area.
+                            Enter the location where you'd like
+                            your vehicle detailed.
                         </span>
 
                     </div>
 
 
-                    <!-- MAPBOX RESULT WILL APPEAR HERE -->
+                    <!-- ADDRESS CHECK BUTTON -->
+
+                    <button
+                        type="button"
+                        id="check-address"
+                        class="submit-button address-check-button"
+                    >
+                        Check Service Area
+                        <span>
+                            →
+                        </span>
+                    </button>
+
+
+                    <!-- ADDRESS RESULT -->
 
                     <div
                         id="service-area-result"
                         class="service-area-result"
-                        style="display: none;"
-                    >
-                    </div>
+                        aria-live="polite"
+                        style="
+                            display:none;
+                            margin-top:18px;
+                            padding:18px;
+                            border-radius:14px;
+                            background:#f4f8fb;
+                            border:1px solid #dce6ee;
+                        "
+                    ></div>
 
                 </div>
 
 
 
+                <!-- ============================= -->
                 <!-- AVAILABILITY -->
+                <!-- ============================= -->
 
                 <div class="form-block">
 
@@ -749,7 +825,7 @@
                             </h3>
 
                             <p>
-                                View available weekend appointments.
+                                Find an available weekend appointment.
                             </p>
 
                         </div>
@@ -760,22 +836,36 @@
                     <div class="booking-availability">
 
                         <p>
-                            After choosing your service and
-                            confirming your service area, check
-                            the live schedule for available
-                            weekend appointments.
+                            Once your vehicle and service area
+                            are confirmed, continue to Calendly
+                            to view the live weekend schedule.
                         </p>
 
 
                         <a
-                            href="https://calendly.com/brightsidemdetails/30min"
+                            href="#"
+                            id="calendly-button"
                             class="submit-button"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            style="
+                                opacity:0.5;
+                                pointer-events:none;
+                            "
                         >
                             Check Availability
-                            <span>→</span>
+                            <span>
+                                →
+                            </span>
                         </a>
+
+
+                        <p
+                            id="calendly-help"
+                            class="input-help"
+                            style="margin-top:12px;"
+                        >
+                            Complete your vehicle and service
+                            address first.
+                        </p>
 
                     </div>
 
@@ -783,7 +873,9 @@
 
 
 
-                <!-- VEHICLE CONDITION -->
+                <!-- ============================= -->
+                <!-- CONDITION -->
+                <!-- ============================= -->
 
                 <div class="form-block">
 
@@ -810,14 +902,20 @@
 
                     <div class="input-group">
 
+                        <label for="condition">
+                            Additional Information
+                        </label>
+
+
                         <textarea
                             id="condition"
                             placeholder="Example: heavy pet hair, stains, mud, etc."
                         ></textarea>
 
+
                         <span class="input-help">
-                            Being accurate helps us estimate
-                            how much time your vehicle will need.
+                            Let us know about anything that may
+                            require additional attention.
                         </span>
 
                     </div>
@@ -826,7 +924,9 @@
 
 
 
+                <!-- ============================= -->
                 <!-- FINAL NOTE -->
+                <!-- ============================= -->
 
                 <div class="booking-submit">
 
@@ -834,12 +934,14 @@
                         <strong>
                             Almost there.
                         </strong>
-                        Once you've selected your vehicle,
-                        service, and location, you can check
-                        our live weekend availability.
+
+                        Your name and email will be carried
+                        into Calendly so you don't have to enter
+                        them again.
                     </p>
 
                 </div>
+
 
             </section>
 
@@ -849,11 +951,14 @@
 
 
 
+    <!-- ============================= -->
     <!-- FOOTER -->
+    <!-- ============================= -->
 
     <footer>
 
         <div class="footer-container">
+
 
             <div class="footer-brand">
 
@@ -872,6 +977,7 @@
 
                 </a>
 
+
                 <p>
                     Detailing that comes to you.
                 </p>
@@ -879,7 +985,9 @@
             </div>
 
 
+
             <div class="footer-links">
+
 
                 <div>
 
@@ -945,6 +1053,7 @@
         </div>
 
     </footer>
+
 
 
     <script src="../script.js"></script>
