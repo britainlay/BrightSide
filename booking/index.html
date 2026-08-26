@@ -66,7 +66,6 @@
 
     <div class="nav-container">
 
-
         <a
             href="../index.html"
             class="logo"
@@ -178,14 +177,14 @@
     class="booking-page"
 >
 
-
     <div class="booking-layout">
 
 
-        <!-- SIDEBAR -->
+        <!-- ==================================
+             SIDEBAR
+        ================================== -->
 
         <aside class="booking-sidebar">
-
 
             <div class="sidebar-intro">
 
@@ -207,10 +206,10 @@
 
                 <p>
 
-                    Brightside is a mobile detailing
-                    service. Choose your service,
-                    check your location, and select
-                    an available weekend appointment.
+                    Choose your service,
+                    check your location,
+                    and select an available
+                    weekend appointment.
 
                 </p>
 
@@ -230,12 +229,12 @@
                     <div>
 
                         <h3>
-                            Choose Your Service
+                            Choose Your Vehicle
                         </h3>
 
                         <p>
-                            Pick the detailing package
-                            that fits your vehicle.
+                            Select your vehicle size
+                            to see your exact starting price.
                         </p>
 
                     </div>
@@ -328,7 +327,9 @@
 
 
 
-        <!-- FORM -->
+        <!-- ==================================
+             BOOKING CARD
+        ================================== -->
 
         <section class="booking-card">
 
@@ -348,7 +349,9 @@
 
 
 
-            <!-- VEHICLE -->
+            <!-- ==================================
+                 VEHICLE
+            ================================== -->
 
             <div class="form-block">
 
@@ -474,7 +477,9 @@
 
 
 
-            <!-- SERVICE -->
+            <!-- ==================================
+                 SERVICE
+            ================================== -->
 
             <div class="form-block">
 
@@ -491,7 +496,7 @@
                         </h3>
 
                         <p>
-                            Pricing updates based on vehicle size.
+                            Select the package you'd like to book.
                         </p>
 
                     </div>
@@ -499,9 +504,30 @@
                 </div>
 
 
+                <!-- Selected-from-package notice -->
+
+                <div
+                    id="selected-service-notice"
+                    class="selected-service-notice"
+                    style="display: none;"
+                >
+
+                    <strong>
+                        Package selected
+                    </strong>
+
+                    <span id="selected-service-text">
+                        Your selected package has been pre-selected.
+                    </span>
+
+                </div>
+
+
 
                 <div class="service-cards">
 
+
+                    <!-- EXPRESS -->
 
                     <label class="service-card">
 
@@ -547,6 +573,8 @@
 
 
 
+                    <!-- INTERIOR -->
+
                     <label class="service-card">
 
                         <input
@@ -590,6 +618,8 @@
                     </label>
 
 
+
+                    <!-- FULL DETAIL -->
 
                     <label
                         class="service-card popular-service"
@@ -646,7 +676,9 @@
 
 
 
-            <!-- LOCATION -->
+            <!-- ==================================
+                 LOCATION
+            ================================== -->
 
             <div class="form-block">
 
@@ -729,7 +761,9 @@
 
 
 
-                <!-- AVAILABILITY -->
+                <!-- ==================================
+                     AVAILABILITY
+                ================================== -->
 
                 <div
                     id="availability-container"
@@ -757,10 +791,8 @@
 
                     <a
                         id="availability-button"
-                        href="https://calendly.com/brightsidemdetails/30min"
+                        href="#"
                         class="primary-button disabled-button"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         aria-disabled="true"
                     >
 
@@ -778,7 +810,9 @@
 
 
 
-            <!-- CONDITION -->
+            <!-- ==================================
+                 CONDITION
+            ================================== -->
 
             <div class="form-block">
 
@@ -825,7 +859,9 @@
 
 
 
-            <!-- NOTE -->
+            <!-- ==================================
+                 FINAL NOTE
+            ================================== -->
 
             <div class="booking-submit">
 
@@ -834,7 +870,15 @@
                     Starting prices are based on vehicle size.
                     Final pricing may vary depending on vehicle
                     condition. Any additional charge will be
-                    discussed before service begins.
+                    discussed with you before service begins.
+
+                </p>
+
+                <p style="margin-top: 10px;">
+
+                    Your name, phone number, and email
+                    will be collected once through Calendly
+                    when you select your appointment.
 
                 </p>
 
@@ -848,7 +892,9 @@
 
 
 
-<!-- FOOTER -->
+<!-- ======================================
+     FOOTER
+====================================== -->
 
 <footer>
 
@@ -949,6 +995,189 @@
 
 
 <script src="../script.js"></script>
+
+
+<!-- ======================================
+     PACKAGE PRE-SELECTION
+====================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const params = new URLSearchParams(window.location.search);
+
+    const selectedService = params.get("service");
+
+    const serviceInputs = document.querySelectorAll(
+        'input[name="service"]'
+    );
+
+    const notice = document.getElementById(
+        "selected-service-notice"
+    );
+
+    const noticeText = document.getElementById(
+        "selected-service-text"
+    );
+
+    const availabilityButton = document.getElementById(
+        "availability-button"
+    );
+
+
+    const serviceNames = {
+
+        "express":
+            "Express Exterior Wash",
+
+        "interior":
+            "Full Interior Detail",
+
+        "full-detail":
+            "Full Detail"
+
+    };
+
+
+    /*
+       Automatically select the package
+       when the customer came from
+       the Packages page.
+    */
+
+    if (
+        selectedService &&
+        serviceNames[selectedService]
+    ) {
+
+        const matchingInput = document.querySelector(
+            `input[name="service"][value="${selectedService}"]`
+        );
+
+
+        if (matchingInput) {
+
+            matchingInput.checked = true;
+
+            matchingInput.dispatchEvent(
+                new Event("change", {
+                    bubbles: true
+                })
+            );
+
+
+            if (notice) {
+
+                notice.style.display = "flex";
+
+            }
+
+
+            if (noticeText) {
+
+                noticeText.textContent =
+                    serviceNames[selectedService] +
+                    " was selected from the Packages page.";
+
+            }
+
+        }
+
+    }
+
+
+    /*
+       Calendly routing.
+    */
+
+    const calendlyLinks = {
+
+        "express":
+            "https://calendly.com/brightsidemdetails/express-exterior",
+
+        "interior":
+            "https://calendly.com/brightsidemdetails/full-interior",
+
+        "full-detail":
+            "https://calendly.com/brightsidemdetails/30min"
+
+    };
+
+
+    function updateCalendlyLink() {
+
+        const selected = document.querySelector(
+            'input[name="service"]:checked'
+        );
+
+
+        if (!selected || !availabilityButton) {
+
+            return;
+
+        }
+
+
+        const link =
+            calendlyLinks[selected.value];
+
+
+        if (link) {
+
+            availabilityButton.href = link;
+
+            availabilityButton.dataset.calendlyLink =
+                link;
+
+        }
+
+    }
+
+
+    serviceInputs.forEach(function (input) {
+
+        input.addEventListener(
+            "change",
+            updateCalendlyLink
+        );
+
+    });
+
+
+    updateCalendlyLink();
+
+
+    /*
+       Prevent the Calendly button from
+       working until the address checker
+       says the customer is eligible.
+    */
+
+    if (availabilityButton) {
+
+        availabilityButton.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    availabilityButton.classList.contains(
+                        "disabled-button"
+                    )
+                ) {
+
+                    event.preventDefault();
+
+                }
+
+            }
+        );
+
+    }
+
+});
+
+</script>
 
 </body>
 
