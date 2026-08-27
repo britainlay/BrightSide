@@ -19,7 +19,6 @@
         content="Book a mobile car detailing appointment with Brightside Detailing."
     >
 
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <link
@@ -33,12 +32,10 @@
         rel="stylesheet"
     >
 
-
     <link
         rel="stylesheet"
         href="../style.css"
     >
-
 
     <!-- MAPBOX -->
 
@@ -141,25 +138,16 @@
             MOBILE DETAILING • ALIEF & HOUSTON
         </p>
 
-
         <h1>
-
             Book Your
-
-            <span>
-                Detail.
-            </span>
-
+            <span>Detail.</span>
         </h1>
 
-
         <p>
-
             Choose your service,
             check your location,
             and find an available
             weekend appointment.
-
         </p>
 
     </div>
@@ -180,9 +168,7 @@
     <div class="booking-layout">
 
 
-        <!-- ==================================
-             SIDEBAR
-        ================================== -->
+        <!-- SIDEBAR -->
 
         <aside class="booking-sidebar">
 
@@ -192,33 +178,24 @@
                     SIMPLE PROCESS
                 </p>
 
-
                 <h2>
-
                     Clean car.
-
                     <span>
                         Simple booking.
                     </span>
-
                 </h2>
 
-
                 <p>
-
-                    Choose your service,
-                    check your location,
-                    and select an available
-                    weekend appointment.
-
+                    Brightside is a mobile detailing
+                    service. Choose your service,
+                    check your location, and select
+                    an available weekend appointment.
                 </p>
 
             </div>
 
 
-
             <div class="booking-process">
-
 
                 <div class="process-item">
 
@@ -229,12 +206,12 @@
                     <div>
 
                         <h3>
-                            Choose Your Vehicle
+                            Choose Your Service
                         </h3>
 
                         <p>
-                            Select your vehicle size
-                            to see your exact starting price.
+                            Pick the detailing package
+                            that fits your vehicle.
                         </p>
 
                     </div>
@@ -295,13 +272,11 @@
             </div>
 
 
-
             <div class="pricing-note">
 
                 <div class="note-icon">
                     ✓
                 </div>
-
 
                 <div>
 
@@ -309,14 +284,11 @@
                         Mobile Service Area
                     </strong>
 
-
                     <p>
-
                         Serving Alief and surrounding
                         Houston communities within
                         approximately 30 miles of the
                         Alief Community Center.
-
                     </p>
 
                 </div>
@@ -327,9 +299,7 @@
 
 
 
-        <!-- ==================================
-             BOOKING CARD
-        ================================== -->
+        <!-- FORM -->
 
         <section class="booking-card">
 
@@ -339,7 +309,6 @@
                 <h2>
                     Request a Detail
                 </h2>
-
 
                 <div class="form-badge">
                     WEEKEND SERVICE
@@ -376,9 +345,7 @@
                 </div>
 
 
-
                 <div class="input-grid">
-
 
                     <div class="input-group">
 
@@ -390,6 +357,8 @@
                             id="vehicle-make"
                             type="text"
                             placeholder="Toyota"
+                            autocomplete="off"
+                            required
                         >
 
                     </div>
@@ -405,6 +374,8 @@
                             id="vehicle-model"
                             type="text"
                             placeholder="Camry"
+                            autocomplete="off"
+                            required
                         >
 
                     </div>
@@ -412,9 +383,7 @@
                 </div>
 
 
-
                 <div class="input-grid">
-
 
                     <div class="input-group">
 
@@ -428,6 +397,7 @@
                             placeholder="2022"
                             min="1980"
                             max="2030"
+                            required
                         >
 
                     </div>
@@ -439,8 +409,10 @@
                             Vehicle Type
                         </label>
 
-
-                        <select id="vehicle-size">
+                        <select
+                            id="vehicle-size"
+                            required
+                        >
 
                             <option value="">
                                 Choose vehicle to see price
@@ -463,7 +435,6 @@
                     </div>
 
                 </div>
-
 
 
                 <div
@@ -496,7 +467,7 @@
                         </h3>
 
                         <p>
-                            Select the package you'd like to book.
+                            Pricing updates based on vehicle size.
                         </p>
 
                     </div>
@@ -504,30 +475,8 @@
                 </div>
 
 
-                <!-- Selected-from-package notice -->
-
-                <div
-                    id="selected-service-notice"
-                    class="selected-service-notice"
-                    style="display: none;"
-                >
-
-                    <strong>
-                        Package selected
-                    </strong>
-
-                    <span id="selected-service-text">
-                        Your selected package has been pre-selected.
-                    </span>
-
-                </div>
-
-
-
                 <div class="service-cards">
 
-
-                    <!-- EXPRESS -->
 
                     <label class="service-card">
 
@@ -535,8 +484,8 @@
                             type="radio"
                             name="service"
                             value="express"
+                            required
                         >
-
 
                         <div class="service-card-content">
 
@@ -554,13 +503,11 @@
 
                                 </div>
 
-
                                 <strong class="service-price">
                                     Select Vehicle
                                 </strong>
 
                             </div>
-
 
                             <p>
                                 Wheels, tires, exterior wash,
@@ -573,8 +520,6 @@
 
 
 
-                    <!-- INTERIOR -->
-
                     <label class="service-card">
 
                         <input
@@ -582,7 +527,6 @@
                             name="service"
                             value="interior"
                         >
-
 
                         <div class="service-card-content">
 
@@ -600,13 +544,11 @@
 
                                 </div>
 
-
                                 <strong class="service-price">
                                     Select Vehicle
                                 </strong>
 
                             </div>
-
 
                             <p>
                                 Vacuuming, pet hair removal,
@@ -619,8 +561,6 @@
 
 
 
-                    <!-- FULL DETAIL -->
-
                     <label
                         class="service-card popular-service"
                     >
@@ -629,13 +569,11 @@
                             BEST VALUE
                         </div>
 
-
                         <input
                             type="radio"
                             name="service"
                             value="full-detail"
                         >
-
 
                         <div class="service-card-content">
 
@@ -653,13 +591,11 @@
 
                                 </div>
 
-
                                 <strong class="service-price">
                                     Select Vehicle
                                 </strong>
 
                             </div>
-
 
                             <p>
                                 Complete interior and exterior
@@ -704,7 +640,6 @@
                 </div>
 
 
-
                 <div
                     class="input-group address-container"
                 >
@@ -713,37 +648,31 @@
                         Service Address
                     </label>
 
-
                     <input
                         id="address"
                         type="text"
                         autocomplete="off"
                         placeholder="Start typing your address..."
+                        required
                     >
-
 
                     <div
                         id="address-suggestions"
                         class="address-suggestions"
                     ></div>
 
-
                     <span class="input-help">
-
                         Select your exact address
                         from the suggestions.
-
                     </span>
 
                 </div>
-
 
 
                 <div
                     id="service-status"
                     class="service-status"
                 ></div>
-
 
 
                 <div
@@ -753,40 +682,33 @@
 
 
                 <p class="map-help">
-
                     Select an address above to see it
                     on the map and check eligibility.
-
                 </p>
 
 
-
-                <!-- ==================================
-                     AVAILABILITY
-                ================================== -->
+                <!-- AVAILABILITY -->
 
                 <div
                     id="availability-container"
                     class="availability-locked"
                 >
 
-
                     <div
                         class="availability-message"
                     >
 
                         <strong>
-                            Check Availability
+                            Complete the required information
                         </strong>
 
                         <p>
-                            Confirm your address is
-                            within our service area
-                            to continue.
+                            Enter your vehicle information,
+                            select a service, and confirm
+                            your service address.
                         </p>
 
                     </div>
-
 
 
                     <a
@@ -837,7 +759,6 @@
                 </div>
 
 
-
                 <div class="input-group">
 
                     <textarea
@@ -845,12 +766,9 @@
                         placeholder="Example: heavy pet hair, stains, mud, etc."
                     ></textarea>
 
-
                     <span class="input-help">
-
                         Please be as accurate as possible
                         so we can estimate the time needed.
-
                     </span>
 
                 </div>
@@ -859,27 +777,15 @@
 
 
 
-            <!-- ==================================
-                 FINAL NOTE
-            ================================== -->
+            <!-- NOTE -->
 
             <div class="booking-submit">
 
                 <p>
-
                     Starting prices are based on vehicle size.
                     Final pricing may vary depending on vehicle
                     condition. Any additional charge will be
                     discussed with you before service begins.
-
-                </p>
-
-                <p style="margin-top: 10px;">
-
-                    Your name, phone number, and email
-                    will be collected once through Calendly
-                    when you select your appointment.
-
                 </p>
 
             </div>
@@ -900,7 +806,6 @@
 
     <div class="footer-container">
 
-
         <div class="footer-brand">
 
             <a
@@ -918,7 +823,6 @@
 
             </a>
 
-
             <p>
                 Detailing that comes to you.
             </p>
@@ -926,15 +830,17 @@
         </div>
 
 
-
         <div class="footer-links">
-
 
             <div>
 
                 <h4>
                     Explore
                 </h4>
+
+                <a href="../index.html">
+                    Home
+                </a>
 
                 <a href="../packages/">
                     Packages
@@ -976,7 +882,6 @@
     </div>
 
 
-
     <div class="footer-bottom">
 
         <p>
@@ -993,191 +898,7 @@
 </footer>
 
 
-
 <script src="../script.js"></script>
-
-
-<!-- ======================================
-     PACKAGE PRE-SELECTION
-====================================== -->
-
-<script>
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const params = new URLSearchParams(window.location.search);
-
-    const selectedService = params.get("service");
-
-    const serviceInputs = document.querySelectorAll(
-        'input[name="service"]'
-    );
-
-    const notice = document.getElementById(
-        "selected-service-notice"
-    );
-
-    const noticeText = document.getElementById(
-        "selected-service-text"
-    );
-
-    const availabilityButton = document.getElementById(
-        "availability-button"
-    );
-
-
-    const serviceNames = {
-
-        "express":
-            "Express Exterior Wash",
-
-        "interior":
-            "Full Interior Detail",
-
-        "full-detail":
-            "Full Detail"
-
-    };
-
-
-    /*
-       Automatically select the package
-       when the customer came from
-       the Packages page.
-    */
-
-    if (
-        selectedService &&
-        serviceNames[selectedService]
-    ) {
-
-        const matchingInput = document.querySelector(
-            `input[name="service"][value="${selectedService}"]`
-        );
-
-
-        if (matchingInput) {
-
-            matchingInput.checked = true;
-
-            matchingInput.dispatchEvent(
-                new Event("change", {
-                    bubbles: true
-                })
-            );
-
-
-            if (notice) {
-
-                notice.style.display = "flex";
-
-            }
-
-
-            if (noticeText) {
-
-                noticeText.textContent =
-                    serviceNames[selectedService] +
-                    " was selected from the Packages page.";
-
-            }
-
-        }
-
-    }
-
-
-    /*
-       Calendly routing.
-    */
-
-    const calendlyLinks = {
-
-        "express":
-            "https://calendly.com/brightsidemdetails/express-exterior",
-
-        "interior":
-            "https://calendly.com/brightsidemdetails/full-interior",
-
-        "full-detail":
-            "https://calendly.com/brightsidemdetails/30min"
-
-    };
-
-
-    function updateCalendlyLink() {
-
-        const selected = document.querySelector(
-            'input[name="service"]:checked'
-        );
-
-
-        if (!selected || !availabilityButton) {
-
-            return;
-
-        }
-
-
-        const link =
-            calendlyLinks[selected.value];
-
-
-        if (link) {
-
-            availabilityButton.href = link;
-
-            availabilityButton.dataset.calendlyLink =
-                link;
-
-        }
-
-    }
-
-
-    serviceInputs.forEach(function (input) {
-
-        input.addEventListener(
-            "change",
-            updateCalendlyLink
-        );
-
-    });
-
-
-    updateCalendlyLink();
-
-
-    /*
-       Prevent the Calendly button from
-       working until the address checker
-       says the customer is eligible.
-    */
-
-    if (availabilityButton) {
-
-        availabilityButton.addEventListener(
-            "click",
-            function (event) {
-
-                if (
-                    availabilityButton.classList.contains(
-                        "disabled-button"
-                    )
-                ) {
-
-                    event.preventDefault();
-
-                }
-
-            }
-        );
-
-    }
-
-});
-
-</script>
 
 </body>
 
