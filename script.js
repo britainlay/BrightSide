@@ -14,9 +14,7 @@ const navLinks = document.querySelector(".nav-links");
 if (menuButton && navLinks) {
 
     menuButton.addEventListener("click", () => {
-
         navLinks.classList.toggle("mobile-open");
-
     });
 
 }
@@ -26,12 +24,9 @@ if (menuButton && navLinks) {
 // BOOKING PAGE
 // ============================================
 
-const bookingPage =
-    document.getElementById("booking-page");
-
+const bookingPage = document.getElementById("booking-page");
 
 if (bookingPage) {
-
 
     // ========================================
     // MAPBOX
@@ -42,15 +37,10 @@ if (bookingPage) {
 
 
     // Alief Community Center
+    const SERVICE_LAT = 29.70254;
+    const SERVICE_LNG = -95.58891;
 
-    const SERVICE_LAT =
-        29.70254;
-
-    const SERVICE_LNG =
-        -95.58891;
-
-    const SERVICE_RADIUS =
-        30;
+    const SERVICE_RADIUS = 30;
 
 
     // ========================================
@@ -61,52 +51,34 @@ if (bookingPage) {
         document.getElementById("address");
 
     const suggestionsBox =
-        document.getElementById(
-            "address-suggestions"
-        );
+        document.getElementById("address-suggestions");
 
     const serviceStatus =
-        document.getElementById(
-            "service-status"
-        );
+        document.getElementById("service-status");
 
     const availability =
-        document.getElementById(
-            "availability-container"
-        );
+        document.getElementById("availability-container");
 
     const availabilityButton =
-        document.getElementById(
-            "availability-button"
-        );
+        document.getElementById("availability-button");
 
     const mapElement =
         document.getElementById("map");
 
     const vehicleSize =
-        document.getElementById(
-            "vehicle-size"
-        );
-
-    const vehicleMake =
-        document.getElementById(
-            "vehicle-make"
-        );
-
-    const vehicleModel =
-        document.getElementById(
-            "vehicle-model"
-        );
-
-    const vehicleYear =
-        document.getElementById(
-            "vehicle-year"
-        );
+        document.getElementById("vehicle-size");
 
     const vehiclePrice =
-        document.getElementById(
-            "vehicle-price"
-        );
+        document.getElementById("vehicle-price");
+
+    const vehicleMake =
+        document.getElementById("vehicle-make");
+
+    const vehicleModel =
+        document.getElementById("vehicle-model");
+
+    const vehicleYear =
+        document.getElementById("vehicle-year");
 
 
     // ========================================
@@ -134,105 +106,32 @@ if (bookingPage) {
     const prices = {
 
         sedan: {
-
             express: 75,
             interior: 100,
             full: 150
-
         },
 
         suv: {
-
-            express: 90,
-            interior: 115,
-            full: 175
-
+            express: 95,
+            interior: 120,
+            full: 180
         },
 
         truck: {
-
-            express: 100,
-            interior: 130,
+            express: 110,
+            interior: 140,
             full: 200
-
         }
 
     };
 
 
     // ========================================
-    // SELECT PACKAGE FROM URL
+    // BOOKING STATE
     // ========================================
 
-    function selectPackageFromURL() {
-
-        const params =
-            new URLSearchParams(
-                window.location.search
-            );
-
-
-        const selectedService =
-            params.get("service");
-
-
-        if (!selectedService) {
-            return;
-        }
-
-
-        const serviceRadio =
-            document.querySelector(
-                `input[name="service"][value="${selectedService}"]`
-            );
-
-
-        if (serviceRadio) {
-
-            serviceRadio.checked = true;
-
-
-            const selectedCard =
-                serviceRadio.closest(
-                    ".service-card"
-                );
-
-
-            if (selectedCard) {
-
-                selectedCard.classList.add(
-                    "selected-service"
-                );
-
-            }
-
-        }
-
-    }
-
-
-    selectPackageFromURL();
-
-
-
-    // ========================================
-    // GET SELECTED SERVICE
-    // ========================================
-
-    function getSelectedService() {
-
-        const selected =
-            document.querySelector(
-                "input[name='service']:checked"
-            );
-
-
-        return selected
-            ? selected.value
-            : "";
-
-    }
-
+    let selectedAddress = false;
+    let locationEligible = false;
 
 
     // ========================================
@@ -242,8 +141,7 @@ if (bookingPage) {
     function updatePrices() {
 
         const vehicle =
-            vehicleSize?.value || "";
-
+            vehicleSize?.value;
 
         const priceElements =
             document.querySelectorAll(
@@ -261,19 +159,13 @@ if (bookingPage) {
             }
 
 
-            priceElements.forEach(
-                element => {
+            priceElements.forEach(element => {
 
-                    element.textContent =
-                        "Select Vehicle";
+                element.textContent =
+                    "Select Vehicle";
 
-                }
-            );
+            });
 
-
-            // IMPORTANT:
-            // If vehicle type is cleared,
-            // lock availability again.
 
             lockAvailability();
 
@@ -287,73 +179,62 @@ if (bookingPage) {
 
 
         if (!selected) {
-            lockAvailability();
             return;
         }
 
 
         if (vehiclePrice) {
 
-            vehiclePrice.innerHTML =
-                `<strong>Estimated pricing:</strong>
+            vehiclePrice.innerHTML = `
+                <strong>Estimated pricing:</strong>
                 Express $${selected.express}
                 • Interior $${selected.interior}
-                • Full Detail $${selected.full}`;
+                • Full Detail $${selected.full}
+            `;
 
         }
 
 
-        priceElements.forEach(
-            element => {
+        priceElements.forEach(element => {
 
-                const card =
-                    element.closest(
-                        ".service-card"
-                    );
+            const card =
+                element.closest(".service-card");
 
-
-                const radio =
-                    card?.querySelector(
-                        "input[name='service']"
-                    );
+            const radio =
+                card?.querySelector(
+                    "input[name='service']"
+                );
 
 
-                if (!radio) {
-                    return;
-                }
+            if (!radio) {
+                return;
+            }
 
 
-                if (
-                    radio.value === "express"
-                ) {
+            if (radio.value === "express") {
 
-                    element.textContent =
-                        `$${selected.express}`;
-
-                }
-
-
-                if (
-                    radio.value === "interior"
-                ) {
-
-                    element.textContent =
-                        `$${selected.interior}`;
-
-                }
-
-
-                if (
-                    radio.value === "full-detail"
-                ) {
-
-                    element.textContent =
-                        `$${selected.full}`;
-
-                }
+                element.textContent =
+                    `$${selected.express}`;
 
             }
-        );
+
+
+            if (radio.value === "interior") {
+
+                element.textContent =
+                    `$${selected.interior}`;
+
+            }
+
+
+            if (radio.value === "full-detail") {
+
+                element.textContent =
+                    `$${selected.full}`;
+
+            }
+
+        });
 
 
         validateBooking();
@@ -361,456 +242,20 @@ if (bookingPage) {
     }
 
 
-
     if (vehicleSize) {
 
         vehicleSize.addEventListener(
             "change",
-            updatePrices
-        );
-
-    }
-
-
-
-    // ========================================
-    // SERVICE SELECTION
-    // ========================================
-
-    const serviceRadios =
-        document.querySelectorAll(
-            "input[name='service']"
-        );
-
-
-    serviceRadios.forEach(
-        radio => {
-
-            radio.addEventListener(
-                "change",
-                () => {
-
-
-                    document
-                        .querySelectorAll(
-                            ".service-card"
-                        )
-                        .forEach(
-                            card => {
-
-                                card.classList.remove(
-                                    "selected-service"
-                                );
-
-                            }
-                        );
-
-
-                    const selectedCard =
-                        radio.closest(
-                            ".service-card"
-                        );
-
-
-                    if (selectedCard) {
-
-                        selectedCard.classList.add(
-                            "selected-service"
-                        );
-
-                    }
-
-
-                    validateBooking();
-
-                }
-            );
-
-        }
-    );
-
-
-
-    // ========================================
-    // INPUT LISTENERS
-    // ========================================
-
-    [
-        vehicleMake,
-        vehicleModel,
-        vehicleYear
-    ].forEach(
-        input => {
-
-            if (!input) {
-                return;
-            }
-
-
-            input.addEventListener(
-                "input",
-                () => {
-
-                    validateBooking();
-
-                }
-            );
-
-        }
-    );
-
-
-
-    // ========================================
-    // BOOKING VALIDATION
-    // ========================================
-
-    function validateBooking(
-        shouldScroll = false
-    ) {
-
-
-        // -------------------------------
-        // MAKE
-        // -------------------------------
-
-        if (
-            !vehicleMake ||
-            !vehicleMake.value.trim()
-        ) {
-
-            lockAvailability(
-                "Please enter your vehicle make."
-            );
-
-
-            if (shouldScroll) {
-
-                scrollToField(
-                    vehicleMake
-                );
-
-            }
-
-
-            return false;
-
-        }
-
-
-        // -------------------------------
-        // MODEL
-        // -------------------------------
-
-        if (
-            !vehicleModel ||
-            !vehicleModel.value.trim()
-        ) {
-
-            lockAvailability(
-                "Please enter your vehicle model."
-            );
-
-
-            if (shouldScroll) {
-
-                scrollToField(
-                    vehicleModel
-                );
-
-            }
-
-
-            return false;
-
-        }
-
-
-        // -------------------------------
-        // YEAR
-        // -------------------------------
-
-        if (
-            !vehicleYear ||
-            !vehicleYear.value
-        ) {
-
-            lockAvailability(
-                "Please enter your vehicle year."
-            );
-
-
-            if (shouldScroll) {
-
-                scrollToField(
-                    vehicleYear
-                );
-
-            }
-
-
-            return false;
-
-        }
-
-
-        const year =
-            Number(
-                vehicleYear.value
-            );
-
-
-        if (
-            year < 1980 ||
-            year > 2030
-        ) {
-
-            lockAvailability(
-                "Please enter a valid vehicle year."
-            );
-
-
-            if (shouldScroll) {
-
-                scrollToField(
-                    vehicleYear
-                );
-
-            }
-
-
-            return false;
-
-        }
-
-
-        // -------------------------------
-        // VEHICLE TYPE
-        // -------------------------------
-
-        if (
-            !vehicleSize ||
-            !vehicleSize.value
-        ) {
-
-            lockAvailability(
-                "Please choose your vehicle type."
-            );
-
-
-            if (shouldScroll) {
-
-                scrollToField(
-                    vehicleSize
-                );
-
-            }
-
-
-            return false;
-
-        }
-
-
-        // -------------------------------
-        // SERVICE
-        // -------------------------------
-
-        const selectedService =
-            getSelectedService();
-
-
-        if (!selectedService) {
-
-            lockAvailability(
-                "Please choose a detailing service."
-            );
-
-
-            if (shouldScroll) {
-
-                const serviceSection =
-                    document.querySelector(
-                        ".service-cards"
-                    );
-
-
-                scrollToField(
-                    serviceSection
-                );
-
-            }
-
-
-            return false;
-
-        }
-
-
-        // -------------------------------
-        // ADDRESS
-        // -------------------------------
-
-        if (
-            !addressInput ||
-            !addressInput.value.trim()
-        ) {
-
-            lockAvailability(
-                "Please enter your service address."
-            );
-
-
-            if (shouldScroll) {
-
-                scrollToField(
-                    addressInput
-                );
-
-            }
-
-
-            return false;
-
-        }
-
-
-        // -------------------------------
-        // LOCATION
-        // -------------------------------
-
-        if (
-            !serviceStatus ||
-            !serviceStatus.classList.contains(
-                "eligible"
-            )
-        ) {
-
-            lockAvailability(
-                "Please select a valid address within our service area."
-            );
-
-
-            if (shouldScroll) {
-
-                scrollToField(
-                    addressInput
-                );
-
-            }
-
-
-            return false;
-
-        }
-
-
-        // -------------------------------
-        // EVERYTHING IS VALID
-        // -------------------------------
-
-        unlockAvailability();
-
-        return true;
-
-    }
-
-
-
-    // ========================================
-    // SCROLL TO MISSING FIELD
-    // ========================================
-
-    function scrollToField(
-        element
-    ) {
-
-        if (!element) {
-            return;
-        }
-
-
-        element.scrollIntoView({
-
-            behavior: "smooth",
-
-            block: "center"
-
-        });
-
-
-        setTimeout(
             () => {
 
-                element.focus?.();
+                updatePrices();
 
-                element.classList.add(
-                    "field-error"
-                );
+                // If they return to the placeholder,
+                // availability is immediately locked.
 
-
-                setTimeout(
-                    () => {
-
-                        element.classList.remove(
-                            "field-error"
-                        );
-
-                    },
-                    1800
-                );
-
-            },
-            400
-        );
-
-    }
-
-
-
-    // ========================================
-    // AVAILABILITY BUTTON
-    // ========================================
-
-    if (availabilityButton) {
-
-        availabilityButton.addEventListener(
-            "click",
-            event => {
-
-                event.preventDefault();
-
-
-                const valid =
-                    validateBooking(true);
-
-
-                if (!valid) {
-                    return;
+                if (!vehicleSize.value) {
+                    lockAvailability();
                 }
-
-
-                const selectedService =
-                    getSelectedService();
-
-
-                const calendlyURL =
-                    calendlyLinks[
-                        selectedService
-                    ];
-
-
-                if (!calendlyURL) {
-
-                    return;
-
-                }
-
-
-                window.open(
-                    calendlyURL,
-                    "_blank"
-                );
 
             }
         );
@@ -818,59 +263,17 @@ if (bookingPage) {
     }
 
 
-
     // ========================================
-    // UPDATE CALENDLY LINK
-    // ========================================
-
-    function updateAvailabilityLink() {
-
-        if (!availabilityButton) {
-            return;
-        }
-
-
-        const selectedService =
-            getSelectedService();
-
-
-        if (
-            !selectedService
-        ) {
-
-            availabilityButton.href =
-                "#";
-
-            return;
-
-        }
-
-
-        const url =
-            calendlyLinks[
-                selectedService
-            ];
-
-
-        if (url) {
-
-            availabilityButton.href =
-                url;
-
-        }
-
-    }
-
-
-
-    // ========================================
-    // MAPBOX
+    // MAPBOX VARIABLES
     // ========================================
 
     let map = null;
-
     let marker = null;
 
+
+    // ========================================
+    // START MAP
+    // ========================================
 
     function startMap() {
 
@@ -880,8 +283,21 @@ if (bookingPage) {
 
 
         if (
-            typeof mapboxgl ===
-            "undefined"
+            !MAPBOX_TOKEN ||
+            !MAPBOX_TOKEN.startsWith("pk.")
+        ) {
+
+            console.error(
+                "Mapbox public pk. token is missing."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            typeof mapboxgl === "undefined"
         ) {
 
             console.error(
@@ -897,23 +313,21 @@ if (bookingPage) {
             MAPBOX_TOKEN;
 
 
-        map =
-            new mapboxgl.Map({
+        map = new mapboxgl.Map({
 
-                container:
-                    mapElement,
+            container: mapElement,
 
-                style:
-                    "mapbox://styles/mapbox/streets-v12",
+            style:
+                "mapbox://styles/mapbox/streets-v12",
 
-                center: [
-                    SERVICE_LNG,
-                    SERVICE_LAT
-                ],
+            center: [
+                SERVICE_LNG,
+                SERVICE_LAT
+            ],
 
-                zoom: 11
+            zoom: 11
 
-            });
+        });
 
 
         map.addControl(
@@ -940,17 +354,38 @@ if (bookingPage) {
     }
 
 
-
     // ========================================
     // SEARCH SESSION
     // ========================================
 
-    const sessionToken =
-        crypto.randomUUID();
+    let sessionToken = null;
+
+
+    function createSessionToken() {
+
+        if (
+            window.crypto &&
+            typeof crypto.randomUUID ===
+                "function"
+        ) {
+
+            return crypto.randomUUID();
+
+        }
+
+        return (
+            Date.now().toString() +
+            Math.random().toString(36)
+        );
+
+    }
+
+
+    sessionToken =
+        createSessionToken();
 
 
     let searchTimer;
-
 
 
     // ========================================
@@ -963,21 +398,32 @@ if (bookingPage) {
             "input",
             () => {
 
-                clearTimeout(
-                    searchTimer
-                );
+                clearTimeout(searchTimer);
 
 
-                resetLocation();
+                selectedAddress = false;
+                locationEligible = false;
+
+
+                lockAvailability();
+
+
+                if (serviceStatus) {
+
+                    serviceStatus.className =
+                        "service-status";
+
+                    serviceStatus.innerHTML =
+                        "";
+
+                }
 
 
                 const query =
                     addressInput.value.trim();
 
 
-                if (
-                    query.length < 3
-                ) {
+                if (query.length < 3) {
 
                     hideSuggestions();
 
@@ -987,16 +433,11 @@ if (bookingPage) {
 
 
                 searchTimer =
-                    setTimeout(
-                        () => {
+                    setTimeout(() => {
 
-                            getSuggestions(
-                                query
-                            );
+                        getSuggestions(query);
 
-                        },
-                        350
-                    );
+                    }, 300);
 
             }
         );
@@ -1004,14 +445,11 @@ if (bookingPage) {
     }
 
 
-
     // ========================================
-    // MAPBOX SUGGEST
+    // MAPBOX ADDRESS SUGGESTIONS
     // ========================================
 
-    async function getSuggestions(
-        query
-    ) {
+    async function getSuggestions(query) {
 
         try {
 
@@ -1019,9 +457,7 @@ if (bookingPage) {
                 "https://api.mapbox.com/search/searchbox/v1/suggest" +
 
                 "?q=" +
-                encodeURIComponent(
-                    query
-                ) +
+                encodeURIComponent(query) +
 
                 "&country=US" +
 
@@ -1048,7 +484,7 @@ if (bookingPage) {
             if (!response.ok) {
 
                 throw new Error(
-                    "Mapbox request failed: " +
+                    "Mapbox suggestion request failed: " +
                     response.status
                 );
 
@@ -1078,27 +514,21 @@ if (bookingPage) {
     }
 
 
-
     // ========================================
-    // DISPLAY SUGGESTIONS
+    // SHOW SUGGESTIONS
     // ========================================
 
-    function showSuggestions(
-        suggestions
-    ) {
+    function showSuggestions(suggestions) {
 
         if (!suggestionsBox) {
             return;
         }
 
 
-        suggestionsBox.innerHTML =
-            "";
+        suggestionsBox.innerHTML = "";
 
 
-        if (
-            suggestions.length === 0
-        ) {
+        if (!suggestions.length) {
 
             hideSuggestions();
 
@@ -1111,14 +541,10 @@ if (bookingPage) {
             suggestion => {
 
                 const button =
-                    document.createElement(
-                        "button"
-                    );
+                    document.createElement("button");
 
 
-                button.type =
-                    "button";
-
+                button.type = "button";
 
                 button.className =
                     "address-suggestion";
@@ -1128,8 +554,7 @@ if (bookingPage) {
 
                     <strong>
                         ${escapeHTML(
-                            suggestion.name ||
-                            ""
+                            suggestion.name || ""
                         )}
                     </strong>
 
@@ -1170,14 +595,11 @@ if (bookingPage) {
     }
 
 
-
     // ========================================
     // RETRIEVE ADDRESS
     // ========================================
 
-    async function retrieveAddress(
-        suggestion
-    ) {
+    async function retrieveAddress(suggestion) {
 
         if (
             !suggestion ||
@@ -1241,25 +663,47 @@ if (bookingPage) {
 
 
             const longitude =
-                coordinates[0];
+                Number(coordinates[0]);
 
             const latitude =
-                coordinates[1];
+                Number(coordinates[1]);
+
+
+            if (
+                !Number.isFinite(longitude) ||
+                !Number.isFinite(latitude)
+            ) {
+
+                throw new Error(
+                    "Invalid coordinates."
+                );
+
+            }
 
 
             const address =
                 feature.properties?.full_address ||
                 feature.properties?.place_formatted ||
                 suggestion.full_address ||
-                suggestion.name;
+                suggestion.name ||
+                "";
 
+
+            // Put selected address into input.
 
             addressInput.value =
                 address;
 
 
+            // Mark as a real selected address.
+
+            selectedAddress = true;
+
+
             hideSuggestions();
 
+
+            // Show address on map.
 
             updateMap(
                 longitude,
@@ -1268,10 +712,20 @@ if (bookingPage) {
             );
 
 
+            // Check 30-mile radius.
+
             checkServiceArea(
                 latitude,
                 longitude
             );
+
+
+            // Generate a new session for the
+            // next address search.
+
+            sessionToken =
+                createSessionToken();
+
 
         } catch (error) {
 
@@ -1285,7 +739,6 @@ if (bookingPage) {
     }
 
 
-
     // ========================================
     // UPDATE MAP
     // ========================================
@@ -1297,7 +750,13 @@ if (bookingPage) {
     ) {
 
         if (!map) {
+
+            console.warn(
+                "Map is not ready yet."
+            );
+
             return;
+
         }
 
 
@@ -1332,9 +791,7 @@ if (bookingPage) {
 
                     new mapboxgl.Popup({
                         offset: 25
-                    }).setText(
-                        address
-                    )
+                    }).setText(address)
 
                 )
                 .addTo(map);
@@ -1345,9 +802,8 @@ if (bookingPage) {
     }
 
 
-
     // ========================================
-    // DISTANCE
+    // DISTANCE CALCULATION
     // ========================================
 
     function calculateDistance(
@@ -1357,22 +813,17 @@ if (bookingPage) {
         lon2
     ) {
 
-        const radius =
-            3958.8;
+        const radius = 3958.8;
 
 
         const latDifference =
-            (
-                lat2 - lat1
-            ) *
+            (lat2 - lat1) *
             Math.PI /
             180;
 
 
         const lonDifference =
-            (
-                lon2 - lon1
-            ) *
+            (lon2 - lon1) *
             Math.PI /
             180;
 
@@ -1412,7 +863,6 @@ if (bookingPage) {
     }
 
 
-
     // ========================================
     // CHECK SERVICE AREA
     // ========================================
@@ -1447,6 +897,9 @@ if (bookingPage) {
             SERVICE_RADIUS
         ) {
 
+            locationEligible = true;
+
+
             serviceStatus.className =
                 "service-status eligible";
 
@@ -1466,6 +919,9 @@ if (bookingPage) {
 
 
         } else {
+
+            locationEligible = false;
+
 
             serviceStatus.className =
                 "service-status not-eligible";
@@ -1494,6 +950,179 @@ if (bookingPage) {
     }
 
 
+    // ========================================
+    // GET SELECTED SERVICE
+    // ========================================
+
+    function getSelectedService() {
+
+        const selected =
+            document.querySelector(
+                "input[name='service']:checked"
+            );
+
+
+        return selected
+            ? selected.value
+            : null;
+
+    }
+
+
+    // ========================================
+    // VALIDATE BOOKING
+    // ========================================
+
+    function validateBooking() {
+
+        const service =
+            getSelectedService();
+
+
+        const make =
+            vehicleMake?.value.trim();
+
+        const model =
+            vehicleModel?.value.trim();
+
+        const year =
+            vehicleYear?.value.trim();
+
+        const vehicle =
+            vehicleSize?.value;
+
+
+        const complete =
+            make &&
+            model &&
+            year &&
+            vehicle &&
+            service &&
+            selectedAddress &&
+            locationEligible;
+
+
+        if (complete) {
+
+            unlockAvailability();
+
+        } else {
+
+            lockAvailability();
+
+        }
+
+    }
+
+
+    // ========================================
+    // REQUIRED FIELD CHECK
+    // ========================================
+
+    function firstMissingField() {
+
+        if (
+            !vehicleMake?.value.trim()
+        ) {
+
+            return vehicleMake;
+
+        }
+
+
+        if (
+            !vehicleModel?.value.trim()
+        ) {
+
+            return vehicleModel;
+
+        }
+
+
+        if (
+            !vehicleYear?.value.trim()
+        ) {
+
+            return vehicleYear;
+
+        }
+
+
+        if (!vehicleSize?.value) {
+
+            return vehicleSize;
+
+        }
+
+
+        if (!getSelectedService()) {
+
+            const firstService =
+                document.querySelector(
+                    "input[name='service']"
+                );
+
+            return firstService;
+
+        }
+
+
+        if (
+            !selectedAddress ||
+            !locationEligible
+        ) {
+
+            return addressInput;
+
+        }
+
+
+        return null;
+
+    }
+
+
+    // ========================================
+    // SCROLL TO MISSING INFORMATION
+    // ========================================
+
+    function scrollToMissingField() {
+
+        const field =
+            firstMissingField();
+
+
+        if (!field) {
+            return;
+        }
+
+
+        field.scrollIntoView({
+
+            behavior: "smooth",
+
+            block: "center"
+
+        });
+
+
+        setTimeout(() => {
+
+            try {
+
+                field.focus();
+
+            } catch (error) {
+
+                // Radio inputs and other
+                // non-focusable elements.
+
+            }
+
+        }, 500);
+
+    }
+
 
     // ========================================
     // UNLOCK AVAILABILITY
@@ -1505,7 +1134,26 @@ if (bookingPage) {
             !availability ||
             !availabilityButton
         ) {
+
             return;
+
+        }
+
+
+        const service =
+            getSelectedService();
+
+
+        const calendlyURL =
+            calendlyLinks[service];
+
+
+        if (!calendlyURL) {
+
+            lockAvailability();
+
+            return;
+
         }
 
 
@@ -1528,7 +1176,8 @@ if (bookingPage) {
         );
 
 
-        updateAvailabilityLink();
+        availabilityButton.href =
+            calendlyURL;
 
 
         const message =
@@ -1542,13 +1191,14 @@ if (bookingPage) {
             message.innerHTML = `
 
                 <strong>
-                    ✓ Everything looks good
+                    ✓ You're ready to book
                 </strong>
 
                 <p>
-                    Your information is complete
-                    and your address is within our
-                    service area.
+                    Your vehicle, service, and
+                    service area have been confirmed.
+                    Continue to Calendly to choose
+                    your available appointment.
                 </p>
 
             `;
@@ -1558,20 +1208,19 @@ if (bookingPage) {
     }
 
 
-
     // ========================================
     // LOCK AVAILABILITY
     // ========================================
 
-    function lockAvailability(
-        messageText
-    ) {
+    function lockAvailability() {
 
         if (
             !availability ||
             !availabilityButton
         ) {
+
             return;
+
         }
 
 
@@ -1594,10 +1243,6 @@ if (bookingPage) {
         );
 
 
-        availabilityButton.href =
-            "#";
-
-
         const message =
             availability.querySelector(
                 ".availability-message"
@@ -1609,12 +1254,12 @@ if (bookingPage) {
             message.innerHTML = `
 
                 <strong>
-                    ${messageText || "Complete the required information"}
+                    Check Availability
                 </strong>
 
                 <p>
-                    Complete the required information
-                    above before checking availability.
+                    Complete the required
+                    information above first.
                 </p>
 
             `;
@@ -1624,30 +1269,79 @@ if (bookingPage) {
     }
 
 
+    // ========================================
+    // SERVICE SELECTION
+    // ========================================
+
+    document
+        .querySelectorAll(
+            "input[name='service']"
+        )
+        .forEach(radio => {
+
+            radio.addEventListener(
+                "change",
+                () => {
+
+                    validateBooking();
+
+                }
+            );
+
+        });
+
 
     // ========================================
-    // RESET LOCATION
+    // VEHICLE INPUT VALIDATION
     // ========================================
 
-    function resetLocation() {
+    [
+        vehicleMake,
+        vehicleModel,
+        vehicleYear
+    ].forEach(field => {
 
-        if (serviceStatus) {
-
-            serviceStatus.className =
-                "service-status";
-
-            serviceStatus.innerHTML =
-                "";
-
+        if (!field) {
+            return;
         }
 
 
-        lockAvailability(
-            "Please select your service address."
+        field.addEventListener(
+            "input",
+            () => {
+
+                validateBooking();
+
+            }
+        );
+
+    });
+
+
+    // ========================================
+    // AVAILABILITY BUTTON PROTECTION
+    // ========================================
+
+    if (availabilityButton) {
+
+        availabilityButton.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    firstMissingField()
+                ) {
+
+                    event.preventDefault();
+
+                    scrollToMissingField();
+
+                }
+
+            }
         );
 
     }
-
 
 
     // ========================================
@@ -1670,32 +1364,34 @@ if (bookingPage) {
     }
 
 
-
     // ========================================
     // ESCAPE HTML
     // ========================================
 
-    function escapeHTML(
-        value
-    ) {
+    function escapeHTML(value) {
 
         return String(value)
+
             .replace(
                 /&/g,
                 "&amp;"
             )
+
             .replace(
                 /</g,
                 "&lt;"
             )
+
             .replace(
                 />/g,
                 "&gt;"
             )
+
             .replace(
                 /"/g,
                 "&quot;"
             )
+
             .replace(
                 /'/g,
                 "&#039;"
@@ -1704,9 +1400,8 @@ if (bookingPage) {
     }
 
 
-
     // ========================================
-    // CLICK OUTSIDE
+    // CLICK OUTSIDE ADDRESS SUGGESTIONS
     // ========================================
 
     document.addEventListener(
@@ -1732,13 +1427,11 @@ if (bookingPage) {
     );
 
 
-
     // ========================================
     // INITIAL STATE
     // ========================================
 
     updatePrices();
-
-    validateBooking();
+    lockAvailability();
 
 }
