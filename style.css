@@ -1215,6 +1215,7 @@ footer {
     .booking-sidebar {
         position: static;
     }
+   
 
 }
 
@@ -1293,4 +1294,65 @@ footer {
         align-items: stretch;
     }
 
+}
+/* ============================================
+   BOOKING FORM VALIDATION
+============================================ */
+
+.field-error {
+    border-color: #d9534f !important;
+    box-shadow: 0 0 0 3px rgba(217, 83, 79, 0.12) !important;
+    animation: bookingShake 0.25s ease-in-out;
+}
+
+
+@keyframes bookingShake {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-4px);
+    }
+
+    50% {
+        transform: translateX(4px);
+    }
+
+    75% {
+        transform: translateX(-3px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+
+}
+
+
+/* Selected package */
+
+.service-card.selected-service {
+    border-color: #1f8f5f;
+    box-shadow:
+        0 0 0 2px rgba(31, 143, 95, 0.12);
+}
+
+
+/* Locked availability */
+
+.availability-locked .submit-button,
+.availability-locked .primary-button {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+/* Unlocked availability */
+
+.availability-unlocked .submit-button,
+.availability-unlocked .primary-button {
+    opacity: 1;
+    cursor: pointer;
 }
