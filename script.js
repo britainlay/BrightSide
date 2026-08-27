@@ -14,144 +14,23 @@ const navLinks = document.querySelector(".nav-links");
 if (menuButton && navLinks) {
 
     menuButton.addEventListener("click", () => {
+
         navLinks.classList.toggle("mobile-open");
+
     });
 
 }
 
 
 // ============================================
-// BOOKING PAGE DETECTION
+// BOOKING PAGE
 // ============================================
 
 const bookingPage =
     document.getElementById("booking-page");
 
 
-// If this is NOT the booking page,
-// don't run booking-specific code.
-
 if (bookingPage) {
-
-
-    // ========================================
-    // PACKAGE SELECTION FROM URL
-    // ========================================
-
-    function selectPackageFromURL() {
-
-        const params =
-            new URLSearchParams(
-                window.location.search
-            );
-
-        const selectedService =
-            params.get("service");
-
-
-        if (!selectedService) {
-            return;
-        }
-
-
-        const serviceRadio =
-            document.querySelector(
-                `input[name="service"][value="${selectedService}"]`
-            );
-
-
-        if (serviceRadio) {
-
-            serviceRadio.checked = true;
-
-            // Make the selected card visually active
-            const selectedCard =
-                serviceRadio.closest(
-                    ".service-card"
-                );
-
-            if (selectedCard) {
-
-                document
-                    .querySelectorAll(
-                        ".service-card"
-                    )
-                    .forEach(card => {
-
-                        card.classList.remove(
-                            "selected-service"
-                        );
-
-                    });
-
-
-                selectedCard.classList.add(
-                    "selected-service"
-                );
-
-            }
-
-        }
-
-    }
-
-
-    // Run after page loads
-    selectPackageFromURL();
-
-
-
-    // ========================================
-    // SERVICE CARD SELECTION
-    // ========================================
-
-    const serviceRadios =
-        document.querySelectorAll(
-            "input[name='service']"
-        );
-
-
-    serviceRadios.forEach(radio => {
-
-        radio.addEventListener(
-            "change",
-            () => {
-
-                document
-                    .querySelectorAll(
-                        ".service-card"
-                    )
-                    .forEach(card => {
-
-                        card.classList.remove(
-                            "selected-service"
-                        );
-
-                    });
-
-
-                const selectedCard =
-                    radio.closest(
-                        ".service-card"
-                    );
-
-
-                if (selectedCard) {
-
-                    selectedCard.classList.add(
-                        "selected-service"
-                    );
-
-                }
-
-
-                updateAvailabilityLink();
-
-            }
-        );
-
-    });
-
 
 
     // ========================================
@@ -172,7 +51,6 @@ if (bookingPage) {
 
     const SERVICE_RADIUS =
         30;
-
 
 
     // ========================================
@@ -210,11 +88,25 @@ if (bookingPage) {
             "vehicle-size"
         );
 
+    const vehicleMake =
+        document.getElementById(
+            "vehicle-make"
+        );
+
+    const vehicleModel =
+        document.getElementById(
+            "vehicle-model"
+        );
+
+    const vehicleYear =
+        document.getElementById(
+            "vehicle-year"
+        );
+
     const vehiclePrice =
         document.getElementById(
             "vehicle-price"
         );
-
 
 
     // ========================================
@@ -235,107 +127,122 @@ if (bookingPage) {
     };
 
 
+    // ========================================
+    // PRICING
+    // ========================================
+
+    const prices = {
+
+        sedan: {
+
+            express: 75,
+            interior: 100,
+            full: 150
+
+        },
+
+        suv: {
+
+            express: 90,
+            interior: 115,
+            full: 175
+
+        },
+
+        truck: {
+
+            express: 100,
+            interior: 130,
+            full: 200
+
+        }
+
+    };
+
 
     // ========================================
-    // UPDATE CALENDLY LINK
+    // SELECT PACKAGE FROM URL
     // ========================================
 
-    function updateAvailabilityLink() {
+    function selectPackageFromURL() {
 
-        if (!availabilityButton) {
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const selectedService =
+            params.get("service");
+
+
+        if (!selectedService) {
             return;
         }
 
 
-        const selectedService =
+        const serviceRadio =
+            document.querySelector(
+                `input[name="service"][value="${selectedService}"]`
+            );
+
+
+        if (serviceRadio) {
+
+            serviceRadio.checked = true;
+
+
+            const selectedCard =
+                serviceRadio.closest(
+                    ".service-card"
+                );
+
+
+            if (selectedCard) {
+
+                selectedCard.classList.add(
+                    "selected-service"
+                );
+
+            }
+
+        }
+
+    }
+
+
+    selectPackageFromURL();
+
+
+
+    // ========================================
+    // GET SELECTED SERVICE
+    // ========================================
+
+    function getSelectedService() {
+
+        const selected =
             document.querySelector(
                 "input[name='service']:checked"
             );
 
 
-        if (!selectedService) {
-
-            availabilityButton.href =
-                "#";
-
-            availabilityButton.classList.add(
-                "disabled-button"
-            );
-
-            availabilityButton.style.pointerEvents =
-                "none";
-
-            return;
-
-        }
-
-
-        const service =
-            selectedService.value;
-
-
-        const calendlyURL =
-            calendlyLinks[service];
-
-
-        if (!calendlyURL) {
-            return;
-        }
-
-
-        availabilityButton.href =
-            calendlyURL;
-
-
-        availabilityButton.classList.remove(
-            "disabled-button"
-        );
-
-
-        availabilityButton.style.pointerEvents =
-            "auto";
+        return selected
+            ? selected.value
+            : "";
 
     }
 
 
 
     // ========================================
-    // VEHICLE PRICING
+    // UPDATE PRICES
     // ========================================
-
-    const prices = {
-
-        sedan: {
-            express: 75,
-            interior: 100,
-            full: 150
-        },
-
-        suv: {
-            express: 95,
-            interior: 120,
-            full: 180
-        },
-
-        truck: {
-            express: 110,
-            interior: 140,
-            full: 200
-        }
-
-    };
-
-
 
     function updatePrices() {
 
-        if (!vehicleSize) {
-            return;
-        }
-
-
         const vehicle =
-            vehicleSize.value;
+            vehicleSize?.value || "";
 
 
         const priceElements =
@@ -354,13 +261,21 @@ if (bookingPage) {
             }
 
 
-            priceElements.forEach(element => {
+            priceElements.forEach(
+                element => {
 
-                element.textContent =
-                    "Select Vehicle";
+                    element.textContent =
+                        "Select Vehicle";
 
-            });
+                }
+            );
 
+
+            // IMPORTANT:
+            // If vehicle type is cleared,
+            // lock availability again.
+
+            lockAvailability();
 
             return;
 
@@ -371,66 +286,77 @@ if (bookingPage) {
             prices[vehicle];
 
 
+        if (!selected) {
+            lockAvailability();
+            return;
+        }
+
+
         if (vehiclePrice) {
 
             vehiclePrice.innerHTML =
                 `<strong>Estimated pricing:</strong>
-                 Express $${selected.express}
-                 • Interior $${selected.interior}
-                 • Full Detail $${selected.full}`;
+                Express $${selected.express}
+                • Interior $${selected.interior}
+                • Full Detail $${selected.full}`;
 
         }
 
 
-        priceElements.forEach(element => {
+        priceElements.forEach(
+            element => {
 
-            const card =
-                element.closest(
-                    ".service-card"
-                );
-
-
-            const radio =
-                card?.querySelector(
-                    "input[name='service']"
-                );
+                const card =
+                    element.closest(
+                        ".service-card"
+                    );
 
 
-            if (!radio) {
-                return;
+                const radio =
+                    card?.querySelector(
+                        "input[name='service']"
+                    );
+
+
+                if (!radio) {
+                    return;
+                }
+
+
+                if (
+                    radio.value === "express"
+                ) {
+
+                    element.textContent =
+                        `$${selected.express}`;
+
+                }
+
+
+                if (
+                    radio.value === "interior"
+                ) {
+
+                    element.textContent =
+                        `$${selected.interior}`;
+
+                }
+
+
+                if (
+                    radio.value === "full-detail"
+                ) {
+
+                    element.textContent =
+                        `$${selected.full}`;
+
+                }
+
             }
+        );
 
 
-            if (
-                radio.value === "express"
-            ) {
-
-                element.textContent =
-                    `$${selected.express}`;
-
-            }
-
-
-            if (
-                radio.value === "interior"
-            ) {
-
-                element.textContent =
-                    `$${selected.interior}`;
-
-            }
-
-
-            if (
-                radio.value === "full-detail"
-            ) {
-
-                element.textContent =
-                    `$${selected.full}`;
-
-            }
-
-        });
+        validateBooking();
 
     }
 
@@ -446,8 +372,499 @@ if (bookingPage) {
     }
 
 
+
     // ========================================
-    // MAPBOX MAP
+    // SERVICE SELECTION
+    // ========================================
+
+    const serviceRadios =
+        document.querySelectorAll(
+            "input[name='service']"
+        );
+
+
+    serviceRadios.forEach(
+        radio => {
+
+            radio.addEventListener(
+                "change",
+                () => {
+
+
+                    document
+                        .querySelectorAll(
+                            ".service-card"
+                        )
+                        .forEach(
+                            card => {
+
+                                card.classList.remove(
+                                    "selected-service"
+                                );
+
+                            }
+                        );
+
+
+                    const selectedCard =
+                        radio.closest(
+                            ".service-card"
+                        );
+
+
+                    if (selectedCard) {
+
+                        selectedCard.classList.add(
+                            "selected-service"
+                        );
+
+                    }
+
+
+                    validateBooking();
+
+                }
+            );
+
+        }
+    );
+
+
+
+    // ========================================
+    // INPUT LISTENERS
+    // ========================================
+
+    [
+        vehicleMake,
+        vehicleModel,
+        vehicleYear
+    ].forEach(
+        input => {
+
+            if (!input) {
+                return;
+            }
+
+
+            input.addEventListener(
+                "input",
+                () => {
+
+                    validateBooking();
+
+                }
+            );
+
+        }
+    );
+
+
+
+    // ========================================
+    // BOOKING VALIDATION
+    // ========================================
+
+    function validateBooking(
+        shouldScroll = false
+    ) {
+
+
+        // -------------------------------
+        // MAKE
+        // -------------------------------
+
+        if (
+            !vehicleMake ||
+            !vehicleMake.value.trim()
+        ) {
+
+            lockAvailability(
+                "Please enter your vehicle make."
+            );
+
+
+            if (shouldScroll) {
+
+                scrollToField(
+                    vehicleMake
+                );
+
+            }
+
+
+            return false;
+
+        }
+
+
+        // -------------------------------
+        // MODEL
+        // -------------------------------
+
+        if (
+            !vehicleModel ||
+            !vehicleModel.value.trim()
+        ) {
+
+            lockAvailability(
+                "Please enter your vehicle model."
+            );
+
+
+            if (shouldScroll) {
+
+                scrollToField(
+                    vehicleModel
+                );
+
+            }
+
+
+            return false;
+
+        }
+
+
+        // -------------------------------
+        // YEAR
+        // -------------------------------
+
+        if (
+            !vehicleYear ||
+            !vehicleYear.value
+        ) {
+
+            lockAvailability(
+                "Please enter your vehicle year."
+            );
+
+
+            if (shouldScroll) {
+
+                scrollToField(
+                    vehicleYear
+                );
+
+            }
+
+
+            return false;
+
+        }
+
+
+        const year =
+            Number(
+                vehicleYear.value
+            );
+
+
+        if (
+            year < 1980 ||
+            year > 2030
+        ) {
+
+            lockAvailability(
+                "Please enter a valid vehicle year."
+            );
+
+
+            if (shouldScroll) {
+
+                scrollToField(
+                    vehicleYear
+                );
+
+            }
+
+
+            return false;
+
+        }
+
+
+        // -------------------------------
+        // VEHICLE TYPE
+        // -------------------------------
+
+        if (
+            !vehicleSize ||
+            !vehicleSize.value
+        ) {
+
+            lockAvailability(
+                "Please choose your vehicle type."
+            );
+
+
+            if (shouldScroll) {
+
+                scrollToField(
+                    vehicleSize
+                );
+
+            }
+
+
+            return false;
+
+        }
+
+
+        // -------------------------------
+        // SERVICE
+        // -------------------------------
+
+        const selectedService =
+            getSelectedService();
+
+
+        if (!selectedService) {
+
+            lockAvailability(
+                "Please choose a detailing service."
+            );
+
+
+            if (shouldScroll) {
+
+                const serviceSection =
+                    document.querySelector(
+                        ".service-cards"
+                    );
+
+
+                scrollToField(
+                    serviceSection
+                );
+
+            }
+
+
+            return false;
+
+        }
+
+
+        // -------------------------------
+        // ADDRESS
+        // -------------------------------
+
+        if (
+            !addressInput ||
+            !addressInput.value.trim()
+        ) {
+
+            lockAvailability(
+                "Please enter your service address."
+            );
+
+
+            if (shouldScroll) {
+
+                scrollToField(
+                    addressInput
+                );
+
+            }
+
+
+            return false;
+
+        }
+
+
+        // -------------------------------
+        // LOCATION
+        // -------------------------------
+
+        if (
+            !serviceStatus ||
+            !serviceStatus.classList.contains(
+                "eligible"
+            )
+        ) {
+
+            lockAvailability(
+                "Please select a valid address within our service area."
+            );
+
+
+            if (shouldScroll) {
+
+                scrollToField(
+                    addressInput
+                );
+
+            }
+
+
+            return false;
+
+        }
+
+
+        // -------------------------------
+        // EVERYTHING IS VALID
+        // -------------------------------
+
+        unlockAvailability();
+
+        return true;
+
+    }
+
+
+
+    // ========================================
+    // SCROLL TO MISSING FIELD
+    // ========================================
+
+    function scrollToField(
+        element
+    ) {
+
+        if (!element) {
+            return;
+        }
+
+
+        element.scrollIntoView({
+
+            behavior: "smooth",
+
+            block: "center"
+
+        });
+
+
+        setTimeout(
+            () => {
+
+                element.focus?.();
+
+                element.classList.add(
+                    "field-error"
+                );
+
+
+                setTimeout(
+                    () => {
+
+                        element.classList.remove(
+                            "field-error"
+                        );
+
+                    },
+                    1800
+                );
+
+            },
+            400
+        );
+
+    }
+
+
+
+    // ========================================
+    // AVAILABILITY BUTTON
+    // ========================================
+
+    if (availabilityButton) {
+
+        availabilityButton.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+
+                const valid =
+                    validateBooking(true);
+
+
+                if (!valid) {
+                    return;
+                }
+
+
+                const selectedService =
+                    getSelectedService();
+
+
+                const calendlyURL =
+                    calendlyLinks[
+                        selectedService
+                    ];
+
+
+                if (!calendlyURL) {
+
+                    return;
+
+                }
+
+
+                window.open(
+                    calendlyURL,
+                    "_blank"
+                );
+
+            }
+        );
+
+    }
+
+
+
+    // ========================================
+    // UPDATE CALENDLY LINK
+    // ========================================
+
+    function updateAvailabilityLink() {
+
+        if (!availabilityButton) {
+            return;
+        }
+
+
+        const selectedService =
+            getSelectedService();
+
+
+        if (
+            !selectedService
+        ) {
+
+            availabilityButton.href =
+                "#";
+
+            return;
+
+        }
+
+
+        const url =
+            calendlyLinks[
+                selectedService
+            ];
+
+
+        if (url) {
+
+            availabilityButton.href =
+                url;
+
+        }
+
+    }
+
+
+
+    // ========================================
+    // MAPBOX
     // ========================================
 
     let map = null;
@@ -459,21 +876,6 @@ if (bookingPage) {
 
         if (!mapElement) {
             return;
-        }
-
-
-        if (
-            !MAPBOX_TOKEN ||
-            MAPBOX_TOKEN ===
-                "PASTE_YOUR_PK_TOKEN_HERE"
-        ) {
-
-            console.error(
-                "Add your Mapbox pk. token to script.js"
-            );
-
-            return;
-
         }
 
 
@@ -871,7 +1273,6 @@ if (bookingPage) {
                 longitude
             );
 
-
         } catch (error) {
 
             console.error(
@@ -1064,9 +1465,6 @@ if (bookingPage) {
             `;
 
 
-            unlockAvailability();
-
-
         } else {
 
             serviceStatus.className =
@@ -1088,17 +1486,17 @@ if (bookingPage) {
 
             `;
 
-
-            lockAvailability();
-
         }
+
+
+        validateBooking();
 
     }
 
 
 
     // ========================================
-    // AVAILABILITY
+    // UNLOCK AVAILABILITY
     // ========================================
 
     function unlockAvailability() {
@@ -1130,6 +1528,9 @@ if (bookingPage) {
         );
 
 
+        updateAvailabilityLink();
+
+
         const message =
             availability.querySelector(
                 ".availability-message"
@@ -1141,28 +1542,30 @@ if (bookingPage) {
             message.innerHTML = `
 
                 <strong>
-                    ✓ Location confirmed
+                    ✓ Everything looks good
                 </strong>
 
                 <p>
-                    Your address is within our
-                    service area. Check our
-                    available appointments.
+                    Your information is complete
+                    and your address is within our
+                    service area.
                 </p>
 
             `;
 
         }
 
-
-        // Update Calendly based on selected service
-        updateAvailabilityLink();
-
     }
 
 
 
-    function lockAvailability() {
+    // ========================================
+    // LOCK AVAILABILITY
+    // ========================================
+
+    function lockAvailability(
+        messageText
+    ) {
 
         if (
             !availability ||
@@ -1191,6 +1594,10 @@ if (bookingPage) {
         );
 
 
+        availabilityButton.href =
+            "#";
+
+
         const message =
             availability.querySelector(
                 ".availability-message"
@@ -1202,13 +1609,12 @@ if (bookingPage) {
             message.innerHTML = `
 
                 <strong>
-                    Check Availability
+                    ${messageText || "Complete the required information"}
                 </strong>
 
                 <p>
-                    Confirm that your address
-                    is within our service area
-                    to continue.
+                    Complete the required information
+                    above before checking availability.
                 </p>
 
             `;
@@ -1236,7 +1642,9 @@ if (bookingPage) {
         }
 
 
-        lockAvailability();
+        lockAvailability(
+            "Please select your service address."
+        );
 
     }
 
@@ -1322,5 +1730,15 @@ if (bookingPage) {
 
         }
     );
+
+
+
+    // ========================================
+    // INITIAL STATE
+    // ========================================
+
+    updatePrices();
+
+    validateBooking();
 
 }
