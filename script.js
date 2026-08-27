@@ -277,81 +277,64 @@ if (bookingPage) {
 
     function startMap() {
 
-        if (!mapElement) {
-            return;
-        }
+    if (!mapElement) {
+        console.error("Map element #map was not found.");
+        return;
+    }
 
+    if (!MAPBOX_TOKEN) {
+        console.error("Mapbox token is missing.");
+        return;
+    }
 
-        if (
-            !MAPBOX_TOKEN ||
-            !MAPBOX_TOKEN.startsWith("pk.")
-        ) {
+    if (typeof mapboxgl === "undefined") {
+        console.error("Mapbox GL JS did not load.");
+        return;
+    }
 
-            console.error(
-                "Mapbox public pk. token is missing."
-            );
+    mapboxgl.accessToken = MAPBOX_TOKEN;
 
-            return;
-
-        }
-
-
-        if (
-            typeof mapboxgl === "undefined"
-        ) {
-
-            console.error(
-                "Mapbox GL JS did not load."
-            );
-
-            return;
-
-        }
-
-
-        mapboxgl.accessToken =
-            MAPBOX_TOKEN;
-
+    try {
 
         map = new mapboxgl.Map({
-
-            container: mapElement,
-
-            style:
-                "mapbox://styles/mapbox/streets-v12",
-
+            container: "map",
+            style: "mapbox://styles/mapbox/streets-v12",
             center: [
                 SERVICE_LNG,
                 SERVICE_LAT
             ],
-
             zoom: 11
+        });
+
+        map.on("load", () => {
+
+            console.log("Mapbox map loaded successfully.");
 
         });
 
+        map.on("error", (event) => {
+
+            console.error(
+                "Mapbox map error:",
+                event
+            );
+
+        });
 
         map.addControl(
             new mapboxgl.NavigationControl()
         );
 
-    }
+    } catch (error) {
 
-
-    if (
-        document.readyState ===
-        "loading"
-    ) {
-
-        document.addEventListener(
-            "DOMContentLoaded",
-            startMap
+        console.error(
+            "Mapbox initialization error:",
+            error
         );
 
-    } else {
-
-        startMap();
-
     }
+}
+    startMap();
 
 
     // ========================================
