@@ -1,3 +1,4 @@
+```javascript
 // ============================================
 // BRIGHTSIDE HOUSTON DETAILING
 // SHARED JAVASCRIPT
@@ -14,9 +15,7 @@ const navLinks = document.querySelector(".nav-links");
 if (menuButton && navLinks) {
 
     menuButton.addEventListener("click", () => {
-
         navLinks.classList.toggle("mobile-open");
-
     });
 
 }
@@ -26,8 +25,7 @@ if (menuButton && navLinks) {
 // BOOKING PAGE DETECTION
 // ============================================
 
-const bookingPage =
-    document.getElementById("booking-page");
+const bookingPage = document.getElementById("booking-page");
 
 
 // ============================================
@@ -40,74 +38,39 @@ function selectPackageFromURL() {
         return;
     }
 
-
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
-
-    const selectedService =
-        params.get("service");
-
+    const params = new URLSearchParams(window.location.search);
+    const selectedService = params.get("service");
 
     if (!selectedService) {
         return;
     }
 
-
-    const serviceRadio =
-        document.querySelector(
-            `input[name="service"][value="${selectedService}"]`
-        );
-
+    const serviceRadio = document.querySelector(
+        `input[name="service"][value="${selectedService}"]`
+    );
 
     if (!serviceRadio) {
-        console.warn(
-            "Package not found:",
-            selectedService
-        );
-
+        console.warn("Package not found:", selectedService);
         return;
     }
 
-
     serviceRadio.checked = true;
 
+    const selectedCard = serviceRadio.closest(".service-card");
 
-    // Make the selected card visually active
-    const selectedCard =
-        serviceRadio.closest(".service-card");
-
-
-    document
-        .querySelectorAll(".service-card")
-        .forEach(card => {
-
-            card.classList.remove(
-                "selected-service"
-            );
-
-        });
-
+    document.querySelectorAll(".service-card").forEach(card => {
+        card.classList.remove("selected-service");
+    });
 
     if (selectedCard) {
-
-        selectedCard.classList.add(
-            "selected-service"
-        );
-
+        selectedCard.classList.add("selected-service");
     }
-
 }
 
 
-// Run after the page has loaded
+// Run package selection after page loads
 
-if (
-    document.readyState ===
-    "loading"
-) {
+if (document.readyState === "loading") {
 
     document.addEventListener(
         "DOMContentLoaded",
@@ -119,7 +82,6 @@ if (
     selectPackageFromURL();
 
 }
-
 
 
 // ============================================
@@ -134,24 +96,45 @@ if (!bookingPage) {
 
 
     // ========================================
+    // FORMSPREE
+    // ========================================
+
+    const FORMSPREE_URL =
+        "https://formspree.io/f/mwlkokaa";
+
+
+    // ========================================
+    // CALENDLY LINKS
+    // ========================================
+
+    const CALENDLY_LINKS = {
+
+        express:
+            "https://calendly.com/brightsidemdetails/express-exterior",
+
+        interior:
+            "https://calendly.com/brightsidemdetails/full-interior",
+
+        "full-detail":
+            "https://calendly.com/brightsidemdetails/30min"
+
+    };
+
+
+    // ========================================
     // MAPBOX
     // ========================================
 
     const MAPBOX_TOKEN =
-        "pk.eyJ1IjoiYnJpZ2h0c2lkZWRldGFpbGluZyIsImEiOiJjbXQ5bGEzdTAwMGg0Mnlwd2M1MHlyYWV0In0.Usd3fiKRnMZq1oE6cYy1Jg";
+        "pk.eyJ1IjoiYnJpZ2h0c2lkZWRldGFpbGluZyIsImEiOiJjbXQ5bGEzdTAwMGg0Mnlwd2M1MHlyZWF0In0.Usd3fiKRnMZq1oE6cYy1Jg";
 
 
     // Alief Community Center
 
-    const SERVICE_LAT =
-        29.70254;
+    const SERVICE_LAT = 29.70254;
+    const SERVICE_LNG = -95.58891;
 
-    const SERVICE_LNG =
-        -95.58891;
-
-    const SERVICE_RADIUS =
-        30;
-
+    const SERVICE_RADIUS = 30;
 
 
     // ========================================
@@ -195,6 +178,28 @@ if (!bookingPage) {
         );
 
 
+    // Customer information
+
+    const customerName =
+        document.getElementById(
+            "customer-name"
+        );
+
+    const customerEmail =
+        document.getElementById(
+            "customer-email"
+        );
+
+    const customerPhone =
+        document.getElementById(
+            "customer-phone"
+        );
+
+    const condition =
+        document.getElementById(
+            "condition"
+        );
+
 
     // ========================================
     // VEHICLE PRICING
@@ -223,17 +228,13 @@ if (!bookingPage) {
     };
 
 
-
     function updatePrices() {
 
         if (!vehicleSize) {
             return;
         }
 
-
-        const vehicle =
-            vehicleSize.value;
-
+        const vehicle = vehicleSize.value;
 
         const priceElements =
             document.querySelectorAll(
@@ -250,24 +251,18 @@ if (!bookingPage) {
 
             }
 
+            priceElements.forEach(element => {
 
-            priceElements.forEach(
-                element => {
+                element.textContent =
+                    "Select Vehicle";
 
-                    element.textContent =
-                        "Select Vehicle";
-
-                }
-            );
-
+            });
 
             return;
-
         }
 
 
-        const selected =
-            prices[vehicle];
+        const selected = prices[vehicle];
 
 
         if (vehiclePrice) {
@@ -281,63 +276,49 @@ if (!bookingPage) {
         }
 
 
-        priceElements.forEach(
-            element => {
+        priceElements.forEach(element => {
 
-                const card =
-                    element.closest(
-                        ".service-card"
-                    );
+            const card =
+                element.closest(
+                    ".service-card"
+                );
 
+            const radio =
+                card?.querySelector(
+                    "input[name='service']"
+                );
 
-                const radio =
-                    card?.querySelector(
-                        "input[name='service']"
-                    );
-
-
-                if (!radio) {
-                    return;
-                }
+            if (!radio) {
+                return;
+            }
 
 
-                if (
-                    radio.value ===
-                    "express"
-                ) {
+            if (radio.value === "express") {
 
-                    element.textContent =
-                        `$${selected.express}`;
-
-                }
-
-
-                if (
-                    radio.value ===
-                    "interior"
-                ) {
-
-                    element.textContent =
-                        `$${selected.interior}`;
-
-                }
-
-
-                if (
-                    radio.value ===
-                    "full-detail"
-                ) {
-
-                    element.textContent =
-                        `$${selected.full}`;
-
-                }
+                element.textContent =
+                    `$${selected.express}`;
 
             }
-        );
+
+
+            if (radio.value === "interior") {
+
+                element.textContent =
+                    `$${selected.interior}`;
+
+            }
+
+
+            if (radio.value === "full-detail") {
+
+                element.textContent =
+                    `$${selected.full}`;
+
+            }
+
+        });
 
     }
-
 
 
     if (vehicleSize) {
@@ -350,7 +331,6 @@ if (!bookingPage) {
     }
 
 
-
     // ========================================
     // SERVICE CARD SELECTION
     // ========================================
@@ -361,48 +341,43 @@ if (!bookingPage) {
         );
 
 
-    serviceRadios.forEach(
-        radio => {
+    serviceRadios.forEach(radio => {
 
-            radio.addEventListener(
-                "change",
-                () => {
+        radio.addEventListener(
+            "change",
+            () => {
 
-                    document
-                        .querySelectorAll(
-                            ".service-card"
-                        )
-                        .forEach(
-                            card => {
+                document
+                    .querySelectorAll(
+                        ".service-card"
+                    )
+                    .forEach(card => {
 
-                                card.classList.remove(
-                                    "selected-service"
-                                );
-
-                            }
-                        );
-
-
-                    const card =
-                        radio.closest(
-                            ".service-card"
-                        );
-
-
-                    if (card) {
-
-                        card.classList.add(
+                        card.classList.remove(
                             "selected-service"
                         );
 
-                    }
+                    });
+
+
+                const card =
+                    radio.closest(
+                        ".service-card"
+                    );
+
+
+                if (card) {
+
+                    card.classList.add(
+                        "selected-service"
+                    );
 
                 }
-            );
 
-        }
-    );
+            }
+        );
 
+    });
 
 
     // ========================================
@@ -410,7 +385,6 @@ if (!bookingPage) {
     // ========================================
 
     let map = null;
-
     let marker = null;
 
 
@@ -480,11 +454,7 @@ if (!bookingPage) {
     }
 
 
-
-    if (
-        document.readyState ===
-        "loading"
-    ) {
+    if (document.readyState === "loading") {
 
         document.addEventListener(
             "DOMContentLoaded",
@@ -498,7 +468,6 @@ if (!bookingPage) {
     }
 
 
-
     // ========================================
     // SEARCH SESSION
     // ========================================
@@ -506,9 +475,7 @@ if (!bookingPage) {
     const sessionToken =
         crypto.randomUUID();
 
-
     let searchTimer;
-
 
 
     // ========================================
@@ -533,9 +500,7 @@ if (!bookingPage) {
                     addressInput.value.trim();
 
 
-                if (
-                    query.length < 3
-                ) {
+                if (query.length < 3) {
 
                     hideSuggestions();
 
@@ -562,14 +527,11 @@ if (!bookingPage) {
     }
 
 
-
     // ========================================
     // MAPBOX SUGGEST
     // ========================================
 
-    async function getSuggestions(
-        query
-    ) {
+    async function getSuggestions(query) {
 
         try {
 
@@ -636,27 +598,21 @@ if (!bookingPage) {
     }
 
 
-
     // ========================================
     // DISPLAY SUGGESTIONS
     // ========================================
 
-    function showSuggestions(
-        suggestions
-    ) {
+    function showSuggestions(suggestions) {
 
         if (!suggestionsBox) {
             return;
         }
 
 
-        suggestionsBox.innerHTML =
-            "";
+        suggestionsBox.innerHTML = "";
 
 
-        if (
-            suggestions.length === 0
-        ) {
+        if (suggestions.length === 0) {
 
             hideSuggestions();
 
@@ -665,61 +621,56 @@ if (!bookingPage) {
         }
 
 
-        suggestions.forEach(
-            suggestion => {
+        suggestions.forEach(suggestion => {
 
-                const button =
-                    document.createElement(
-                        "button"
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.type = "button";
+
+            button.className =
+                "address-suggestion";
+
+
+            button.innerHTML = `
+
+                <strong>
+                    ${escapeHTML(
+                        suggestion.name || ""
+                    )}
+                </strong>
+
+                <span>
+                    ${escapeHTML(
+                        suggestion.full_address ||
+                        suggestion.place_formatted ||
+                        ""
+                    )}
+                </span>
+
+            `;
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    retrieveAddress(
+                        suggestion
                     );
 
-
-                button.type =
-                    "button";
-
-
-                button.className =
-                    "address-suggestion";
+                }
+            );
 
 
-                button.innerHTML = `
+            suggestionsBox.appendChild(
+                button
+            );
 
-                    <strong>
-                        ${escapeHTML(
-                            suggestion.name ||
-                            ""
-                        )}
-                    </strong>
-
-                    <span>
-                        ${escapeHTML(
-                            suggestion.full_address ||
-                            suggestion.place_formatted ||
-                            ""
-                        )}
-                    </span>
-
-                `;
-
-
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        retrieveAddress(
-                            suggestion
-                        );
-
-                    }
-                );
-
-
-                suggestionsBox.appendChild(
-                    button
-                );
-
-            }
-        );
+        });
 
 
         suggestionsBox.style.display =
@@ -728,14 +679,11 @@ if (!bookingPage) {
     }
 
 
-
     // ========================================
     // RETRIEVE SELECTED ADDRESS
     // ========================================
 
-    async function retrieveAddress(
-        suggestion
-    ) {
+    async function retrieveAddress(suggestion) {
 
         if (
             !suggestion ||
@@ -844,7 +792,6 @@ if (!bookingPage) {
     }
 
 
-
     // ========================================
     // UPDATE MAP
     // ========================================
@@ -902,7 +849,6 @@ if (!bookingPage) {
     }
 
 
-
     // ========================================
     // DISTANCE
     // ========================================
@@ -914,8 +860,7 @@ if (!bookingPage) {
         lon2
     ) {
 
-        const radius =
-            3958.8;
+        const radius = 3958.8;
 
 
         const latDifference =
@@ -967,7 +912,6 @@ if (!bookingPage) {
         return radius * c;
 
     }
-
 
 
     // ========================================
@@ -1054,7 +998,6 @@ if (!bookingPage) {
     }
 
 
-
     // ========================================
     // AVAILABILITY
     // ========================================
@@ -1088,6 +1031,11 @@ if (!bookingPage) {
         );
 
 
+        availabilityButton.removeAttribute(
+            "tabindex"
+        );
+
+
         const message =
             availability.querySelector(
                 ".availability-message"
@@ -1103,9 +1051,8 @@ if (!bookingPage) {
                 </strong>
 
                 <p>
-                    Your address is within our
-                    service area. Check our
-                    available appointments.
+                    Complete your information and
+                    continue to choose an appointment.
                 </p>
 
             `;
@@ -1113,7 +1060,6 @@ if (!bookingPage) {
         }
 
     }
-
 
 
     function lockAvailability() {
@@ -1178,6 +1124,519 @@ if (!bookingPage) {
     }
 
 
+    // ========================================
+    // GET SELECTED SERVICE
+    // ========================================
+
+    function getSelectedService() {
+
+        const selected =
+            document.querySelector(
+                "input[name='service']:checked"
+            );
+
+
+        if (!selected) {
+            return null;
+        }
+
+
+        return selected.value;
+
+    }
+
+
+    // ========================================
+    // GET SERVICE NAME
+    // ========================================
+
+    function getServiceName(service) {
+
+        const names = {
+
+            express:
+                "Exterior Detail",
+
+            interior:
+                "Interior Detail",
+
+            "full-detail":
+                "Full Detail"
+
+        };
+
+
+        return names[service] || service;
+
+    }
+
+
+    // ========================================
+    // GET ESTIMATED PRICE
+    // ========================================
+
+    function getEstimatedPrice() {
+
+        if (
+            !vehicleSize ||
+            !vehicleSize.value
+        ) {
+
+            return "";
+
+        }
+
+
+        const vehicle =
+            vehicleSize.value;
+
+
+        const service =
+            getSelectedService();
+
+
+        if (
+            !service ||
+            !prices[vehicle]
+        ) {
+
+            return "";
+
+        }
+
+
+        if (service === "express") {
+
+            return `$${prices[vehicle].express}`;
+
+        }
+
+
+        if (service === "interior") {
+
+            return `$${prices[vehicle].interior}`;
+
+        }
+
+
+        if (service === "full-detail") {
+
+            return `$${prices[vehicle].full}`;
+
+        }
+
+
+        return "";
+
+    }
+
+
+    // ========================================
+    // VALIDATE BOOKING INFORMATION
+    // ========================================
+
+    function validateBooking() {
+
+        const fields = [
+
+            {
+                element: customerName,
+                name: "your name"
+            },
+
+            {
+                element: customerEmail,
+                name: "your email"
+            },
+
+            {
+                element: customerPhone,
+                name: "your phone number"
+            },
+
+            {
+                element:
+                    document.getElementById(
+                        "vehicle-make"
+                    ),
+                name: "vehicle make"
+            },
+
+            {
+                element:
+                    document.getElementById(
+                        "vehicle-model"
+                    ),
+                name: "vehicle model"
+            },
+
+            {
+                element:
+                    document.getElementById(
+                        "vehicle-year"
+                    ),
+                name: "vehicle year"
+            },
+
+            {
+                element: vehicleSize,
+                name: "vehicle type"
+            },
+
+            {
+                element: addressInput,
+                name: "service address"
+            }
+
+        ];
+
+
+        for (const field of fields) {
+
+            if (
+                !field.element ||
+                !field.element.value.trim()
+            ) {
+
+                alert(
+                    `Please enter ${field.name} before continuing.`
+                );
+
+
+                field.element?.focus();
+
+
+                return false;
+
+            }
+
+        }
+
+
+        const selectedService =
+            getSelectedService();
+
+
+        if (!selectedService) {
+
+            alert(
+                "Please select a detailing service before continuing."
+            );
+
+
+            document
+                .getElementById(
+                    "service-section"
+                )
+                ?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+
+            return false;
+
+        }
+
+
+        if (
+            !serviceStatus ||
+            !serviceStatus.classList.contains(
+                "eligible"
+            )
+        ) {
+
+            alert(
+                "Please select an address within our service area before continuing."
+            );
+
+
+            addressInput?.focus();
+
+
+            return false;
+
+        }
+
+
+        return true;
+
+    }
+
+
+    // ========================================
+    // SEND BOOKING TO FORMSPREE
+    // ========================================
+
+    async function sendToFormspree() {
+
+        const selectedService =
+            getSelectedService();
+
+
+        const vehicleMake =
+            document.getElementById(
+                "vehicle-make"
+            )?.value.trim();
+
+
+        const vehicleModel =
+            document.getElementById(
+                "vehicle-model"
+            )?.value.trim();
+
+
+        const vehicleYear =
+            document.getElementById(
+                "vehicle-year"
+            )?.value.trim();
+
+
+        const vehicleType =
+            vehicleSize?.options[
+                vehicleSize.selectedIndex
+            ]?.textContent.trim();
+
+
+        const conditionText =
+            condition?.value.trim() ||
+            "No additional comments";
+
+
+        const formData =
+            new FormData();
+
+
+        formData.append(
+            "Name",
+            customerName.value.trim()
+        );
+
+
+        formData.append(
+            "Email",
+            customerEmail.value.trim()
+        );
+
+
+        formData.append(
+            "Phone",
+            customerPhone.value.trim()
+        );
+
+
+        formData.append(
+            "Vehicle Make",
+            vehicleMake
+        );
+
+
+        formData.append(
+            "Vehicle Model",
+            vehicleModel
+        );
+
+
+        formData.append(
+            "Vehicle Year",
+            vehicleYear
+        );
+
+
+        formData.append(
+            "Vehicle Type",
+            vehicleType
+        );
+
+
+        formData.append(
+            "Service",
+            getServiceName(
+                selectedService
+            )
+        );
+
+
+        formData.append(
+            "Estimated Price",
+            getEstimatedPrice()
+        );
+
+
+        formData.append(
+            "Service Address",
+            addressInput.value.trim()
+        );
+
+
+        formData.append(
+            "Vehicle Condition / Comments",
+            conditionText
+        );
+
+
+        formData.append(
+            "_subject",
+            "New BrightSide Detailing Booking Request"
+        );
+
+
+        const response =
+            await fetch(
+                FORMSPREE_URL,
+                {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        Accept:
+                            "application/json"
+                    }
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Formspree submission failed."
+            );
+
+        }
+
+
+        return true;
+
+    }
+
+
+    // ========================================
+    // CHECK AVAILABILITY BUTTON
+    // ========================================
+
+    if (availabilityButton) {
+
+        availabilityButton.addEventListener(
+            "click",
+            async event => {
+
+                event.preventDefault();
+
+
+                if (
+                    availabilityButton.classList.contains(
+                        "disabled-button"
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                // Validate all information
+
+                if (!validateBooking()) {
+                    return;
+                }
+
+
+                const selectedService =
+                    getSelectedService();
+
+
+                const calendlyURL =
+                    CALENDLY_LINKS[
+                        selectedService
+                    ];
+
+
+                if (!calendlyURL) {
+
+                    alert(
+                        "There was a problem selecting the booking calendar. Please try again."
+                    );
+
+                    return;
+
+                }
+
+
+                // Temporarily disable button
+
+                availabilityButton.style.pointerEvents =
+                    "none";
+
+                availabilityButton.classList.add(
+                    "disabled-button"
+                );
+
+
+                const originalText =
+                    availabilityButton.innerHTML;
+
+
+                availabilityButton.innerHTML =
+                    "Sending Details...";
+
+
+                try {
+
+                    // Send vehicle information to BrightSide
+
+                    await sendToFormspree();
+
+
+                    // Tell customer we're moving to Calendly
+
+                    availabilityButton.innerHTML =
+                        "Opening Calendar...";
+
+
+                    // Small delay so Formspree finishes cleanly
+
+                    setTimeout(
+                        () => {
+
+                            window.location.href =
+                                calendlyURL;
+
+                        },
+                        500
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Booking submission error:",
+                        error
+                    );
+
+
+                    availabilityButton.innerHTML =
+                        originalText;
+
+
+                    availabilityButton.classList.remove(
+                        "disabled-button"
+                    );
+
+
+                    availabilityButton.style.pointerEvents =
+                        "auto";
+
+
+                    alert(
+                        "We couldn't send your booking information. Please check your internet connection and try again."
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
 
     // ========================================
     // RESET LOCATION
@@ -1201,7 +1660,6 @@ if (!bookingPage) {
     }
 
 
-
     // ========================================
     // HIDE SUGGESTIONS
     // ========================================
@@ -1222,32 +1680,34 @@ if (!bookingPage) {
     }
 
 
-
     // ========================================
     // ESCAPE HTML
     // ========================================
 
-    function escapeHTML(
-        value
-    ) {
+    function escapeHTML(value) {
 
         return String(value)
+
             .replace(
                 /&/g,
                 "&amp;"
             )
+
             .replace(
                 /</g,
                 "&lt;"
             )
+
             .replace(
                 />/g,
                 "&gt;"
             )
+
             .replace(
                 /"/g,
                 "&quot;"
             )
+
             .replace(
                 /'/g,
                 "&#039;"
@@ -1256,9 +1716,8 @@ if (!bookingPage) {
     }
 
 
-
     // ========================================
-    // CLICK OUTSIDE
+    // CLICK OUTSIDE SUGGESTIONS
     // ========================================
 
     document.addEventListener(
@@ -1284,3 +1743,4 @@ if (!bookingPage) {
     );
 
 }
+```
