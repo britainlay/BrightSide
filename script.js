@@ -1,117 +1,51 @@
-// ============================================
-// BRIGHTSIDE HOUSTON DETAILING
-// BOOKING + MAPBOX + CALENDLY JAVASCRIPT
-// ============================================
+/* ============================================
+BRIGHTSIDE HOUSTON DETAILING
+BOOKING + MAPBOX JAVASCRIPT
+============================================ */
 
-
-// ============================================
-// MOBILE MENU
-// ============================================
+/* ============================================
+MOBILE MENU
+============================================ */
 
 const menuButton = document.getElementById("menuButton");
 const navLinks = document.querySelector(".nav-links");
 
 if (menuButton && navLinks) {
-    menuButton.addEventListener("click", () => {
-        navLinks.classList.toggle("mobile-open");
-    });
+
+```
+menuButton.addEventListener("click", () => {
+    navLinks.classList.toggle("mobile-open");
+});
+```
+
 }
 
-
-// ============================================
-// BOOKING PAGE DETECTION
-// ============================================
+/* ============================================
+BOOKING PAGE
+============================================ */
 
 const bookingPage = document.getElementById("booking-page");
 
+if (bookingPage) {
 
-// ============================================
-// PACKAGE FROM URL
-// ============================================
-
-function selectPackageFromURL() {
-
-    if (!bookingPage) return;
-
-    const params = new URLSearchParams(window.location.search);
-    const selectedService = params.get("service");
-
-    if (!selectedService) return;
-
-    const serviceRadio = document.querySelector(
-        `input[name="service"][value="${selectedService}"]`
-    );
-
-    if (!serviceRadio) return;
-
-    serviceRadio.checked = true;
-
-    document.querySelectorAll(".service-card").forEach(card => {
-        card.classList.remove("selected-service");
-    });
-
-    const selectedCard = serviceRadio.closest(".service-card");
-
-    if (selectedCard) {
-        selectedCard.classList.add("selected-service");
-    }
-}
-
-
-// Run package selection
-selectPackageFromURL();
-
-
-// ============================================
-// STOP IF NOT BOOKING PAGE
-// ============================================
-
-if (!bookingPage) {
-
-    console.log("BrightSide: Non-booking page loaded.");
-
-} else {
-
-
-// ============================================
-// MAPBOX SETTINGS
-// ============================================
-
+```
+/* ============================================
+   MAPBOX CONFIGURATION
+============================================ */
 
 const MAPBOX_TOKEN =
     "pk.eyJ1IjoiYnJpZ2h0c2lkZWRldGFpbGluZyIsImEiOiJjbXQ5a3FuMDUwNHVlMndweWFzNXAwMG5rIn0.HYTbUgwvgO3_fn7f0mHCDg";
 
 
-// Alief Community Center
 const SERVICE_LAT = 29.70254;
 const SERVICE_LNG = -95.58891;
 
-
-// Service radius in miles
 const SERVICE_RADIUS = 30;
 
 
-// ============================================
-// CALENDLY SETTINGS
-// ============================================
-
-const CALENDLY_URLS = {
-
-    express:
-        "https://calendly.com/brightsidemdetails/express-exterior",
-
-    interior:
-        "https://calendly.com/brightsidemdetails/full-interior",
-
-    "full-detail":
-        "https://calendly.com/brightsidemdetails/30min"
-
-};
-
-
-// ============================================
-// ELEMENTS
-// ============================================
+/* ============================================
+   ELEMENTS
+============================================ */
 
 const addressInput =
     document.getElementById("address");
@@ -131,67 +65,110 @@ const availabilityButton =
 const mapElement =
     document.getElementById("map");
 
-const vehicleMake =
-    document.getElementById("vehicle-make");
-
-const vehicleModel =
-    document.getElementById("vehicle-model");
-
-const vehicleYear =
-    document.getElementById("vehicle-year");
-
 const vehicleSize =
     document.getElementById("vehicle-size");
 
 const vehiclePrice =
     document.getElementById("vehicle-price");
 
-const conditionInput =
-    document.getElementById("condition");
+
+/* ============================================
+   PACKAGE FROM URL
+   Example:
+   booking/?service=express
+============================================ */
+
+function selectPackageFromURL() {
+
+    const params =
+        new URLSearchParams(window.location.search);
+
+    const selectedService =
+        params.get("service");
+
+    if (!selectedService) return;
 
 
-// ============================================
-// VEHICLE PRICING
-// ============================================
+    const serviceRadio =
+        document.querySelector(
+            `input[name="service"][value="${selectedService}"]`
+        );
+
+    if (!serviceRadio) return;
+
+
+    serviceRadio.checked = true;
+
+
+    document
+        .querySelectorAll(".service-card")
+        .forEach(card => {
+            card.classList.remove(
+                "selected-service"
+            );
+        });
+
+
+    const selectedCard =
+        serviceRadio.closest(".service-card");
+
+
+    if (selectedCard) {
+
+        selectedCard.classList.add(
+            "selected-service"
+        );
+
+    }
+
+}
+
+
+selectPackageFromURL();
+
+
+/* ============================================
+   VEHICLE PRICING
+============================================ */
 
 const prices = {
 
     sedan: {
         express: 75,
         interior: 100,
-        full: 150
+        "full-detail": 150
     },
 
     suv: {
         express: 95,
         interior: 120,
-        full: 180
+        "full-detail": 180
     },
 
     truck: {
         express: 110,
         interior: 140,
-        full: 200
+        "full-detail": 200
     }
 
 };
 
 
-// ============================================
-// UPDATE PRICES
-// ============================================
-
 function updatePrices() {
 
     if (!vehicleSize) return;
 
-    const vehicle = vehicleSize.value;
+
+    const vehicle =
+        vehicleSize.value;
+
 
     const priceElements =
-        document.querySelectorAll(".service-price");
+        document.querySelectorAll(
+            ".service-price"
+        );
 
 
-    // No vehicle selected
     if (!vehicle) {
 
         if (vehiclePrice) {
@@ -201,6 +178,7 @@ function updatePrices() {
 
         }
 
+
         priceElements.forEach(element => {
 
             element.textContent =
@@ -208,13 +186,12 @@ function updatePrices() {
 
         });
 
-        updateAvailabilityState();
-
         return;
     }
 
 
-    const selected = prices[vehicle];
+    const selected =
+        prices[vehicle];
 
 
     if (!selected) return;
@@ -226,7 +203,7 @@ function updatePrices() {
             <strong>Estimated pricing:</strong>
             Express $${selected.express}
             • Interior $${selected.interior}
-            • Full Detail $${selected.full}
+            • Full Detail $${selected["full-detail"]}
         `;
 
     }
@@ -237,46 +214,33 @@ function updatePrices() {
         const card =
             element.closest(".service-card");
 
+        if (!card) return;
+
+
         const radio =
-            card?.querySelector(
+            card.querySelector(
                 "input[name='service']"
             );
 
         if (!radio) return;
 
 
-        if (radio.value === "express") {
+        const price =
+            selected[radio.value];
+
+
+        if (price) {
 
             element.textContent =
-                `$${selected.express}`;
-
-        }
-
-
-        if (radio.value === "interior") {
-
-            element.textContent =
-                `$${selected.interior}`;
-
-        }
-
-
-        if (radio.value === "full-detail") {
-
-            element.textContent =
-                `$${selected.full}`;
+                `$${price}`;
 
         }
 
     });
 
-
-    updateAvailabilityState();
-
 }
 
 
-// Vehicle size changed
 if (vehicleSize) {
 
     vehicleSize.addEventListener(
@@ -287,9 +251,9 @@ if (vehicleSize) {
 }
 
 
-// ============================================
-// SERVICE CARD SELECTION
-// ============================================
+/* ============================================
+   SERVICE CARD SELECTION
+============================================ */
 
 const serviceRadios =
     document.querySelectorAll(
@@ -326,248 +290,76 @@ serviceRadios.forEach(radio => {
 
             }
 
-
-            updateAvailabilityState();
-
         }
     );
 
 });
 
 
-// ============================================
-// GET SELECTED SERVICE
-// ============================================
-
-function getSelectedService() {
-
-    const selected =
-        document.querySelector(
-            "input[name='service']:checked"
-        );
-
-    return selected
-        ? selected.value
-        : "";
-
-}
-
-
-// ============================================
-// GET SERVICE NAME
-// ============================================
-
-function getServiceName(service) {
-
-    if (service === "express") {
-        return "Exterior Detail";
-    }
-
-    if (service === "interior") {
-        return "Interior Detail";
-    }
-
-    if (service === "full-detail") {
-        return "Full Detail";
-    }
-
-    return "";
-
-}
-
-
-// ============================================
-// VEHICLE INFORMATION COMPLETE?
-// ============================================
-
-function vehicleInformationComplete() {
-
-    if (
-        !vehicleMake ||
-        !vehicleModel ||
-        !vehicleYear ||
-        !vehicleSize
-    ) {
-        return false;
-    }
-
-
-    const make =
-        vehicleMake.value.trim();
-
-    const model =
-        vehicleModel.value.trim();
-
-    const year =
-        vehicleYear.value.trim();
-
-    const size =
-        vehicleSize.value;
-
-
-    return (
-        make !== "" &&
-        model !== "" &&
-        year !== "" &&
-        size !== ""
-    );
-
-}
-
-
-// ============================================
-// SERVICE COMPLETE?
-// ============================================
-
-function serviceSelectionComplete() {
-
-    return getSelectedService() !== "";
-
-}
-
-
-// ============================================
-// LOCATION COMPLETE?
-// ============================================
-
-let addressEligible = false;
-
-
-// ============================================
-// UPDATE AVAILABILITY STATE
-// ============================================
-
-function updateAvailabilityState() {
-
-    if (
-        !availability ||
-        !availabilityButton
-    ) {
-        return;
-    }
-
-
-    const vehicleComplete =
-        vehicleInformationComplete();
-
-    const serviceComplete =
-        serviceSelectionComplete();
-
-
-    if (
-        addressEligible &&
-        vehicleComplete &&
-        serviceComplete
-    ) {
-
-        unlockAvailability();
-
-    } else {
-
-        lockAvailability();
-
-    }
-
-}
-
-
-// ============================================
-// MAPBOX
-// ============================================
+/* ============================================
+   MAPBOX
+============================================ */
 
 let map = null;
 let marker = null;
 
 
-// ============================================
-// START MAP
-// ============================================
+function showMapError(message) {
+
+    if (!mapElement) return;
+
+
+    mapElement.innerHTML = `
+        <div class="map-error">
+            <strong>Mapbox couldn't load.</strong>
+            <br>
+            ${message}
+        </div>
+    `;
+
+}
+
 
 function startMap() {
 
-    if (!mapElement) {
-        return;
-    }
+    if (!mapElement) return;
 
 
-    // Check token
     if (
         !MAPBOX_TOKEN ||
-        MAPBOX_TOKEN ===
-        "PASTE_YOUR_NEW_PUBLIC_PK_TOKEN_HERE"
+        MAPBOX_TOKEN === "YOUR_NEW_PUBLIC_MAPBOX_TOKEN"
     ) {
 
         console.error(
-            "BrightSide: Mapbox public token is missing."
+            "Mapbox token has not been added."
         );
 
 
-        mapElement.innerHTML = `
-            <div class="map-error">
-                <strong>Mapbox token is missing.</strong>
-                <br>
-                Add your new public Mapbox token
-                to script.js.
-            </div>
-        `;
-
+        showMapError(
+            "Add your new public Mapbox token to script.js."
+        );
 
         return;
 
     }
 
 
-    // Check token type
-    if (
-        !MAPBOX_TOKEN.startsWith("pk.")
-    ) {
+    if (typeof mapboxgl === "undefined") {
 
         console.error(
-            "BrightSide: Mapbox token must be a public pk token."
+            "Mapbox GL JS did not load."
         );
 
 
-        mapElement.innerHTML = `
-            <div class="map-error">
-                <strong>Invalid Mapbox token.</strong>
-                <br>
-                Your website needs a public
-                Mapbox token beginning with
-                <strong>pk.</strong>
-            </div>
-        `;
-
+        showMapError(
+            "Mapbox's JavaScript library did not load. Check your internet connection and refresh the page."
+        );
 
         return;
 
     }
 
 
-    // Check Mapbox library
-    if (
-        typeof mapboxgl === "undefined"
-    ) {
-
-        console.error(
-            "BrightSide: Mapbox GL JS did not load."
-        );
-
-
-        mapElement.innerHTML = `
-            <div class="map-error">
-                <strong>Mapbox could not load.</strong>
-                <br>
-                Please refresh the page.
-            </div>
-        `;
-
-
-        return;
-
-    }
-
-
-    // Set token
     mapboxgl.accessToken =
         MAPBOX_TOKEN;
 
@@ -577,8 +369,7 @@ function startMap() {
         map =
             new mapboxgl.Map({
 
-                container:
-                    mapElement,
+                container: mapElement,
 
                 style:
                     "mapbox://styles/mapbox/streets-v12",
@@ -594,8 +385,7 @@ function startMap() {
 
 
         map.addControl(
-            new mapboxgl.NavigationControl(),
-            "top-right"
+            new mapboxgl.NavigationControl()
         );
 
 
@@ -604,7 +394,7 @@ function startMap() {
             () => {
 
                 console.log(
-                    "BrightSide: Mapbox loaded successfully."
+                    "Mapbox loaded successfully."
                 );
 
             }
@@ -616,13 +406,9 @@ function startMap() {
             event => {
 
                 console.error(
-                    "BrightSide: Mapbox map error:",
+                    "Mapbox error:",
                     event
                 );
-
-
-                // Don't replace the map immediately
-                // because Mapbox can produce non-fatal errors.
 
             }
         );
@@ -631,48 +417,23 @@ function startMap() {
     } catch (error) {
 
         console.error(
-            "BrightSide: Mapbox initialization error:",
+            "Map initialization error:",
             error
         );
 
 
-        mapElement.innerHTML = `
-            <div class="map-error">
-                <strong>Map could not load.</strong>
-                <br>
-                Please check your Mapbox token.
-            </div>
-        `;
+        showMapError(
+            "There was a problem initializing the map."
+        );
 
     }
 
 }
 
 
-// ============================================
-// START MAP AFTER PAGE LOAD
-// ============================================
-
-if (
-    document.readyState ===
-    "loading"
-) {
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        startMap
-    );
-
-} else {
-
-    startMap();
-
-}
-
-
-// ============================================
-// SEARCH SESSION
-// ============================================
+/* ============================================
+   MAPBOX SEARCH SESSION
+============================================ */
 
 let sessionToken =
     createSessionToken();
@@ -683,7 +444,7 @@ function createSessionToken() {
     if (
         window.crypto &&
         typeof window.crypto.randomUUID ===
-        "function"
+            "function"
     ) {
 
         return window.crypto.randomUUID();
@@ -701,16 +462,16 @@ function createSessionToken() {
 }
 
 
-// ============================================
-// SEARCH TIMER
-// ============================================
+/* ============================================
+   SEARCH TIMER
+============================================ */
 
 let searchTimer = null;
 
 
-// ============================================
-// ADDRESS INPUT
-// ============================================
+/* ============================================
+   ADDRESS INPUT
+============================================ */
 
 if (addressInput) {
 
@@ -718,9 +479,7 @@ if (addressInput) {
         "input",
         () => {
 
-            clearTimeout(
-                searchTimer
-            );
+            clearTimeout(searchTimer);
 
 
             resetLocation();
@@ -730,9 +489,7 @@ if (addressInput) {
                 addressInput.value.trim();
 
 
-            if (
-                query.length < 3
-            ) {
+            if (query.length < 3) {
 
                 hideSuggestions();
 
@@ -744,11 +501,7 @@ if (addressInput) {
             searchTimer =
                 setTimeout(
                     () => {
-
-                        getSuggestions(
-                            query
-                        );
-
+                        getSuggestions(query);
                     },
                     300
                 );
@@ -759,46 +512,33 @@ if (addressInput) {
 }
 
 
-// ============================================
-// GET MAPBOX SUGGESTIONS
-// ============================================
+/* ============================================
+   MAPBOX ADDRESS SUGGESTIONS
+============================================ */
 
-async function getSuggestions(
-    query
-) {
+async function getSuggestions(query) {
 
     try {
 
         const url =
             "https://api.mapbox.com/search/searchbox/v1/suggest" +
-
             "?q=" +
             encodeURIComponent(query) +
-
             "&country=US" +
-
             "&language=en" +
-
             "&limit=6" +
-
             "&session_token=" +
-            encodeURIComponent(
-                sessionToken
-            ) +
-
+            encodeURIComponent(sessionToken) +
             "&proximity=" +
             SERVICE_LNG +
             "," +
             SERVICE_LAT +
-
             "&access_token=" +
-            encodeURIComponent(
-                MAPBOX_TOKEN
-            );
+            encodeURIComponent(MAPBOX_TOKEN);
 
 
         console.log(
-            "BrightSide: Searching Mapbox..."
+            "Searching Mapbox..."
         );
 
 
@@ -813,14 +553,14 @@ async function getSuggestions(
 
 
             console.error(
-                "Mapbox Search Error:",
+                "Mapbox search error:",
                 response.status,
                 errorText
             );
 
 
             throw new Error(
-                `Mapbox search failed (${response.status})`
+                `Mapbox search failed: ${response.status}`
             );
 
         }
@@ -831,7 +571,7 @@ async function getSuggestions(
 
 
         console.log(
-            "BrightSide: Mapbox suggestions received.",
+            "Mapbox suggestions:",
             data
         );
 
@@ -844,7 +584,7 @@ async function getSuggestions(
     } catch (error) {
 
         console.error(
-            "BrightSide: Address search error:",
+            "Address search error:",
             error
         );
 
@@ -856,26 +596,22 @@ async function getSuggestions(
 }
 
 
-// ============================================
-// DISPLAY SUGGESTIONS
-// ============================================
+/* ============================================
+   SHOW SUGGESTIONS
+============================================ */
 
 function showSuggestions(
     suggestions
 ) {
 
-    if (!suggestionsBox) {
-        return;
-    }
+    if (!suggestionsBox) return;
 
 
     suggestionsBox.innerHTML =
         "";
 
 
-    if (
-        !suggestions.length
-    ) {
+    if (!suggestions.length) {
 
         hideSuggestions();
 
@@ -950,9 +686,9 @@ function showSuggestions(
 }
 
 
-// ============================================
-// RETRIEVE SELECTED ADDRESS
-// ============================================
+/* ============================================
+   RETRIEVE ADDRESS
+============================================ */
 
 async function retrieveAddress(
     suggestion
@@ -964,10 +700,9 @@ async function retrieveAddress(
     ) {
 
         console.error(
-            "BrightSide: Invalid Mapbox suggestion.",
+            "Invalid Mapbox suggestion:",
             suggestion
         );
-
 
         return;
 
@@ -978,16 +713,13 @@ async function retrieveAddress(
 
         const url =
             "https://api.mapbox.com/search/searchbox/v1/retrieve/" +
-
             encodeURIComponent(
                 suggestion.mapbox_id
             ) +
-
             "?session_token=" +
             encodeURIComponent(
                 sessionToken
             ) +
-
             "&access_token=" +
             encodeURIComponent(
                 MAPBOX_TOKEN
@@ -1005,14 +737,14 @@ async function retrieveAddress(
 
 
             console.error(
-                "Mapbox Retrieve Error:",
+                "Mapbox retrieve error:",
                 response.status,
                 errorText
             );
 
 
             throw new Error(
-                `Mapbox retrieve failed (${response.status})`
+                `Mapbox retrieve failed: ${response.status}`
             );
 
         }
@@ -1042,6 +774,7 @@ async function retrieveAddress(
         const longitude =
             coordinates[0];
 
+
         const latitude =
             coordinates[1];
 
@@ -1054,20 +787,13 @@ async function retrieveAddress(
             "Selected address";
 
 
-        // Put selected address in input
-        if (addressInput) {
-
-            addressInput.value =
-                address;
-
-        }
+        addressInput.value =
+            address;
 
 
-        // Hide suggestions
         hideSuggestions();
 
 
-        // Show address on map
         updateMap(
             longitude,
             latitude,
@@ -1075,14 +801,12 @@ async function retrieveAddress(
         );
 
 
-        // Check service area
         checkServiceArea(
             latitude,
             longitude
         );
 
 
-        // New session after retrieval
         sessionToken =
             createSessionToken();
 
@@ -1090,13 +814,9 @@ async function retrieveAddress(
     } catch (error) {
 
         console.error(
-            "BrightSide: Address retrieval error:",
+            "Address retrieval error:",
             error
         );
-
-
-        addressEligible =
-            false;
 
 
         if (serviceStatus) {
@@ -1107,28 +827,25 @@ async function retrieveAddress(
 
             serviceStatus.innerHTML = `
                 <strong>
-                    ✕ Unable to verify this address
+                    Unable to verify this address
                 </strong>
 
                 <span>
-                    Please select your exact address
+                    Please select an address directly
                     from the suggestions.
                 </span>
             `;
 
         }
 
-
-        updateAvailabilityState();
-
     }
 
 }
 
 
-// ============================================
-// UPDATE MAP
-// ============================================
+/* ============================================
+   UPDATE MAP
+============================================ */
 
 function updateMap(
     longitude,
@@ -1139,9 +856,8 @@ function updateMap(
     if (!map) {
 
         console.error(
-            "BrightSide: Map is not initialized."
+            "Map is not initialized."
         );
-
 
         return;
 
@@ -1178,9 +894,7 @@ function updateMap(
             .setPopup(
                 new mapboxgl.Popup({
                     offset: 25
-                }).setText(
-                    address
-                )
+                }).setText(address)
             )
             .addTo(map);
 
@@ -1190,9 +904,9 @@ function updateMap(
 }
 
 
-// ============================================
-// DISTANCE CALCULATOR
-// ============================================
+/* ============================================
+   DISTANCE CALCULATOR
+============================================ */
 
 function calculateDistance(
     lat1,
@@ -1256,18 +970,16 @@ function calculateDistance(
 }
 
 
-// ============================================
-// CHECK SERVICE AREA
-// ============================================
+/* ============================================
+   CHECK SERVICE AREA
+============================================ */
 
 function checkServiceArea(
     latitude,
     longitude
 ) {
 
-    if (!serviceStatus) {
-        return;
-    }
+    if (!serviceStatus) return;
 
 
     const distance =
@@ -1290,10 +1002,6 @@ function checkServiceArea(
         SERVICE_RADIUS
     ) {
 
-        addressEligible =
-            true;
-
-
         serviceStatus.className =
             "service-status eligible";
 
@@ -1310,11 +1018,9 @@ function checkServiceArea(
         `;
 
 
+        unlockAvailability();
+
     } else {
-
-        addressEligible =
-            false;
-
 
         serviceStatus.className =
             "service-status not-eligible";
@@ -1333,17 +1039,17 @@ function checkServiceArea(
             </span>
         `;
 
+
+        lockAvailability();
+
     }
-
-
-    updateAvailabilityState();
 
 }
 
 
-// ============================================
-// AVAILABILITY UNLOCK
-// ============================================
+/* ============================================
+   AVAILABILITY
+============================================ */
 
 function unlockAvailability() {
 
@@ -1393,23 +1099,23 @@ function unlockAvailability() {
 
         message.innerHTML = `
             <strong>
-                ✓ Ready to book
+                ✓ Location confirmed
             </strong>
 
             <p>
-                Your vehicle and location are confirmed.
-                Continue to choose your weekend appointment.
+                Your address is within our
+                service area. Continue to
+                choose an available appointment.
             </p>
         `;
 
     }
 
+
+    updateAvailabilityLink();
+
 }
 
-
-// ============================================
-// AVAILABILITY LOCK
-// ============================================
 
 function lockAvailability() {
 
@@ -1464,8 +1170,8 @@ function lockAvailability() {
             </strong>
 
             <p>
-                Complete your vehicle information,
-                service selection, and service-area check
+                Confirm that your address
+                is within our service area
                 to continue.
             </p>
         `;
@@ -1475,15 +1181,154 @@ function lockAvailability() {
 }
 
 
-// ============================================
-// RESET LOCATION
-// ============================================
+/* ============================================
+   CALENDLY LINK
+============================================ */
+
+function updateAvailabilityLink() {
+
+    if (!availabilityButton) return;
+
+
+    const selectedService =
+        document.querySelector(
+            "input[name='service']:checked"
+        );
+
+
+    let service =
+        selectedService
+            ? selectedService.value
+            : "";
+
+
+    let calendlyURL =
+        "https://calendly.com/brightsidemdetails/30min";
+
+
+    if (service === "express") {
+
+        calendlyURL =
+            "https://calendly.com/brightsidemdetails/express-exterior";
+
+    }
+
+
+    if (service === "interior") {
+
+        calendlyURL =
+            "https://calendly.com/brightsidemdetails/full-interior";
+
+    }
+
+
+    if (service === "full-detail") {
+
+        calendlyURL =
+            "https://calendly.com/brightsidemdetails/30min";
+
+    }
+
+
+    const params =
+        new URLSearchParams();
+
+
+    const name =
+        document.getElementById(
+            "customer-name"
+        )?.value.trim();
+
+
+    const email =
+        document.getElementById(
+            "customer-email"
+        )?.value.trim();
+
+
+    const phone =
+        document.getElementById(
+            "customer-phone"
+        )?.value.trim();
+
+
+    const address =
+        addressInput?.value.trim();
+
+
+    if (name) {
+        params.set(
+            "name",
+            name
+        );
+    }
+
+
+    if (email) {
+        params.set(
+            "email",
+            email
+        );
+    }
+
+
+    if (phone) {
+        params.set(
+            "a1",
+            phone
+        );
+    }
+
+
+    if (address) {
+        params.set(
+            "a2",
+            address
+        );
+    }
+
+
+    availabilityButton.href =
+        params.toString()
+            ? `${calendlyURL}?${params.toString()}`
+            : calendlyURL;
+
+}
+
+
+/* ============================================
+   UPDATE CALENDLY WHEN FORM CHANGES
+============================================ */
+
+document
+    .querySelectorAll(
+        "#customer-name, #customer-email, #customer-phone"
+    )
+    .forEach(input => {
+
+        input.addEventListener(
+            "input",
+            updateAvailabilityLink
+        );
+
+    });
+
+
+serviceRadios.forEach(radio => {
+
+    radio.addEventListener(
+        "change",
+        updateAvailabilityLink
+    );
+
+});
+
+
+/* ============================================
+   RESET LOCATION
+============================================ */
 
 function resetLocation() {
-
-    addressEligible =
-        false;
-
 
     if (serviceStatus) {
 
@@ -1497,230 +1342,18 @@ function resetLocation() {
     }
 
 
-    updateAvailabilityState();
+    lockAvailability();
 
 }
 
 
-// ============================================
-// BUILD CALENDLY URL
-// ============================================
-
-function buildCalendlyURL() {
-
-    const service =
-        getSelectedService();
-
-
-    if (!service) {
-        return null;
-    }
-
-
-    const baseURL =
-        CALENDLY_URLS[service];
-
-
-    if (!baseURL) {
-        return null;
-    }
-
-
-    const params =
-        new URLSearchParams();
-
-
-    // Vehicle information
-    if (vehicleMake) {
-
-        params.set(
-            "make",
-            vehicleMake.value.trim()
-        );
-
-    }
-
-
-    if (vehicleModel) {
-
-        params.set(
-            "model",
-            vehicleModel.value.trim()
-        );
-
-    }
-
-
-    if (vehicleYear) {
-
-        params.set(
-            "year",
-            vehicleYear.value.trim()
-        );
-
-    }
-
-
-    if (vehicleSize) {
-
-        params.set(
-            "vehicle_type",
-            vehicleSize.value
-        );
-
-    }
-
-
-    // Service
-    params.set(
-        "service",
-        getServiceName(service)
-    );
-
-
-    // Address
-    if (addressInput) {
-
-        params.set(
-            "address",
-            addressInput.value.trim()
-        );
-
-    }
-
-
-    // Condition/comments
-    if (conditionInput) {
-
-        const condition =
-            conditionInput.value.trim();
-
-
-        if (condition) {
-
-            params.set(
-                "comments",
-                condition
-            );
-
-        }
-
-    }
-
-
-    return (
-        baseURL +
-        "?" +
-        params.toString()
-    );
-
-}
-
-
-// ============================================
-// CALENDLY BUTTON CLICK
-// ============================================
-
-if (availabilityButton) {
-
-    availabilityButton.addEventListener(
-        "click",
-        event => {
-
-            event.preventDefault();
-
-
-            // Recheck everything
-            const vehicleComplete =
-                vehicleInformationComplete();
-
-
-            const serviceComplete =
-                serviceSelectionComplete();
-
-
-            if (
-                !addressEligible ||
-                !vehicleComplete ||
-                !serviceComplete
-            ) {
-
-                updateAvailabilityState();
-
-                return;
-
-            }
-
-
-            const calendlyURL =
-                buildCalendlyURL();
-
-
-            if (!calendlyURL) {
-
-                console.error(
-                    "BrightSide: Could not build Calendly URL."
-                );
-
-
-                return;
-
-            }
-
-
-            console.log(
-                "BrightSide: Opening Calendly."
-            );
-
-
-            // Open selected Calendly event
-            window.location.href =
-                calendlyURL;
-
-        }
-    );
-
-}
-
-
-// ============================================
-// LIVE FORM VALIDATION
-// ============================================
-
-[
-    vehicleMake,
-    vehicleModel,
-    vehicleYear,
-    vehicleSize,
-    conditionInput
-].forEach(input => {
-
-    if (!input) return;
-
-
-    input.addEventListener(
-        "input",
-        updateAvailabilityState
-    );
-
-
-    input.addEventListener(
-        "change",
-        updateAvailabilityState
-    );
-
-});
-
-
-// ============================================
-// HIDE SUGGESTIONS
-// ============================================
+/* ============================================
+   HIDE SUGGESTIONS
+============================================ */
 
 function hideSuggestions() {
 
-    if (!suggestionsBox) {
-        return;
-    }
+    if (!suggestionsBox) return;
 
 
     suggestionsBox.innerHTML =
@@ -1733,36 +1366,29 @@ function hideSuggestions() {
 }
 
 
-// ============================================
-// ESCAPE HTML
-// ============================================
+/* ============================================
+   ESCAPE HTML
+============================================ */
 
-function escapeHTML(
-    value
-) {
+function escapeHTML(value) {
 
     return String(value)
-
         .replace(
             /&/g,
             "&amp;"
         )
-
         .replace(
             /</g,
             "&lt;"
         )
-
         .replace(
             />/g,
             "&gt;"
         )
-
         .replace(
             /"/g,
             "&quot;"
         )
-
         .replace(
             /'/g,
             "&#039;"
@@ -1771,9 +1397,9 @@ function escapeHTML(
 }
 
 
-// ============================================
-// CLICK OUTSIDE ADDRESS SEARCH
-// ============================================
+/* ============================================
+   CLICK OUTSIDE SEARCH
+============================================ */
 
 document.addEventListener(
     "click",
@@ -1798,21 +1424,45 @@ document.addEventListener(
 );
 
 
-// ============================================
-// INITIALIZE
-// ============================================
+/* ============================================
+   START MAP AFTER MAPBOX LOADS
+============================================ */
+
+function waitForMapbox() {
+
+    if (
+        typeof mapboxgl !==
+        "undefined"
+    ) {
+
+        startMap();
+
+        return;
+
+    }
+
+
+    setTimeout(
+        waitForMapbox,
+        100
+    );
+
+}
+
+
+waitForMapbox();
+
+
+/* ============================================
+   INITIALIZE PRICES
+============================================ */
 
 updatePrices();
 
-updateAvailabilityState();
-
-
-// ============================================
-// CONSOLE MESSAGE
-// ============================================
 
 console.log(
-    "BrightSide booking JavaScript loaded successfully."
+    "BrightSide booking JavaScript loaded."
 );
+```
 
 }
