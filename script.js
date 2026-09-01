@@ -27,8 +27,6 @@ const bookingPage = document.getElementById("booking-page");
 
 // ============================================
 // PACKAGE FROM URL
-// Example:
-// booking/?service=express
 // ============================================
 
 function selectPackageFromURL() {
@@ -79,14 +77,9 @@ if (!bookingPage) {
 // MAPBOX SETTINGS
 // ============================================
 
-// IMPORTANT:
-// Replace this with your NEW public Mapbox token.
-// It should begin with "pk."
-//
-// Do NOT use an sk. secret token in website JavaScript.
 
 const MAPBOX_TOKEN =
-    "PASTE_YOUR_NEW_PUBLIC_PK_TOKEN_HERE";
+    "pk.eyJ1IjoiYnJpZ2h0c2lkZWRldGFpbGluZyIsImEiOiJjbXQ5a3FuMDUwNHVlMndweWFzNXAwMG5rIn0.HYTbUgwvgO3_fn7f0mHCDg";
 
 
 // Alief Community Center
