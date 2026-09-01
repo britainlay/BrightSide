@@ -1,7 +1,7 @@
 /* ============================================
-   BRIGHTSIDE HOUSTON DETAILING
-   SHARED WEBSITE STYLES
-   ============================================ */
+BRIGHTSIDE HOUSTON DETAILING
+SHARED WEBSITE STYLES
+============================================ */
 
 * {
   box-sizing: border-box;
@@ -18,6 +18,7 @@ body {
   background: #ffffff;
   color: #102033;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 a {
@@ -38,8 +39,8 @@ img {
 }
 
 /* ============================================
-   VARIABLES
-   ============================================ */
+VARIABLES
+============================================ */
 
 :root {
   --navy: #102033;
@@ -58,8 +59,8 @@ img {
 }
 
 /* ============================================
-   NAVIGATION
-   ============================================ */
+NAVIGATION
+============================================ */
 
 .navbar {
   position: sticky;
@@ -143,8 +144,8 @@ img {
 }
 
 /* ============================================
-   BUTTONS
-   ============================================ */
+BUTTONS
+============================================ */
 
 .primary-button,
 .secondary-button {
@@ -188,14 +189,13 @@ img {
 }
 
 /* ============================================
-   TYPOGRAPHY
-   ============================================ */
+TYPOGRAPHY
+============================================ */
 
 .eyebrow {
   color: var(--blue);
-  font-size: 11px;
+  font-size: 25px;
   font-weight: 800;
-  line-height: 1.2;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -236,8 +236,8 @@ h2 span {
 }
 
 /* ============================================
-   HERO
-   ============================================ */
+HERO
+============================================ */
 
 .hero {
   width: min(1180px, 92%);
@@ -318,8 +318,8 @@ h2 span {
 }
 
 /* ============================================
-   PACKAGE CARDS
-   ============================================ */
+PACKAGE CARDS
+============================================ */
 
 .package-grid {
   display: grid;
@@ -415,10 +415,6 @@ h2 span {
   font-weight: 800;
 }
 
-/* ============================================
-   PACKAGE BOOK BUTTON
-   ============================================ */
-
 .package-book-button {
   width: 100%;
   margin-top: auto;
@@ -467,8 +463,8 @@ h2 span {
 }
 
 /* ============================================
-   LIGHT SECTION
-   ============================================ */
+LIGHT SECTION
+============================================ */
 
 .light-section {
   width: 100%;
@@ -477,8 +473,8 @@ h2 span {
 }
 
 /* ============================================
-   BENEFITS
-   ============================================ */
+BENEFITS
+============================================ */
 
 .benefit-grid {
   display: grid;
@@ -512,8 +508,8 @@ h2 span {
 }
 
 /* ============================================
-   RESULTS
-   ============================================ */
+RESULTS
+============================================ */
 
 .results-grid {
   display: grid;
@@ -546,8 +542,8 @@ h2 span {
 }
 
 /* ============================================
-   TEAM
-   ============================================ */
+TEAM
+============================================ */
 
 .team-section {
   padding-top: 100px;
@@ -602,8 +598,8 @@ h2 span {
 }
 
 /* ============================================
-   PROCESS
-   ============================================ */
+PROCESS
+============================================ */
 
 .process-section {
   padding-top: 70px;
@@ -641,8 +637,8 @@ h2 span {
 }
 
 /* ============================================
-   SERVICE AREA
-   ============================================ */
+SERVICE AREA
+============================================ */
 
 .service-area-section {
   margin-top: 20px;
@@ -671,8 +667,8 @@ h2 span {
 }
 
 /* ============================================
-   FAQ
-   ============================================ */
+FAQ
+============================================ */
 
 .faq-list {
   max-width: 850px;
@@ -714,8 +710,8 @@ h2 span {
 }
 
 /* ============================================
-   CTA
-   ============================================ */
+CTA
+============================================ */
 
 .cta {
   padding: 110px 20px;
@@ -740,8 +736,8 @@ h2 span {
 }
 
 /* ============================================
-   BOOKING HERO
-   ============================================ */
+BOOKING HERO
+============================================ */
 
 .booking-hero {
   padding: 95px 20px 85px;
@@ -750,6 +746,7 @@ h2 span {
 }
 
 .booking-hero-content {
+  width: 100%;
   max-width: 750px;
   margin: auto;
 }
@@ -767,8 +764,8 @@ h2 span {
 }
 
 /* ============================================
-   BOOKING PAGE
-   ============================================ */
+BOOKING PAGE
+============================================ */
 
 .booking-page {
   width: min(1180px, 92%);
@@ -780,13 +777,9 @@ h2 span {
   width: 100%;
   display: grid;
   grid-template-columns: 300px minmax(0, 1fr);
-  gap: 45px;
+  gap: 50px;
   align-items: start;
 }
-
-/* ============================================
-   BOOKING SIDEBAR
-   ============================================ */
 
 .booking-sidebar {
   width: 100%;
@@ -794,6 +787,21 @@ h2 span {
   position: sticky;
   top: 105px;
 }
+
+.booking-card {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: white;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+/* ============================================
+BOOKING SIDEBAR
+============================================ */
 
 .sidebar-intro h2 {
   margin-top: 12px;
@@ -885,32 +893,21 @@ h2 span {
 }
 
 /* ============================================
-   BOOKING CARD
-   ============================================ */
-
-.booking-card {
-  width: 100%;
-  min-width: 0;
-  max-width: none;
-  margin: 0;
-  justify-self: stretch;
-
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  background: white;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
+FORM HEADER
+============================================ */
 
 .form-header {
   width: 100%;
   padding: 35px;
   border-bottom: 1px solid var(--border);
-
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+}
+
+.form-header > div:first-child {
+  min-width: 0;
 }
 
 .form-header h2 {
@@ -919,7 +916,7 @@ h2 span {
 }
 
 .form-badge {
-  flex-shrink: 0;
+  flex: 0 0 auto;
   padding: 8px 12px;
   border-radius: 8px;
   background: var(--blue-light);
@@ -929,13 +926,23 @@ h2 span {
   letter-spacing: 0.1em;
 }
 
+/* ============================================
+FORM BLOCKS
+============================================ */
+
 .form-block {
   width: 100%;
+  min-width: 0;
   padding: 35px;
   border-bottom: 1px solid var(--border);
 }
 
+.form-block:last-of-type {
+  border-bottom: 1px solid var(--border);
+}
+
 .form-block-title {
+  width: 100%;
   display: flex;
   gap: 15px;
   margin-bottom: 28px;
@@ -955,6 +962,10 @@ h2 span {
   font-weight: 800;
 }
 
+.form-block-title > div {
+  min-width: 0;
+}
+
 .form-block-title h3 {
   font-size: 20px;
 }
@@ -966,21 +977,21 @@ h2 span {
 }
 
 /* ============================================
-   INPUTS
-   ============================================ */
+INPUTS
+============================================ */
 
 .input-grid {
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
   margin-bottom: 18px;
 }
 
 .input-group {
+  position: relative;
   width: 100%;
   min-width: 0;
-  position: relative;
 }
 
 .input-group label {
@@ -995,6 +1006,7 @@ h2 span {
 .input-group select,
 .input-group textarea {
   width: 100%;
+  min-width: 0;
   max-width: 100%;
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -1025,6 +1037,8 @@ h2 span {
 }
 
 .vehicle-price-display {
+  width: 100%;
+  margin-top: 2px;
   padding: 14px 16px;
   border-radius: 10px;
   background: var(--light);
@@ -1037,8 +1051,8 @@ h2 span {
 }
 
 /* ============================================
-   SERVICE CARDS
-   ============================================ */
+SERVICE CARDS
+============================================ */
 
 .service-cards {
   width: 100%;
@@ -1047,9 +1061,9 @@ h2 span {
 }
 
 .service-card {
+  position: relative;
   width: 100%;
   min-width: 0;
-  position: relative;
   display: block;
   cursor: pointer;
 }
@@ -1086,6 +1100,10 @@ h2 span {
   gap: 15px;
 }
 
+.service-card-top > div {
+  min-width: 0;
+}
+
 .service-card small {
   color: var(--blue);
   font-size: 9px;
@@ -1099,6 +1117,7 @@ h2 span {
 }
 
 .service-price {
+  flex: 0 0 auto;
   white-space: nowrap;
   color: var(--navy);
   font-size: 15px;
@@ -1129,11 +1148,10 @@ h2 span {
 }
 
 /* ============================================
-   ADDRESS / MAP
-   ============================================ */
+ADDRESS / MAP
+============================================ */
 
 .address-container {
-  width: 100%;
   position: relative;
   z-index: 10;
 }
@@ -1211,11 +1229,12 @@ h2 span {
 }
 
 /* ============================================
-   SERVICE STATUS
-   ============================================ */
+SERVICE STATUS
+============================================ */
 
 .service-status {
   display: none;
+  width: 100%;
   margin-top: 17px;
   padding: 15px;
   border-radius: 11px;
@@ -1249,8 +1268,8 @@ h2 span {
 }
 
 /* ============================================
-   AVAILABILITY
-   ============================================ */
+AVAILABILITY
+============================================ */
 
 .availability-locked,
 .availability-unlocked {
@@ -1258,7 +1277,6 @@ h2 span {
   margin-top: 25px;
   padding: 20px;
   border-radius: 14px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1301,8 +1319,8 @@ h2 span {
 }
 
 /* ============================================
-   FIELD ATTENTION
-   ============================================ */
+FIELD ATTENTION
+============================================ */
 
 .field-attention {
   animation: attention 0.45s ease;
@@ -1323,8 +1341,8 @@ h2 span {
 }
 
 /* ============================================
-   FOOTER
-   ============================================ */
+FOOTER
+============================================ */
 
 footer {
   background: #071522;
@@ -1388,8 +1406,8 @@ footer {
 }
 
 /* ============================================
-   RESPONSIVE — TABLET
-   ============================================ */
+TABLET
+============================================ */
 
 @media (max-width: 1000px) {
 
@@ -1413,14 +1431,20 @@ footer {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  /* BOOKING CHANGES TO ONE COLUMN */
+  /*
+    IMPORTANT:
+    Booking layout becomes one clean column
+    before the form gets too narrow.
+  */
+
   .booking-layout {
     grid-template-columns: 1fr;
-    gap: 35px;
+    gap: 40px;
   }
 
   .booking-sidebar {
     position: static;
+    width: 100%;
   }
 
   .booking-card {
@@ -1441,8 +1465,8 @@ footer {
 }
 
 /* ============================================
-   RESPONSIVE — MOBILE NAV
-   ============================================ */
+MOBILE NAV
+============================================ */
 
 @media (max-width: 800px) {
 
@@ -1503,14 +1527,25 @@ footer {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .booking-page {
+    width: 94%;
+    padding: 60px 0 80px;
+  }
+
+  .booking-layout {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+
   .booking-card {
+    width: 100%;
     border-radius: 15px;
   }
 }
 
 /* ============================================
-   RESPONSIVE — SMALL MOBILE
-   ============================================ */
+SMALL MOBILE
+============================================ */
 
 @media (max-width: 600px) {
 
@@ -1546,24 +1581,41 @@ footer {
     grid-template-columns: 1fr;
   }
 
-  /* BOOKING PAGE MOBILE */
+  /* Booking */
+
   .booking-page {
     width: 94%;
-    padding: 50px 0 70px;
   }
 
   .form-header {
+    width: 100%;
     padding: 25px;
     align-items: flex-start;
     flex-direction: column;
   }
 
+  .form-header h2 {
+    font-size: 26px;
+  }
+
   .form-block {
+    width: 100%;
     padding: 25px;
   }
 
   .input-grid {
+    width: 100%;
     grid-template-columns: 1fr;
+  }
+
+  .input-group {
+    width: 100%;
+  }
+
+  .input-group input,
+  .input-group select,
+  .input-group textarea {
+    width: 100%;
   }
 
   .service-card-top {
@@ -1583,6 +1635,10 @@ footer {
   .availability-locked .primary-button,
   .availability-unlocked .primary-button {
     width: 100%;
+  }
+
+  .booking-submit {
+    padding: 25px;
   }
 
   .footer-container {
