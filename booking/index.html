@@ -3,11 +3,10 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 ```
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Book Your Detail | BrightSide Houston Detailing</title>
 
 <meta
@@ -25,9 +24,7 @@
 
 <link rel="stylesheet" href="../style.css">
 
-
 <!-- MAPBOX -->
-
 <link
     href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css"
     rel="stylesheet"
@@ -55,25 +52,11 @@
 
     <nav class="nav-links">
 
-        <a href="../index.html">
-            Home
-        </a>
-
-        <a href="../packages/">
-            Packages
-        </a>
-
-        <a href="../results/">
-            Results
-        </a>
-
-        <a href="../how-it-works/">
-            How It Works
-        </a>
-
-        <a href="../about/">
-            About
-        </a>
+        <a href="../index.html">Home</a>
+        <a href="../packages/">Packages</a>
+        <a href="../results/">Results</a>
+        <a href="../how-it-works/">How It Works</a>
+        <a href="../about/">About</a>
 
     </nav>
 
@@ -124,7 +107,6 @@
 ```
 <div class="booking-layout">
 
-
     <!-- SIDEBAR -->
 
     <aside class="booking-sidebar">
@@ -153,59 +135,36 @@
 
             <div class="process-item">
 
-                <div class="process-number">
-                    01
-                </div>
+                <div class="process-number">01</div>
 
                 <div>
-                    <h3>
-                        Vehicle
-                    </h3>
-
-                    <p>
-                        Tell us what we'll be detailing.
-                    </p>
+                    <h3>Vehicle</h3>
+                    <p>Tell us what we'll be detailing.</p>
                 </div>
 
             </div>
 
-
             <div class="process-line"></div>
-
 
             <div class="process-item">
 
-                <div class="process-number">
-                    02
-                </div>
+                <div class="process-number">02</div>
 
                 <div>
-                    <h3>
-                        Service
-                    </h3>
-
-                    <p>
-                        Choose your detailing package.
-                    </p>
+                    <h3>Service</h3>
+                    <p>Choose your detailing package.</p>
                 </div>
 
             </div>
 
-
             <div class="process-line"></div>
-
 
             <div class="process-item">
 
-                <div class="process-number">
-                    03
-                </div>
+                <div class="process-number">03</div>
 
                 <div>
-                    <h3>
-                        Location
-                    </h3>
-
+                    <h3>Location</h3>
                     <p>
                         Confirm your address is within
                         our current service area.
@@ -214,24 +173,15 @@
 
             </div>
 
-
             <div class="process-line"></div>
-
 
             <div class="process-item">
 
-                <div class="process-number">
-                    04
-                </div>
+                <div class="process-number">04</div>
 
                 <div>
-                    <h3>
-                        Appointment
-                    </h3>
-
-                    <p>
-                        Choose an available weekend time.
-                    </p>
+                    <h3>Appointment</h3>
+                    <p>Choose an available weekend time.</p>
                 </div>
 
             </div>
@@ -241,15 +191,11 @@
 
         <div class="pricing-note">
 
-            <div class="note-icon">
-                ✓
-            </div>
+            <div class="note-icon">✓</div>
 
             <div>
 
-                <strong>
-                    Current Service Area
-                </strong>
+                <strong>Current Service Area</strong>
 
                 <p>
                     Approximately 30 miles from the
@@ -267,10 +213,10 @@
 
     <section class="booking-card">
 
-
         <div class="form-header">
 
             <div>
+
                 <p class="eyebrow">
                     BOOKING REQUEST
                 </p>
@@ -278,6 +224,7 @@
                 <h2>
                     Tell Us About Your Vehicle
                 </h2>
+
             </div>
 
             <div class="form-badge">
@@ -286,77 +233,85 @@
 
         </div>
 
+
         <!-- CUSTOMER -->
 
-<div class="form-block" id="customer-section">
+        <div class="form-block" id="customer-section">
 
-    <div class="form-block-title">
+            <div class="form-block-title">
 
-        <span>01</span>
+                <span>01</span>
 
-        <div>
-            <h3>Your Information</h3>
+                <div>
 
-            <p>
-                We'll use this information to contact you about your appointment.
-            </p>
+                    <h3>Your Information</h3>
+
+                    <p>
+                        We'll use this information to contact you
+                        about your appointment.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="input-grid">
+
+                <div class="input-group">
+
+                    <label for="customer-name">
+                        Name *
+                    </label>
+
+                    <input
+                        id="customer-name"
+                        type="text"
+                        placeholder="Your name"
+                        autocomplete="name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="customer-email">
+                        Email *
+                    </label>
+
+                    <input
+                        id="customer-email"
+                        type="email"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="customer-phone">
+                    Phone *
+                </label>
+
+                <input
+                    id="customer-phone"
+                    type="tel"
+                    placeholder="(713) 555-1234"
+                    autocomplete="tel"
+                    required
+                >
+
+            </div>
+
         </div>
 
-    </div>
-
-    <div class="input-grid">
-
-        <div class="input-group">
-
-            <label for="customer-name">
-                Name *
-            </label>
-
-            <input
-                id="customer-name"
-                type="text"
-                placeholder="Your name"
-                autocomplete="name"
-                required
-            >
-
-        </div>
-
-        <div class="input-group">
-
-            <label for="customer-email">
-                Email *
-            </label>
-
-            <input
-                id="customer-email"
-                type="email"
-                placeholder="you@example.com"
-                autocomplete="email"
-                required
-            >
-
-        </div>
-
-    </div>
-
-    <div class="input-group">
-
-        <label for="customer-phone">
-            Phone *
-        </label>
-
-        <input
-            id="customer-phone"
-            type="tel"
-            placeholder="(713) 555-1234"
-            autocomplete="tel"
-            required
-        >
-
-    </div>
-
-</div>
 
         <!-- VEHICLE -->
 
@@ -364,14 +319,16 @@
 
             <div class="form-block-title">
 
-                <span>01</span>
+                <span>02</span>
 
                 <div>
+
                     <h3>Your Vehicle</h3>
 
                     <p>
                         All vehicle information is required.
                     </p>
+
                 </div>
 
             </div>
@@ -482,21 +439,22 @@
 
             <div class="form-block-title">
 
-                <span>02</span>
+                <span>03</span>
 
                 <div>
+
                     <h3>Choose Your Service *</h3>
 
                     <p>
                         Select the package you'd like to book.
                     </p>
+
                 </div>
 
             </div>
 
 
             <div class="service-cards">
-
 
                 <label class="service-card">
 
@@ -511,11 +469,13 @@
                         <div class="service-card-top">
 
                             <div>
+
                                 <small>EXTERIOR</small>
 
                                 <h4>
                                     Exterior Detail
                                 </h4>
+
                             </div>
 
                             <strong class="service-price">
@@ -548,11 +508,13 @@
                         <div class="service-card-top">
 
                             <div>
+
                                 <small>INTERIOR</small>
 
                                 <h4>
                                     Interior Detail
                                 </h4>
+
                             </div>
 
                             <strong class="service-price">
@@ -589,11 +551,13 @@
                         <div class="service-card-top">
 
                             <div>
+
                                 <small>COMPLETE</small>
 
                                 <h4>
                                     Full Detail
                                 </h4>
+
                             </div>
 
                             <strong class="service-price">
@@ -622,15 +586,17 @@
 
             <div class="form-block-title">
 
-                <span>03</span>
+                <span>04</span>
 
                 <div>
+
                     <h3>Service Location *</h3>
 
                     <p>
                         Select your exact address from Mapbox
                         to check eligibility.
                     </p>
+
                 </div>
 
             </div>
@@ -705,6 +671,7 @@
                     href="#"
                     class="primary-button disabled-button"
                     aria-disabled="true"
+                    tabindex="-1"
                 >
                     Check Availability
                     <span>→</span>
@@ -721,14 +688,16 @@
 
             <div class="form-block-title">
 
-                <span>04</span>
+                <span>05</span>
 
                 <div>
+
                     <h3>Vehicle Condition</h3>
 
                     <p>
                         Help us understand what your vehicle needs.
                     </p>
+
                 </div>
 
             </div>
