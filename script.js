@@ -265,98 +265,60 @@ let marker = null;
 function startMap() {
 
     if (!mapElement) {
-        console.error("Map element not found.");
         return;
     }
 
-    if (
-        !MAPBOX_TOKEN ||
-        !MAPBOX_TOKEN.startsWith("pk.")
-    ) {
-
-        showMapError(
-            "Mapbox token is missing or invalid."
-        );
-
+    if (!MAPBOX_TOKEN) {
+        console.error("Mapbox public token is missing.");
+        mapElement.innerHTML = `
+            <div class="map-error">
+                Map cannot load because the Mapbox token is missing.
+            </div>
+        `;
         return;
     }
 
     if (typeof mapboxgl === "undefined") {
-
-        showMapError(
-            "Mapbox could not load. Check your internet connection or Mapbox script."
-        );
-
+        console.error("Mapbox GL JS did not load.");
+        mapElement.innerHTML = `
+            <div class="map-error">
+                Mapbox could not load. Please refresh the page.
+            </div>
+        `;
         return;
     }
 
-    try {
+    mapboxgl.accessToken = MAPBOX_TOKEN;
 
-        mapboxgl.accessToken =
-            MAPBOX_TOKEN;
+    map = new mapboxgl.Map({
+        container: mapElement,
+        style: "mapbox://styles/mapbox/streets-v12",
+        center: [
+            SERVICE_LNG,
+            SERVICE_LAT
+        ],
+        zoom: 11
+    });
 
-        map = new mapboxgl.Map({
+    map.addControl(
+        new mapboxgl.NavigationControl()
+    );
 
-            container: "map",
+    map.on("load", () => {
+        console.log("Mapbox map loaded successfully.");
+    });
 
-            style:
-                "mapbox://styles/mapbox/streets-v12",
+    map.on("error", (event) => {
+        console.error("Mapbox map error:", event);
 
-            center: [
-                SERVICE_LNG,
-                SERVICE_LAT
-            ],
-
-            zoom: 10.5
-
-        });
-
-        map.addControl(
-            new mapboxgl.NavigationControl(),
-            "top-right"
-        );
-
-        map.on("load", () => {
-
-            console.log(
-                "BrightSide Mapbox map loaded successfully."
-            );
-
-        });
-
-        map.on("error", event => {
-
-            console.error(
-                "Mapbox map error:",
-                event
-            );
-
-        });
-
-    } catch (error) {
-
-        console.error(
-            "Mapbox initialization error:",
-            error
-        );
-
-        showMapError(
-            "Unable to load the map. Please refresh the page."
-        );
-
-    }
-}
-
-
-function showMapError(message) {
-
-    if (!mapElement) return;
-
-    mapElement.innerHTML = `
-        <div class="map-error">
-            ${escapeHTML(message)}
-        </div>
-    `;
+        mapElement.innerHTML = `
+            <div class="map-error">
+                <strong>Map could not load.</strong>
+                <br>
+                Please refresh the page or try again later.
+            </div>
+        `;
+    });
 }
 
 
