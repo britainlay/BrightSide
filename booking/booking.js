@@ -8,13 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       MAPBOX SETTINGS
+       MAPBOX
     ===================================================== */
-
-
-
     const MAPBOX_TOKEN = "pk.eyJ1IjoiYnJpZ2h0c2lkZWRldGFpbGluZyIsImEiOiJjbXQ5bGEzdTAwMGg0Mnlwd2M1MHlyYWV0In0.Usd3fiKRnMZq1oE6cYy1Jg";
-
 
     const SERVICE_LAT = 29.70254;
     const SERVICE_LNG = -95.58891;
@@ -26,16 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     const CAL_LINKS = {
-
-        express:
-            "brightsidehouston/exteriordetail",
-
-        interior:
-            "brightsidehouston/interiordetail",
-
-        "full-detail":
-            "brightsidehouston/fulldetail"
-
+        express: "brightsidehouston/exteriordetail",
+        interior: "brightsidehouston/interiordetail",
+        "full-detail": "brightsidehouston/fulldetail"
     };
 
 
@@ -44,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     const prices = {
-
         sedan: {
             express: 75,
             interior: 100,
@@ -62,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
             interior: 140,
             "full-detail": 200
         }
-
     };
 
 
@@ -148,6 +135,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
+       CAL.COM READY CHECK
+    ===================================================== */
+
+    function waitForCal(callback, attempts = 30) {
+
+        if (typeof window.Cal === "function") {
+            callback();
+            return;
+        }
+
+        if (attempts <= 0) {
+
+            showFormStatus(
+                "The appointment calendar could not load. Please refresh the page and try again."
+            );
+
+            console.error(
+                "Cal.com embed script did not load."
+            );
+
+            return;
+        }
+
+        setTimeout(() => {
+
+            waitForCal(
+                callback,
+                attempts - 1
+            );
+
+        }, 300);
+    }
+
+
+    /* =====================================================
        INITIALIZE MAPBOX
     ===================================================== */
 
@@ -160,7 +182,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (
             typeof mapboxgl === "undefined"
         ) {
-            setTimeout(initializeMap, 250);
+            setTimeout(
+                initializeMap,
+                250
+            );
+
             return;
         }
 
@@ -173,12 +199,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 "Mapbox public token is missing or invalid."
             );
 
-            if (serviceStatus) {
-                serviceStatus.textContent =
-                    "Mapbox is not configured yet.";
-                serviceStatus.className =
-                    "service-status not-eligible";
-            }
+            serviceStatus.textContent =
+                "Mapbox is not configured yet.";
+
+            serviceStatus.className =
+                "service-status not-eligible";
 
             return;
         }
@@ -226,7 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       PRICING
+       SERVICE
     ===================================================== */
 
     function getSelectedService() {
@@ -241,6 +266,10 @@ document.addEventListener("DOMContentLoaded", () => {
             : null;
     }
 
+
+    /* =====================================================
+       PRICING
+    ===================================================== */
 
     function updatePrices() {
 
@@ -315,7 +344,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         "Select Vehicle";
 
                     return;
-
                 }
 
 
@@ -346,7 +374,8 @@ document.addEventListener("DOMContentLoaded", () => {
             vehiclePrice.textContent =
                 "Choose your vehicle size";
 
-            startingPrice.value = "";
+            startingPrice.value =
+                "";
 
         }
 
@@ -444,7 +473,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     "";
 
                 return;
-
             }
 
 
@@ -536,6 +564,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 data.suggestions || []
             );
 
+
         } catch (error) {
 
             console.error(
@@ -552,7 +581,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       DISPLAY SUGGESTIONS
+       SHOW SUGGESTIONS
     ===================================================== */
 
     function showSuggestions(
@@ -580,14 +609,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 button.type =
                     "button";
 
-
                 button.className =
                     "address-suggestion";
 
 
                 const name =
                     suggestion.name || "";
-
 
                 const details =
                     suggestion.full_address ||
@@ -596,8 +623,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                 button.innerHTML = `
-                    <strong>${escapeHTML(name)}</strong>
-                    <span>${escapeHTML(details)}</span>
+                    <strong>
+                        ${escapeHTML(name)}
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(details)}
+                    </span>
                 `;
 
 
@@ -764,7 +796,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       UPDATE MAP
+       MAP
     ===================================================== */
 
     function updateMap(
@@ -798,9 +830,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         if (marker) {
-
             marker.remove();
-
         }
 
 
@@ -827,7 +857,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       SERVICE AREA CALCULATION
+       DISTANCE
     ===================================================== */
 
     function calculateDistanceMiles(
@@ -887,7 +917,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       CHECK SERVICE AREA
+       SERVICE AREA
     ===================================================== */
 
     function checkServiceArea(
@@ -946,7 +976,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       AVAILABILITY BUTTON
+       AVAILABILITY
     ===================================================== */
 
     function unlockAvailability() {
@@ -966,6 +996,7 @@ document.addEventListener("DOMContentLoaded", () => {
         availabilityButton.classList.remove(
             "disabled-button"
         );
+
 
         availabilityButton.removeAttribute(
             "aria-disabled"
@@ -1014,6 +1045,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "disabled-button"
         );
 
+
         availabilityButton.setAttribute(
             "aria-disabled",
             "true"
@@ -1022,13 +1054,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         calSection.hidden =
             true;
-
-
-        calBooking.innerHTML = `
-            <div class="cal-loading">
-                Loading available appointments...
-            </div>
-        `;
 
     }
 
@@ -1121,16 +1146,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       OPEN CAL.COM
+       CONTINUE BUTTON
     ===================================================== */
 
     availabilityButton.addEventListener(
         "click",
         () => {
 
-            if (
-                !validateBookingForm()
-            ) {
+            if (!validateBookingForm()) {
                 return;
             }
 
@@ -1142,14 +1165,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       RENDER CAL.COM EMBED
+       CAL.COM EMBED
     ===================================================== */
 
     function renderCalBooking() {
 
         const service =
             getSelectedService();
-
 
         const calLink =
             CAL_LINKS[service];
@@ -1164,187 +1186,146 @@ document.addEventListener("DOMContentLoaded", () => {
             false;
 
 
+        calBooking.innerHTML = `
+            <div class="cal-loading">
+                Loading available appointments...
+            </div>
+        `;
+
+
         calSection.scrollIntoView({
             behavior: "smooth",
             block: "start"
         });
 
 
-        calBooking.innerHTML =
-            "";
+        waitForCal(() => {
+
+            const name =
+                document.getElementById(
+                    "customer-name"
+                ).value.trim();
 
 
+            const email =
+                document.getElementById(
+                    "customer-email"
+                ).value.trim();
 
 
-        const name =
-            document.getElementById(
-                "customer-name"
-            ).value.trim();
+            const phone =
+                document.getElementById(
+                    "customer-phone"
+                ).value.trim();
 
 
-        const email =
-            document.getElementById(
-                "customer-email"
-            ).value.trim();
+            const make =
+                document.getElementById(
+                    "vehicle-make"
+                ).value.trim();
 
 
-        const phone =
-            document.getElementById(
-                "customer-phone"
-            ).value.trim();
+            const model =
+                document.getElementById(
+                    "vehicle-model"
+                ).value.trim();
 
 
-        const make =
-            document.getElementById(
-                "vehicle-make"
-            ).value.trim();
+            const year =
+                document.getElementById(
+                    "vehicle-year"
+                ).value.trim();
 
 
-        const model =
-            document.getElementById(
-                "vehicle-model"
-            ).value.trim();
+            const size =
+                vehicleSize.value;
 
 
-        const year =
-            document.getElementById(
-                "vehicle-year"
-            ).value.trim();
+            const address =
+                addressInput.value.trim();
 
 
-        const size =
-            vehicleSize.value;
+            const condition =
+                document.getElementById(
+                    "condition"
+                ).value.trim();
 
 
-        const address =
-            addressInput.value.trim();
+            const price =
+                startingPrice.value;
 
 
-        const condition =
-            document.getElementById(
-                "condition"
-            ).value.trim();
+            /*
+             * Cal.com supports prefilling the attendee's
+             * name, email, address, and metadata.
+             */
+            Cal("inline", {
 
+                elementOrSelector:
+                    "#cal-booking",
 
-        const price =
-            startingPrice.value;
+                calLink:
+                    calLink,
 
+                config: {
 
+                    name:
+                        name,
 
+                    email:
+                        email,
 
-        const metadata = {
+                    location:
+                        JSON.stringify({
+                            value:
+                                "attendeeInPerson",
 
-            "service":
-                service,
+                            optionValue:
+                                address
+                        }),
 
-            "starting-price":
-                price,
+                    "metadata[service]":
+                        service,
 
-            "vehicle-make":
-                make,
+                    "metadata[starting-price]":
+                        price,
 
-            "vehicle-model":
-                model,
+                    "metadata[vehicle-make]":
+                        make,
 
-            "vehicle-year":
-                year,
+                    "metadata[vehicle-model]":
+                        model,
 
-            "vehicle-size":
-                size,
+                    "metadata[vehicle-year]":
+                        year,
 
-            "service-address":
-                address,
+                    "metadata[vehicle-size]":
+                        size,
 
-            "service-area-status":
-                serviceAreaStatus.value,
+                    "metadata[service-address]":
+                        address,
 
-            "distance-from-alief":
-                distanceFromAlief.value,
+                    "metadata[service-area-status]":
+                        serviceAreaStatus.value,
 
-            "vehicle-condition":
-                condition
+                    "metadata[distance-from-alief]":
+                        distanceFromAlief.value,
 
-        };
+                    "metadata[vehicle-condition]":
+                        condition,
 
+                    "metadata[customer-phone]":
+                        phone
+                }
 
+            });
 
-
-        if (
-            typeof window.Cal !== "function"
-        ) {
 
             showFormStatus(
-                "The appointment calendar is still loading. Please try again in a moment."
+                "Choose an available appointment below."
             );
 
-            return;
-
-        }
-
-
-
-
-        Cal("inline", {
-
-            elementOrSelector:
-                "#cal-booking",
-
-            calLink:
-                calLink,
-
-            config: {
-
-                name:
-                    name,
-
-                email:
-                    email,
-
-
-                location:
-                    address,
-
-                "metadata[service]":
-                    metadata.service,
-
-                "metadata[starting-price]":
-                    metadata["starting-price"],
-
-                "metadata[vehicle-make]":
-                    metadata["vehicle-make"],
-
-                "metadata[vehicle-model]":
-                    metadata["vehicle-model"],
-
-                "metadata[vehicle-year]":
-                    metadata["vehicle-year"],
-
-                "metadata[vehicle-size]":
-                    metadata["vehicle-size"],
-
-                "metadata[service-address]":
-                    metadata["service-address"],
-
-                "metadata[service-area-status]":
-                    metadata["service-area-status"],
-
-                "metadata[distance-from-alief]":
-                    metadata["distance-from-alief"],
-
-                "metadata[vehicle-condition]":
-                    metadata["vehicle-condition"],
-
-                "metadata[customer-phone]":
-                    phone
-
-            }
-
         });
-
-
-        showFormStatus(
-            "Choose an available appointment below."
-        );
 
     }
 
@@ -1409,7 +1390,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     lockAvailability();
-
     updatePrices();
 
 });
