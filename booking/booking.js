@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       MAPBOX
+       MAPBOX SETTINGS
     ===================================================== */
 
     const MAPBOX_TOKEN = "pk.eyJ1IjoiYnJpZ2h0c2lkZWRldGFpbGluZyIsImEiOiJjbXQ5bGEzdTAwMGg0Mnlwd2M1MHlyYWV0In0.Usd3fiKRnMZq1oE6cYy1Jg";
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       CAL.COM SERVICES
+       CAL.COM LINKS
     ===================================================== */
 
     const CAL_LINKS = {
@@ -58,17 +58,11 @@ document.addEventListener("DOMContentLoaded", () => {
        ELEMENTS
     ===================================================== */
 
-    const form =
-        document.getElementById("booking-form");
+    const form = document.getElementById("booking-form");
 
-    const vehicleSize =
-        document.getElementById("vehicle-size");
-
-    const vehiclePrice =
-        document.getElementById("vehicle-price");
-
-    const startingPrice =
-        document.getElementById("starting-price");
+    const vehicleSize = document.getElementById("vehicle-size");
+    const vehiclePrice = document.getElementById("vehicle-price");
+    const startingPrice = document.getElementById("starting-price");
 
     const serviceAreaStatus =
         document.getElementById("service-area-status");
@@ -94,12 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const formStatus =
         document.getElementById("form-status");
 
-    const calSection =
-        document.getElementById("cal-booking-section");
-
-    const calBooking =
-        document.getElementById("cal-booking");
-
 
     /* =====================================================
        MAP VARIABLES
@@ -109,9 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let marker = null;
     let mapInitialized = false;
 
-    let searchSessionToken =
-        createSessionToken();
-
+    let searchSessionToken = createSessionToken();
     let debounceTimer = null;
 
 
@@ -136,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       INITIALIZE MAPBOX
+       MAPBOX INITIALIZATION
     ===================================================== */
 
     function initializeMap() {
@@ -149,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             setTimeout(
                 initializeMap,
-                250
+                300
             );
 
             return;
@@ -173,10 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-
-        mapboxgl.accessToken =
-            MAPBOX_TOKEN;
-
+        mapboxgl.accessToken = MAPBOX_TOKEN;
 
         map = new mapboxgl.Map({
 
@@ -194,18 +177,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
         });
 
-
         map.addControl(
             new mapboxgl.NavigationControl(),
             "top-right"
         );
-
 
         map.on("load", () => {
 
             mapInitialized = true;
 
             map.resize();
+
+        });
+
+        map.on("error", (event) => {
+
+            console.error(
+                "Mapbox map error:",
+                event
+            );
 
         });
 
@@ -216,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       GET SELECTED SERVICE
+       SERVICE SELECTION
     ===================================================== */
 
     function getSelectedService() {
@@ -233,16 +223,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       PRICING
+       UPDATE PRICES
     ===================================================== */
 
     function updatePrices() {
 
-        const size =
-            vehicleSize.value;
-
-        const service =
-            getSelectedService();
+        const size = vehicleSize.value;
+        const service = getSelectedService();
 
 
         document
@@ -293,6 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     card.querySelector(
                         ".service-price"
                     );
+
 
                 if (!radio || !priceElement) {
                     return;
@@ -369,6 +357,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        SERVICE FROM URL
+       Example:
+       booking/?service=full-detail
     ===================================================== */
 
     function selectServiceFromURL() {
@@ -449,7 +439,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       MAPBOX SUGGESTIONS
+       MAPBOX ADDRESS SUGGESTIONS
     ===================================================== */
 
     async function getSuggestions(query) {
@@ -513,7 +503,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!response.ok) {
 
                 throw new Error(
-                    "Mapbox suggestion request failed."
+                    `Mapbox suggest request failed: ${response.status}`
                 );
 
             }
@@ -544,7 +534,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       SHOW ADDRESS SUGGESTIONS
+       DISPLAY SUGGESTIONS
     ===================================================== */
 
     function showSuggestions(
@@ -619,7 +609,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       RETRIEVE ADDRESS
+       RETRIEVE SELECTED ADDRESS
     ===================================================== */
 
     async function retrieveAddress(
@@ -662,7 +652,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!response.ok) {
 
                 throw new Error(
-                    "Mapbox retrieve request failed."
+                    `Mapbox retrieve request failed: ${response.status}`
                 );
 
             }
@@ -684,7 +674,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ) {
 
                 throw new Error(
-                    "No address coordinates returned."
+                    "Mapbox did not return coordinates."
                 );
 
             }
@@ -749,14 +739,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 error
             );
 
+
             serviceStatus.textContent =
                 "We couldn't verify that address. Please select an address from the suggestions.";
 
             serviceStatus.className =
                 "service-status not-eligible";
 
+
             serviceAreaStatus.value =
                 "";
+
+            distanceFromAlief.value =
+                "";
+
 
             lockAvailability();
 
@@ -776,6 +772,11 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
 
         if (!map) {
+
+            console.warn(
+                "Map is not ready yet."
+            );
+
             return;
         }
 
@@ -887,7 +888,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       SERVICE AREA
+       SERVICE AREA CHECK
     ===================================================== */
 
     function checkServiceArea(
@@ -946,7 +947,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       UNLOCK CONTINUE BUTTON
+       UNLOCK BUTTON
     ===================================================== */
 
     function unlockAvailability() {
@@ -963,9 +964,11 @@ document.addEventListener("DOMContentLoaded", () => {
         availabilityButton.disabled =
             false;
 
+
         availabilityButton.classList.remove(
             "disabled-button"
         );
+
 
         availabilityButton.removeAttribute(
             "aria-disabled"
@@ -997,7 +1000,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       LOCK CONTINUE BUTTON
+       LOCK BUTTON
     ===================================================== */
 
     function lockAvailability() {
@@ -1014,20 +1017,16 @@ document.addEventListener("DOMContentLoaded", () => {
         availabilityButton.disabled =
             true;
 
+
         availabilityButton.classList.add(
             "disabled-button"
         );
+
 
         availabilityButton.setAttribute(
             "aria-disabled",
             "true"
         );
-
-
-        if (calSection) {
-            calSection.hidden =
-                true;
-        }
 
     }
 
@@ -1058,7 +1057,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       VALIDATE BOOKING FORM
+       FORM VALIDATION
     ===================================================== */
 
     function validateBookingForm() {
@@ -1101,9 +1100,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        if (
-            !CAL_LINKS[service]
-        ) {
+        if (!CAL_LINKS[service]) {
 
             showFormStatus(
                 "The selected service is not configured correctly."
@@ -1141,41 +1138,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             /*
-             * Save the customer's information locally
-             * so it can be used later if needed.
+             * Save the information locally.
+             * This does not send the information anywhere.
              */
 
             const bookingData = {
 
-                firstName:
+                name:
                     document
                         .getElementById("customer-name")
-                        ?.value.trim() || "",
+                        .value
+                        .trim(),
 
                 email:
                     document
                         .getElementById("customer-email")
-                        ?.value.trim() || "",
+                        .value
+                        .trim(),
 
                 phone:
                     document
                         .getElementById("customer-phone")
-                        ?.value.trim() || "",
+                        .value
+                        .trim(),
 
-                vehicleMake:
+                make:
                     document
                         .getElementById("vehicle-make")
-                        ?.value.trim() || "",
+                        .value
+                        .trim(),
 
-                vehicleModel:
+                model:
                     document
                         .getElementById("vehicle-model")
-                        ?.value.trim() || "",
+                        .value
+                        .trim(),
 
-                vehicleYear:
+                year:
                     document
                         .getElementById("vehicle-year")
-                        ?.value.trim() || "",
+                        .value
+                        .trim(),
 
                 vehicleSize:
                     vehicleSize.value,
@@ -1192,7 +1195,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 condition:
                     document
                         .getElementById("condition")
-                        ?.value.trim() || ""
+                        .value
+                        .trim(),
+
+                distance:
+                    distanceFromAlief.value
 
             };
 
@@ -1217,7 +1224,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             /*
-             * Open the correct Cal.com booking page.
+             * Send the customer directly to the
+             * correct Cal.com booking page.
              */
 
             window.location.href =
