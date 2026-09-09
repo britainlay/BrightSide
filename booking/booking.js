@@ -22,9 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     const CAL_LINKS = {
-        express: "brightsidehouston/exteriordetail",
-        interior: "brightsidehouston/interiordetail",
-        "full-detail": "brightsidehouston/fulldetail"
+        express: "https://cal.com/brightsidehouston/exteriordetail",
+        interior: "https://cal.com/brightsidehouston/interiordetail",
+        "full-detail": "https://cal.com/brightsidehouston/fulldetail"
     };
 
 
@@ -1168,35 +1168,40 @@ document.addEventListener("DOMContentLoaded", () => {
        CAL.COM EMBED
     ===================================================== */
 
-    function renderCalBooking() {
+function renderCalBooking() {
+    const service = serviceSelect.value;
+    const calLink = CAL_LINKS[service];
 
-        const service =
-            getSelectedService();
+    if (!calLink) {
+        showFormStatus("Please select a service first.");
+        return;
+    }
 
-        const calLink =
-            CAL_LINKS[service];
+    const calUrl = `https://cal.com/${calLink}`;
 
+    // Save the customer's information so we can pass it to Cal.com
+    const name = `${firstNameInput.value.trim()} ${lastNameInput.value.trim()}`.trim();
+    const email = emailInput.value.trim();
+    const phone = phoneInput.value.trim();
+    const vehicle = vehicleType.value;
+    const address = addressInput.value.trim();
 
-        if (!calLink) {
-            return;
-        }
+    // Store information locally in case you want to use it later
+    const bookingData = {
+        name,
+        email,
+        phone,
+        vehicle,
+        address,
+        service,
+        price: vehiclePrice.textContent
+    };
 
+    localStorage.setItem("brightsideBooking", JSON.stringify(bookingData));
 
-        calSection.hidden =
-            false;
-
-
-        calBooking.innerHTML = `
-            <div class="cal-loading">
-                Loading available appointments...
-            </div>
-        `;
-
-
-        calSection.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
+    // Open the correct Cal.com booking page
+    window.location.href = calUrl;
+}
 
 
         waitForCal(() => {
