@@ -60,9 +60,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const form = document.getElementById("booking-form");
 
-    const vehicleSize = document.getElementById("vehicle-size");
-    const vehiclePrice = document.getElementById("vehicle-price");
-    const startingPrice = document.getElementById("starting-price");
+    const vehicleSize =
+        document.getElementById("vehicle-size");
+
+    const vehiclePrice =
+        document.getElementById("vehicle-price");
+
+    const startingPrice =
+        document.getElementById("starting-price");
 
     const serviceAreaStatus =
         document.getElementById("service-area-status");
@@ -87,6 +92,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const formStatus =
         document.getElementById("form-status");
+
+
+    /* =====================================================
+       CHECK REQUIRED ELEMENTS
+    ===================================================== */
+
+    if (!form) {
+        console.error("Booking form was not found.");
+        return;
+    }
+
+    if (!availabilityButton) {
+        console.error("Continue button was not found.");
+        return;
+    }
+
+    if (!addressInput) {
+        console.error("Address input was not found.");
+        return;
+    }
 
 
     /* =====================================================
@@ -150,11 +175,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 "Mapbox public token is missing or invalid."
             );
 
-            serviceStatus.textContent =
-                "Mapbox is not configured yet.";
+            if (serviceStatus) {
+                serviceStatus.textContent =
+                    "Mapbox is not configured yet.";
 
-            serviceStatus.className =
-                "service-status not-eligible";
+                serviceStatus.className =
+                    "service-status not-eligible";
+            }
 
             return;
         }
@@ -162,19 +189,13 @@ document.addEventListener("DOMContentLoaded", () => {
         mapboxgl.accessToken = MAPBOX_TOKEN;
 
         map = new mapboxgl.Map({
-
             container: "map",
-
-            style:
-                "mapbox://styles/mapbox/streets-v12",
-
+            style: "mapbox://styles/mapbox/streets-v12",
             center: [
                 SERVICE_LNG,
                 SERVICE_LAT
             ],
-
             zoom: 11
-
         });
 
         map.addControl(
@@ -228,8 +249,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updatePrices() {
 
-        const size = vehicleSize.value;
-        const service = getSelectedService();
+        const size =
+            vehicleSize
+                ? vehicleSize.value
+                : "";
+
+        const service =
+            getSelectedService();
 
 
         document
@@ -316,29 +342,39 @@ document.addEventListener("DOMContentLoaded", () => {
             const price =
                 prices[size][service];
 
-            vehiclePrice.textContent =
-                `Starting price: $${price}`;
+            if (vehiclePrice) {
+                vehiclePrice.textContent =
+                    `Starting price: $${price}`;
+            }
 
-            startingPrice.value =
-                price;
+            if (startingPrice) {
+                startingPrice.value = price;
+            }
 
         } else {
 
-            vehiclePrice.textContent =
-                "Choose your vehicle size";
+            if (vehiclePrice) {
+                vehiclePrice.textContent =
+                    "Choose your vehicle size";
+            }
 
-            startingPrice.value =
-                "";
+            if (startingPrice) {
+                startingPrice.value = "";
+            }
 
         }
 
     }
 
 
-    vehicleSize.addEventListener(
-        "change",
-        updatePrices
-    );
+    if (vehicleSize) {
+
+        vehicleSize.addEventListener(
+            "change",
+            updatePrices
+        );
+
+    }
 
 
     document
@@ -357,8 +393,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        SERVICE FROM URL
-       Example:
-       booking/?service=full-detail
     ===================================================== */
 
     function selectServiceFromURL() {
@@ -387,9 +421,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         if (input) {
-
             input.checked = true;
-
         }
 
     }
@@ -439,7 +471,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       MAPBOX ADDRESS SUGGESTIONS
+       MAPBOX SUGGESTIONS
     ===================================================== */
 
     async function getSuggestions(query) {
@@ -537,9 +569,7 @@ document.addEventListener("DOMContentLoaded", () => {
        DISPLAY SUGGESTIONS
     ===================================================== */
 
-    function showSuggestions(
-        suggestions
-    ) {
+    function showSuggestions(suggestions) {
 
         addressSuggestions.innerHTML =
             "";
@@ -579,7 +609,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     <strong>
                         ${escapeHTML(name)}
                     </strong>
-
                     <span>
                         ${escapeHTML(details)}
                     </span>
@@ -609,12 +638,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       RETRIEVE SELECTED ADDRESS
+       RETRIEVE ADDRESS
     ===================================================== */
 
-    async function retrieveAddress(
-        suggestion
-    ) {
+    async function retrieveAddress(suggestion) {
 
         if (
             !suggestion ||
@@ -828,7 +855,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       DISTANCE CALCULATION
+       DISTANCE
     ===================================================== */
 
     function calculateDistanceMiles(
@@ -877,9 +904,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    function toRadians(
-        degrees
-    ) {
+    function toRadians(degrees) {
 
         return degrees *
             (Math.PI / 180);
@@ -1057,19 +1082,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       FORM VALIDATION
+       VALIDATE FORM
     ===================================================== */
 
     function validateBookingForm() {
 
-        if (!form.checkValidity()) {
-
-            form.reportValidity();
-
-            return false;
-
-        }
-
+        /*
+         * First make sure a service was selected.
+         */
 
         const service =
             getSelectedService();
@@ -1086,19 +1106,127 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
+        /*
+         * Make sure the address was actually verified.
+         */
+
         if (
             serviceAreaStatus.value !==
             "Eligible"
         ) {
 
             showFormStatus(
-                "Please select your exact address from the Mapbox suggestions and confirm that it is within our service area."
+                "Please select your exact address from the Mapbox suggestions and make sure it is within our service area."
             );
 
             return false;
 
         }
 
+
+        /*
+         * Check required customer and vehicle fields.
+         */
+
+        const requiredFields = [
+            "customer-name",
+            "customer-email",
+            "customer-phone",
+            "vehicle-make",
+            "vehicle-model",
+            "vehicle-year",
+            "vehicle-size",
+            "condition"
+        ];
+
+
+        for (
+            const fieldId of requiredFields
+        ) {
+
+            const field =
+                document.getElementById(
+                    fieldId
+                );
+
+
+            if (!field) {
+                continue;
+            }
+
+
+            if (!field.value.trim()) {
+
+                showFormStatus(
+                    `Please complete the "${getFieldLabel(field)}" field.`
+                );
+
+
+                field.focus();
+
+
+                return false;
+
+            }
+
+        }
+
+
+        /*
+         * Email validation.
+         */
+
+        const email =
+            document.getElementById(
+                "customer-email"
+            );
+
+
+        if (
+            email &&
+            !email.checkValidity()
+        ) {
+
+            showFormStatus(
+                "Please enter a valid email address."
+            );
+
+            email.focus();
+
+            return false;
+
+        }
+
+
+        /*
+         * Phone validation if HTML requires it.
+         */
+
+        const phone =
+            document.getElementById(
+                "customer-phone"
+            );
+
+
+        if (
+            phone &&
+            !phone.checkValidity()
+        ) {
+
+            showFormStatus(
+                "Please enter a valid phone number."
+            );
+
+            phone.focus();
+
+            return false;
+
+        }
+
+
+        /*
+         * Make sure a Cal.com link exists.
+         */
 
         if (!CAL_LINKS[service]) {
 
@@ -1117,15 +1245,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       CONTINUE TO APPOINTMENT
+       CONTINUE TO CAL.COM
     ===================================================== */
 
     availabilityButton.addEventListener(
         "click",
-        () => {
+        function () {
+
+            console.log(
+                "Continue button clicked."
+            );
+
 
             if (!validateBookingForm()) {
+
+                console.log(
+                    "Booking validation failed."
+                );
+
                 return;
+
             }
 
 
@@ -1137,9 +1276,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 CAL_LINKS[service];
 
 
+            console.log(
+                "Opening Cal.com:",
+                calUrl
+            );
+
+
             /*
-             * Save the information locally.
-             * This does not send the information anywhere.
+             * Save information locally.
              */
 
             const bookingData = {
@@ -1224,12 +1368,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             /*
-             * Send the customer directly to the
-             * correct Cal.com booking page.
+             * Redirect directly to Cal.com.
              */
 
-            window.location.href =
-                calUrl;
+            window.location.assign(
+                calUrl
+            );
 
         }
     );
@@ -1239,9 +1383,7 @@ document.addEventListener("DOMContentLoaded", () => {
        FORM STATUS
     ===================================================== */
 
-    function showFormStatus(
-        message
-    ) {
+    function showFormStatus(message) {
 
         if (!formStatus) {
             return;
@@ -1258,12 +1400,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
+       FIELD LABEL HELPER
+    ===================================================== */
+
+    function getFieldLabel(field) {
+
+        const label =
+            document.querySelector(
+                `label[for="${field.id}"]`
+            );
+
+
+        if (label) {
+
+            return label.textContent
+                .replace(/\*/g, "")
+                .trim();
+
+        }
+
+
+        return field.name ||
+            field.id ||
+            "required field";
+
+    }
+
+
+    /* =====================================================
        ESCAPE HTML
     ===================================================== */
 
-    function escapeHTML(
-        value
-    ) {
+    function escapeHTML(value) {
 
         return String(value)
             .replace(
@@ -1296,5 +1464,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     lockAvailability();
     updatePrices();
+
 
 });
