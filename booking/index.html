@@ -1,6 +1,6 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
 
@@ -13,10 +13,17 @@
 
     <meta
         name="description"
-        content="Book a mobile car detailing appointment with BrightSide Houston Detailing."
+        content="Check whether your address is within BrightSide Houston Detailing's 20-mile service area and book your mobile detailing appointment."
     >
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- =========================================================
+         GOOGLE FONTS
+         ========================================================= -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
     <link
         rel="preconnect"
         href="https://fonts.gstatic.com"
@@ -24,13 +31,21 @@
     >
 
     <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
         rel="stylesheet"
     >
 
-    <link rel="stylesheet" href="../style.css">
+    <!-- =========================================================
+         SITE STYLESHEET
+         ========================================================= -->
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
 
-    <!-- MAPBOX -->
+    <!-- =========================================================
+         MAPBOX GL JS
+         ========================================================= -->
     <link
         href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css"
         rel="stylesheet"
@@ -41,7 +56,9 @@
         defer
     ></script>
 
-    <!-- CAL.COM -->
+    <!-- =========================================================
+         CAL.COM EMBED SCRIPT
+         ========================================================= -->
     <script type="text/javascript">
         (function (C, A, L) {
             let p = function (a, ar) {
@@ -79,7 +96,11 @@
                             cal.ns[namespace] || api;
 
                         p(cal.ns[namespace], ar);
-                        p(cal, ["initNamespace", namespace]);
+
+                        p(cal, [
+                            "initNamespace",
+                            namespace
+                        ]);
                     } else {
                         p(cal, ar);
                     }
@@ -99,1031 +120,311 @@
             origin: "https://app.cal.com"
         });
     </script>
-
-    <style>
-        /* =====================================================
-           BOOKING PAGE - CAL.COM
-        ===================================================== */
-
-        .cal-booking-section {
-            margin-top: 35px;
-            padding: 32px;
-            border-radius: 24px;
-            background: #ffffff;
-            border: 1px solid rgba(15, 23, 42, 0.08);
-            box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
-        }
-
-        .cal-booking-section[hidden] {
-            display: none;
-        }
-
-        .cal-booking-header {
-            margin-bottom: 24px;
-        }
-
-        .cal-booking-header span {
-            display: block;
-            margin-bottom: 8px;
-            font-family: "DM Sans", sans-serif;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: #2563eb;
-        }
-
-        .cal-booking-header h3 {
-            margin: 0 0 8px;
-            font-family: "Space Grotesk", sans-serif;
-            font-size: clamp(1.7rem, 3vw, 2.3rem);
-            line-height: 1.1;
-        }
-
-        .cal-booking-header p {
-            margin: 0;
-            color: #64748b;
-            line-height: 1.7;
-        }
-
-        #cal-booking {
-            width: 100%;
-            min-height: 750px;
-            overflow: hidden;
-            border-radius: 16px;
-        }
-
-        .cal-loading {
-            padding: 30px;
-            text-align: center;
-            color: #64748b;
-        }
-
-        /* Make the map reliably visible */
-        .service-map,
-        #map {
-            width: 100%;
-            min-height: 360px;
-            height: 360px;
-            margin-top: 20px;
-            border-radius: 18px;
-            overflow: hidden;
-        }
-
-        /* Availability */
-        #availability-button {
-            cursor: pointer;
-        }
-
-        #availability-button.disabled-button {
-            pointer-events: none;
-            opacity: 0.5;
-        }
-
-        /* Mobile */
-        @media (max-width: 768px) {
-            .cal-booking-section {
-                padding: 20px;
-                border-radius: 18px;
-            }
-
-            #cal-booking {
-                min-height: 700px;
-            }
-
-            .service-map,
-            #map {
-                min-height: 300px;
-                height: 300px;
-            }
-        }
-    </style>
-
 </head>
 
-<body>
+<body class="booking-page">
 
-<header class="navbar">
+    <!-- =========================================================
+         HEADER
+         ========================================================= -->
+    <header class="site-header">
 
-    <div class="nav-container">
-
-        <a href="../index.html" class="logo">
-            <span>BRIGHTSIDE</span>
-            <small>HOUSTON DETAILING</small>
-        </a>
-
-        <nav class="nav-links">
-
-            <a href="../index.html">
-                Home
-            </a>
-
-            <a href="../packages/">
-                Packages
-            </a>
-
-            <a href="../results/">
-                Results
-            </a>
-
-            <a href="../how-it-works/">
-                How It Works
-            </a>
-
-            <a href="../about/">
-                About
-            </a>
-
-        </nav>
-
-        <a
-            href="index.html"
-            class="nav-button"
-        >
-            Book Now
-        </a>
-
-        <button
-            class="menu-button"
-            id="menuButton"
-            type="button"
-            aria-label="Open navigation menu"
-        >
-            ☰
-        </button>
-
-    </div>
-
-</header>
-
-
-<section class="booking-hero">
-
-    <div class="booking-hero-content">
-
-        <p class="eyebrow">
-            MOBILE DETAILING • HOUSTON, TX
-        </p>
-
-        <h1>
-            Book Your
-            <span>Detail.</span>
-        </h1>
-
-        <p>
-            Choose your service, tell us about your vehicle,
-            confirm your location, and select an appointment.
-        </p>
-
-    </div>
-
-</section>
-
-
-<main
-    id="booking-page"
-    class="booking-page"
->
-
-    <div class="booking-layout">
-
-
-        <!-- SIDEBAR -->
-
-        <aside class="booking-sidebar">
-
-            <div class="sidebar-intro">
-
-                <p class="eyebrow">
-                    SIMPLE PROCESS
-                </p>
-
-                <h2>
-                    Clean car.
-                    <span>Simple booking.</span>
-                </h2>
-
-                <p>
-                    Complete the required information,
-                    confirm that your address is within our
-                    service area, and choose an available
-                    weekend appointment.
-                </p>
-
-            </div>
-
-
-            <div class="booking-process">
-
-                <div class="process-item">
-
-                    <div class="process-number">
-                        01
-                    </div>
-
-                    <div>
-                        <h3>
-                            Vehicle
-                        </h3>
-
-                        <p>
-                            Tell us what we'll be detailing.
-                        </p>
-                    </div>
-
-                </div>
-
-
-                <div class="process-line"></div>
-
-
-                <div class="process-item">
-
-                    <div class="process-number">
-                        02
-                    </div>
-
-                    <div>
-                        <h3>
-                            Location
-                        </h3>
-
-                        <p>
-                            Confirm that your address is
-                            within our service area.
-                        </p>
-                    </div>
-
-                </div>
-
-
-                <div class="process-line"></div>
-
-
-                <div class="process-item">
-
-                    <div class="process-number">
-                        03
-                    </div>
-
-                    <div>
-                        <h3>
-                            Appointment
-                        </h3>
-
-                        <p>
-                            Choose an available weekend time.
-                        </p>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="service-area-card">
-
-                <p class="eyebrow">
-                    SERVICE AREA
-                </p>
-
-                <h3>
-                    Around Alief & Houston
-                </h3>
-
-                <p>
-                    We currently service locations within
-                    approximately 30 miles of the Alief area.
-                </p>
-
-            </div>
-
-        </aside>
-
-
-
-        <!-- BOOKING FORM -->
-
-        <section class="booking-card">
-
-            <form
-                id="booking-form"
-                novalidate
-            >
-
-                <!-- Hidden booking information -->
-
-                <input
-                    type="hidden"
-                    id="starting-price"
-                    name="starting_price"
-                >
-
-                <input
-                    type="hidden"
-                    id="service-area-status"
-                    name="service_area_status"
-                >
-
-                <input
-                    type="hidden"
-                    id="distance-from-alief"
-                    name="distance_from_alief"
-                >
-
-
-                <!-- CUSTOMER -->
-
-                <div class="form-block">
-
-                    <div class="form-block-title">
-
-                        <span>
-                            01
-                        </span>
-
-                        <div>
-
-                            <h3>
-                                Your Information
-                            </h3>
-
-                            <p>
-                                Tell us who we'll be meeting.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-grid">
-
-                        <div class="input-group">
-
-                            <label for="customer-name">
-                                Full Name *
-                            </label>
-
-                            <input
-                                id="customer-name"
-                                name="customer_name"
-                                type="text"
-                                autocomplete="name"
-                                placeholder="Your name"
-                                required
-                            >
-
-                        </div>
-
-
-                        <div class="input-group">
-
-                            <label for="customer-email">
-                                Email *
-                            </label>
-
-                            <input
-                                id="customer-email"
-                                name="customer_email"
-                                type="email"
-                                autocomplete="email"
-                                placeholder="you@example.com"
-                                required
-                            >
-
-                        </div>
-
-
-                        <div class="input-group">
-
-                            <label for="customer-phone">
-                                Phone *
-                            </label>
-
-                            <input
-                                id="customer-phone"
-                                name="customer_phone"
-                                type="tel"
-                                autocomplete="tel"
-                                placeholder="(713) 555-1234"
-                                required
-                            >
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- VEHICLE -->
-
-                <div class="form-block">
-
-                    <div class="form-block-title">
-
-                        <span>
-                            02
-                        </span>
-
-                        <div>
-
-                            <h3>
-                                Vehicle
-                            </h3>
-
-                            <p>
-                                Tell us about the vehicle we'll be detailing.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-grid">
-
-                        <div class="input-group">
-
-                            <label for="vehicle-make">
-                                Make *
-                            </label>
-
-                            <input
-                                id="vehicle-make"
-                                name="vehicle_make"
-                                type="text"
-                                placeholder="Toyota"
-                                required
-                            >
-
-                        </div>
-
-
-                        <div class="input-group">
-
-                            <label for="vehicle-model">
-                                Model *
-                            </label>
-
-                            <input
-                                id="vehicle-model"
-                                name="vehicle_model"
-                                type="text"
-                                placeholder="Camry"
-                                required
-                            >
-
-                        </div>
-
-
-                        <div class="input-group">
-
-                            <label for="vehicle-year">
-                                Year *
-                            </label>
-
-                            <input
-                                id="vehicle-year"
-                                name="vehicle_year"
-                                type="number"
-                                min="1900"
-                                max="2099"
-                                placeholder="2022"
-                                required
-                            >
-
-                        </div>
-
-
-                        <div class="input-group">
-
-                            <label for="vehicle-size">
-                                Vehicle Size *
-                            </label>
-
-                            <select
-                                id="vehicle-size"
-                                name="vehicle_size"
-                                required
-                            >
-
-                                <option value="">
-                                    Choose vehicle to see price
-                                </option>
-
-                                <option value="sedan">
-                                    Sedan / Coupe
-                                </option>
-
-                                <option value="suv">
-                                    SUV
-                                </option>
-
-                                <option value="truck">
-                                    Truck / Large SUV
-                                </option>
-
-                            </select>
-
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        id="vehicle-price"
-                        class="vehicle-price"
-                    >
-                        Choose your vehicle size
-                    </div>
-
-                </div>
-
-
-
-                <!-- SERVICE -->
-
-                <div class="form-block">
-
-                    <div class="form-block-title">
-
-                        <span>
-                            03
-                        </span>
-
-                        <div>
-
-                            <h3>
-                                Choose Your Service
-                            </h3>
-
-                            <p>
-                                Select the detail you'd like.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="service-options">
-
-
-                        <!-- EXTERIOR -->
-
-                        <label class="service-card">
-
-                            <input
-                                type="radio"
-                                name="service"
-                                value="express"
-                                required
-                            >
-
-                            <div class="service-card-content">
-
-                                <div class="service-card-top">
-
-                                    <div>
-
-                                        <small>
-                                            QUICK CLEAN
-                                        </small>
-
-                                        <h4>
-                                            Exterior Detail
-                                        </h4>
-
-                                    </div>
-
-                                    <strong class="service-price">
-                                        Select Vehicle
-                                    </strong>
-
-                                </div>
-
-                                <p>
-                                    Exterior-focused cleaning
-                                    for a refreshed finish.
-                                </p>
-
-                            </div>
-
-                        </label>
-
-
-
-                        <!-- INTERIOR -->
-
-                        <label class="service-card">
-
-                            <input
-                                type="radio"
-                                name="service"
-                                value="interior"
-                            >
-
-                            <div class="service-card-content">
-
-                                <div class="service-card-top">
-
-                                    <div>
-
-                                        <small>
-                                            INTERIOR
-                                        </small>
-
-                                        <h4>
-                                            Interior Detail
-                                        </h4>
-
-                                    </div>
-
-                                    <strong class="service-price">
-                                        Select Vehicle
-                                    </strong>
-
-                                </div>
-
-                                <p>
-                                    Focused interior cleaning
-                                    for a cleaner cabin.
-                                </p>
-
-                            </div>
-
-                        </label>
-
-
-
-                        <!-- FULL -->
-
-                        <label class="service-card">
-
-                            <input
-                                type="radio"
-                                name="service"
-                                value="full-detail"
-                            >
-
-                            <div class="service-card-content">
-
-                                <div class="service-card-top">
-
-                                    <div>
-
-                                        <small>
-                                            COMPLETE
-                                        </small>
-
-                                        <h4>
-                                            Full Detail
-                                        </h4>
-
-                                    </div>
-
-                                    <strong class="service-price">
-                                        Select Vehicle
-                                    </strong>
-
-                                </div>
-
-                                <p>
-                                    Complete interior and exterior
-                                    detailing in one service.
-                                </p>
-
-                            </div>
-
-                        </label>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- LOCATION -->
-
-                <div
-                    class="form-block"
-                    id="location-section"
-                >
-
-                    <div class="form-block-title">
-
-                        <span>
-                            04
-                        </span>
-
-                        <div>
-
-                            <h3>
-                                Service Location
-                            </h3>
-
-                            <p>
-                                Select your exact address from
-                                Mapbox to check eligibility.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="input-group address-container">
-
-                        <label for="address">
-                            Service Address *
-                        </label>
-
-                        <input
-                            id="address"
-                            name="address"
-                            type="text"
-                            autocomplete="off"
-                            placeholder="Start typing your address..."
-                            required
-                        >
-
-                        <div
-                            id="address-suggestions"
-                            class="address-suggestions"
-                        ></div>
-
-                        <span class="input-help">
-                            Select your exact address from the suggestions.
-                        </span>
-
-                    </div>
-
-
-                    <div
-                        id="service-status"
-                        class="service-status"
-                        aria-live="polite"
-                    ></div>
-
-
-                    <div
-                        id="map"
-                        class="service-map"
-                    ></div>
-
-
-                    <p class="map-help">
-                        Your selected address will appear on the map.
-                    </p>
-
-
-                    <!-- AVAILABILITY -->
-
-                    <div
-                        id="availability-container"
-                        class="availability-locked"
-                    >
-
-                        <div class="availability-message">
-
-                            <strong>
-                                Check Availability
-                            </strong>
-
-                            <p>
-                                Complete the required information
-                                and confirm your location to continue.
-                            </p>
-
-                        </div>
-
-
-                        <button
-                            id="availability-button"
-                            type="button"
-                            class="primary-button disabled-button"
-                            disabled
-                        >
-                            Continue to Appointment
-                            <span>→</span>
-                        </button>
-
-                    </div>
-
-
-                    <div
-                        id="form-status"
-                        class="form-status"
-                        aria-live="polite"
-                    ></div>
-
-                </div>
-
-
-
-                <!-- CONDITION -->
-
-                <div class="form-block">
-
-                    <div class="form-block-title">
-
-                        <span>
-                            05
-                        </span>
-
-                        <div>
-
-                            <h3>
-                                Vehicle Condition
-                            </h3>
-
-                            <p>
-                                Help us understand what your vehicle needs.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="input-group">
-
-                        <textarea
-                            id="condition"
-                            name="condition"
-                            placeholder="Example: heavy pet hair, stains, mud, crumbs, etc."
-                        ></textarea>
-
-                        <span class="input-help">
-                            Optional, but useful for estimating the work involved.
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- CAL.COM -->
-
-                <section
-                    id="cal-booking-section"
-                    class="cal-booking-section"
-                    hidden
-                >
-
-                    <div class="cal-booking-header">
-
-                        <span>
-                            STEP 06
-                        </span>
-
-                        <h3>
-                            Choose Your Appointment
-                        </h3>
-
-                        <p>
-                            Your address is within our service area.
-                            Choose an available weekend appointment below.
-                        </p>
-
-                    </div>
-
-
-                    <div id="cal-booking">
-
-                        <div class="cal-loading">
-                            Loading available appointments...
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-
-                <div class="booking-submit">
-
-                    <p>
-                        Starting prices are based on vehicle size.
-                        Final pricing may vary depending on vehicle
-                        condition. Any additional charge will be
-                        discussed before service begins.
-                    </p>
-
-                </div>
-
-            </form>
-
-        </section>
-
-    </div>
-
-</main>
-
-
-
-<footer>
-
-    <div class="footer-container">
-
-        <div class="footer-brand">
+        <div class="container nav-container">
 
             <a
                 href="../index.html"
                 class="logo"
+                aria-label="BrightSide Houston Detailing home"
             >
-                <span>
-                    BRIGHTSIDE
-                </span>
-
-                <small>
-                    HOUSTON DETAILING
-                </small>
+                <span class="logo-main">BRIGHTSIDE</span>
+                <span class="logo-sub">HOUSTON DETAILING</span>
             </a>
 
-            <p>
-                Mobile detailing brought to you.
-            </p>
-
-        </div>
-
-
-        <div class="footer-links">
-
-            <div>
-
-                <h4>
-                    Explore
-                </h4>
+            <nav class="main-nav" aria-label="Main navigation">
 
                 <a href="../index.html">
                     Home
                 </a>
 
-                <a href="../packages/">
+                <a href="../packages/index.html">
                     Packages
                 </a>
 
-                <a href="../results/">
-                    Results
-                </a>
-
-                <a href="../how-it-works/">
+                <a href="../how-it-works/index.html">
                     How It Works
                 </a>
 
-                <a href="../about/">
+                <a href="../results/index.html">
+                    Results
+                </a>
+
+                <a href="../about/index.html">
                     About
                 </a>
 
-            </div>
-
-
-            <div>
-
-                <h4>
-                    Contact
-                </h4>
-
-                <a href="mailto:YOUR-EMAIL-HERE">
-                    brightsidemdetails@gmail.com
+                <a
+                    href="./booking.html"
+                    class="nav-button active"
+                >
+                    Book Now
                 </a>
 
-                <a href="tel:YOUR-PHONE-HERE">
-                    832-996-7537
-                </a>
-
-            </div>
+            </nav>
 
         </div>
 
-    </div>
+    </header>
 
 
-    <div class="footer-bottom">
+    <!-- =========================================================
+         BOOKING HERO
+         ========================================================= -->
+    <main>
 
-        <p>
-            © 2026 BrightSide Houston Detailing.
-            All rights reserved.
-        </p>
+        <section class="booking-hero">
 
-        <p>
-            Houston, TX
-        </p>
+            <div class="container">
 
-    </div>
+                <div class="booking-hero-content">
 
-</footer>
+                    <p class="eyebrow">
+                        MOBILE DETAILING • ALIEF & HOUSTON
+                    </p>
+
+                    <h1>
+                        Book Your Detail
+                    </h1>
+
+                    <p class="hero-description">
+                        First, check that your address is within
+                        our 20-mile service area. If you're eligible,
+                        you'll be able to book your appointment
+                        directly through our scheduling system.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
 
 
-<script src="../script.js"></script>
+        <!-- =====================================================
+             SERVICE AREA CHECK
+             ===================================================== -->
+        <section class="booking-section">
 
-<!-- BOOKING PAGE SCRIPT -->
-<script src="./booking.js"></script>
+            <div class="container">
+
+                <div class="booking-card">
+
+                    <div class="booking-card-header">
+
+                        <p class="eyebrow">
+                            STEP 1
+                        </p>
+
+                        <h2>
+                            Check Your Service Area
+                        </h2>
+
+                        <p>
+                            Enter the address where you'd like
+                            your vehicle detailed.
+                        </p>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         ADDRESS SEARCH
+                         ================================================= -->
+                    <div class="form-group">
+
+                        <label for="address">
+                            Service Address
+                        </label>
+
+                        <div class="address-input-wrapper">
+
+                            <input
+                                type="text"
+                                id="address"
+                                name="address"
+                                placeholder="Enter your address"
+                                autocomplete="off"
+                            >
+
+                            <div
+                                id="address-suggestions"
+                                class="address-suggestions"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         SERVICE AREA STATUS
+                         ================================================= -->
+                    <div
+                        id="service-status"
+                        class="service-status"
+                        aria-live="polite"
+                    >
+                        <div class="status-icon">
+                            <span>?</span>
+                        </div>
+
+                        <div class="status-content">
+
+                            <strong>
+                                Enter your address
+                            </strong>
+
+                            <p>
+                                We'll check whether your location
+                                is within our 20-mile service area.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         MAP
+                         ================================================= -->
+                    <div
+                        id="map"
+                        class="booking-map"
+                        aria-label="Service area map"
+                    ></div>
+
+
+                    <!-- =================================================
+                         DISTANCE INFORMATION
+                         ================================================= -->
+                    <div
+                        id="distance-information"
+                        class="distance-information"
+                        hidden
+                    >
+                        <span>
+                            Distance from our service area center:
+                        </span>
+
+                        <strong id="distance-from-alief">
+                            —
+                        </strong>
+                    </div>
+
+
+                    <!-- =================================================
+                         HIDDEN SERVICE AREA DATA
+                         ================================================= -->
+                    <input
+                        type="hidden"
+                        id="service-area-status"
+                        value="unchecked"
+                    >
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             CAL.COM BOOKING
+             ========================================================= -->
+        <section
+            id="cal-booking-section"
+            class="cal-booking-section"
+            hidden
+        >
+
+            <div class="container">
+
+                <div class="cal-booking-wrapper">
+
+                    <div class="cal-booking-header">
+
+                        <p class="eyebrow">
+                            STEP 2
+                        </p>
+
+                        <h2>
+                            Choose Your Detail & Appointment
+                        </h2>
+
+                        <p>
+                            Select your service, choose an available
+                            weekend appointment, and complete your
+                            booking information below.
+                        </p>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         CAL.COM EMBED
+                         ================================================= -->
+                    <div
+                        id="cal-booking"
+                        class="cal-booking"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
+    <footer class="site-footer">
+
+        <div class="container footer-content">
+
+            <div class="footer-brand">
+
+                <span class="logo-main">
+                    BRIGHTSIDE
+                </span>
+
+                <span class="logo-sub">
+                    HOUSTON DETAILING
+                </span>
+
+            </div>
+
+            <p>
+                Mobile detailing in Alief and surrounding
+                Houston communities.
+            </p>
+
+            <p class="footer-contact">
+                Weekend appointments available.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+         ========================================================= -->
+    <script src="../script.js"></script>
+    <script src="./booking.js"></script>
 
 </body>
 </html>
+```
