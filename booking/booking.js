@@ -1,543 +1,453 @@
+javascript
+/* =============================================================
+   BRIGHTSIDE HOUSTON DETAILING
+   BOOKING PAGE
+   -------------------------------------------------------------
+   Responsibilities:
+   1. Mapbox address search
+   2. Mapbox address selection
+   3. Calculate distance from Alief Neighborhood Center
+   4. Enforce a 20-mile service radius
+   5. Show the selected location on the map
+   6. Unlock Cal.com when the address is eligible
+   7. Keep all actual booking information inside Cal.com
+   ============================================================= */
+
 document.addEventListener("DOMContentLoaded", () => {
 
-    const bookingPage = document.getElementById("booking-page");
+    /* =========================================================
+       PAGE CHECK
+       ========================================================= */
+
+    const bookingPage = document.querySelector(".booking-page");
 
     if (!bookingPage) {
         return;
     }
 
 
-    /* =====================================================
-       MAPBOX SETTINGS
-    ===================================================== */
-
-    const MAPBOX_TOKEN = "pk.eyJ1IjoiYnJpZ2h0c2lkZWRldGFpbGluZyIsImEiOiJjbXQ5bGEzdTAwMGg0Mnlwd2M1MHlyYWV0In0.Usd3fiKRnMZq1oE6cYy1Jg";
-
-    const SERVICE_LAT = 29.70254;
-    const SERVICE_LNG = -95.58891;
-    const SERVICE_RADIUS = 30;
+    /* =========================================================
+       MAPBOX CONFIGURATION
+       ========================================================= */
 
 
-    /* =====================================================
-       CAL.COM LINKS
-    ===================================================== */
+    const MAPBOX_TOKEN = "pk.eyJ1IjoiYnJpZ2h0c2lkZWRldGFpbGluZyIsImEiOiJjbXQ5a3FuMDUwNHVlMndweWFzNXAwMG5rIn0.HYTbUgwvgO3_fn7f0mHCDg";
 
-    const CAL_LINKS = {
-        express: "https://cal.com/brightsidehouston/exteriordetail",
-        interior: "https://cal.com/brightsidehouston/interiordetail",
-        "full-detail": "https://cal.com/brightsidehouston/fulldetail"
+
+    /*
+       Alief Neighborhood Center
+
+       11903 Bellaire Blvd
+       Houston, TX 77072
+
+       These coordinates are used as the center point
+       for the 20-mile service area.
+    */
+
+    const SERVICE_CENTER = {
+        latitude: 29.70254,
+        longitude: -95.58891
     };
 
 
-    /* =====================================================
-       PRICING
-    ===================================================== */
 
-    const prices = {
-        sedan: {
-            express: 75,
-            interior: 100,
-            "full-detail": 150
-        },
-
-        suv: {
-            express: 95,
-            interior: 120,
-            "full-detail": 180
-        },
-
-        truck: {
-            express: 110,
-            interior: 140,
-            "full-detail": 200
-        }
-    };
+    const SERVICE_RADIUS_MILES = 20;
 
 
-    /* =====================================================
-       ELEMENTS
-    ===================================================== */
+    /* =========================================================
+       CAL.COM CONFIGURATION
+       ========================================================= */
 
-    const form = document.getElementById("booking-form");
+    /*
+       This should be the Cal.com booking page/profile that
+       lets customers choose between your available services.
 
-    const vehicleSize =
-        document.getElementById("vehicle-size");
+       Your individual event types are currently:
 
-    const vehiclePrice =
-        document.getElementById("vehicle-price");
+       Full Detail:
+       https://cal.com/brightsidehouston/fulldetail
 
-    const startingPrice =
-        document.getElementById("starting-price");
+       Exterior Detail:
+       https://cal.com/brightsidehouston/exteriordetail
 
-    const serviceAreaStatus =
-        document.getElementById("service-area-status");
+       Interior Detail:
+       https://cal.com/brightsidehouston/interiordetail
 
-    const distanceFromAlief =
-        document.getElementById("distance-from-alief");
+       IMPORTANT:
+       Replace CAL_BOOKING_LINK below with the Cal.com page
+       you want customers to use for choosing their service.
 
-    const serviceStatus =
-        document.getElementById("service-status");
+       If you later create one combined Cal.com event/page,
+       put that link here.
+    */
+
+    const CAL_BOOKING_LINK =
+        "brightsidehouston";
+
+
+    /* =========================================================
+       ELEMENT REFERENCES
+       ========================================================= */
 
     const addressInput =
         document.getElementById("address");
 
-    const addressSuggestions =
+    const suggestionsContainer =
         document.getElementById("address-suggestions");
 
-    const availabilityContainer =
-        document.getElementById("availability-container");
+    const serviceStatus =
+        document.getElementById("service-status");
 
-    const availabilityButton =
-        document.getElementById("availability-button");
+    const mapContainer =
+        document.getElementById("map");
 
-    const formStatus =
-        document.getElementById("form-status");
+    const serviceAreaStatus =
+        document.getElementById("service-area-status");
 
+    const distanceInformation =
+        document.getElementById("distance-information");
 
-    /* =====================================================
-       CHECK REQUIRED ELEMENTS
-    ===================================================== */
+    const distanceDisplay =
+        document.getElementById("distance-from-alief");
 
-    if (!form) {
-        console.error("Booking form was not found.");
-        return;
-    }
+    const calBookingSection =
+        document.getElementById("cal-booking-section");
 
-    if (!availabilityButton) {
-        console.error("Continue button was not found.");
-        return;
-    }
-
-    if (!addressInput) {
-        console.error("Address input was not found.");
-        return;
-    }
+    const calBooking =
+        document.getElementById("cal-booking");
 
 
-    /* =====================================================
-       MAP VARIABLES
-    ===================================================== */
+    /* =========================================================
+       STATE
+       ========================================================= */
 
     let map = null;
     let marker = null;
-    let mapInitialized = false;
 
-    let searchSessionToken = createSessionToken();
-    let debounceTimer = null;
+    let selectedCoordinates = null;
+    let selectedAddress = "";
+
+    let searchTimeout = null;
+    let sessionToken = null;
 
 
-    /* =====================================================
-       SESSION TOKEN
-    ===================================================== */
+    /* =========================================================
+       BASIC VALIDATION
+       ========================================================= */
 
-    function createSessionToken() {
-
-        if (
-            window.crypto &&
-            typeof window.crypto.randomUUID === "function"
-        ) {
-            return window.crypto.randomUUID();
-        }
-
-        return (
-            Date.now().toString(36) +
-            Math.random().toString(36).substring(2)
+    if (!addressInput) {
+        console.error(
+            "BrightSide Booking: Address input was not found."
         );
+
+        return;
     }
 
 
-    /* =====================================================
-       MAPBOX INITIALIZATION
-    ===================================================== */
+    if (!mapContainer) {
+        console.error(
+            "BrightSide Booking: Map container was not found."
+        );
+
+        return;
+    }
+
+
+    /* =========================================================
+       MAPBOX LOAD CHECK
+       ========================================================= */
+
+    function waitForMapbox(callback) {
+
+        if (
+            typeof mapboxgl !== "undefined"
+        ) {
+            callback();
+            return;
+        }
+
+        setTimeout(() => {
+            waitForMapbox(callback);
+        }, 100);
+
+    }
+
+
+    /* =========================================================
+       MAP INITIALIZATION
+       ========================================================= */
 
     function initializeMap() {
 
-        if (mapInitialized) {
-            return;
-        }
-
-        if (typeof mapboxgl === "undefined") {
-
-            setTimeout(
-                initializeMap,
-                300
+        if (
+            typeof mapboxgl === "undefined"
+        ) {
+            console.error(
+                "BrightSide Booking: Mapbox GL JS did not load."
             );
 
             return;
         }
+
 
         if (
             !MAPBOX_TOKEN ||
-            !MAPBOX_TOKEN.startsWith("pk.")
+            MAPBOX_TOKEN === "YOUR_EXISTING_MAPBOX_PUBLIC_TOKEN"
         ) {
-
             console.error(
-                "Mapbox public token is missing or invalid."
+                "BrightSide Booking: Add your Mapbox public token to booking.js."
             );
-
-            if (serviceStatus) {
-                serviceStatus.textContent =
-                    "Mapbox is not configured yet.";
-
-                serviceStatus.className =
-                    "service-status not-eligible";
-            }
 
             return;
         }
 
+
         mapboxgl.accessToken = MAPBOX_TOKEN;
 
+
         map = new mapboxgl.Map({
-            container: "map",
+            container: mapContainer,
             style: "mapbox://styles/mapbox/streets-v12",
             center: [
-                SERVICE_LNG,
-                SERVICE_LAT
+                SERVICE_CENTER.longitude,
+                SERVICE_CENTER.latitude
             ],
-            zoom: 11
+            zoom: 9
         });
+
 
         map.addControl(
             new mapboxgl.NavigationControl(),
             "top-right"
         );
 
+
+        /*
+           Add a marker showing the service-area center.
+        */
+
+        new mapboxgl.Marker()
+            .setLngLat([
+                SERVICE_CENTER.longitude,
+                SERVICE_CENTER.latitude
+            ])
+            .addTo(map);
+
+
+        /*
+           Draw an approximate 20-mile circle around
+           the Alief Neighborhood Center.
+        */
+
         map.on("load", () => {
 
-            mapInitialized = true;
-
-            map.resize();
-
-        });
-
-        map.on("error", (event) => {
-
-            console.error(
-                "Mapbox map error:",
-                event
-            );
+            drawServiceRadius();
 
         });
 
     }
 
 
-    initializeMap();
+    /* =========================================================
+       SERVICE RADIUS
+       ========================================================= */
 
+    function drawServiceRadius() {
 
-    /* =====================================================
-       SERVICE SELECTION
-    ===================================================== */
-
-    function getSelectedService() {
-
-        const selected =
-            document.querySelector(
-                'input[name="service"]:checked'
-            );
-
-        return selected
-            ? selected.value
-            : null;
-    }
-
-
-    /* =====================================================
-       UPDATE PRICES
-    ===================================================== */
-
-    function updatePrices() {
-
-        const size =
-            vehicleSize
-                ? vehicleSize.value
-                : "";
-
-        const service =
-            getSelectedService();
-
-
-        document
-            .querySelectorAll(".service-card")
-            .forEach(card => {
-
-                card.classList.remove(
-                    "selected-service"
-                );
-
-            });
-
-
-        const selectedRadio =
-            document.querySelector(
-                'input[name="service"]:checked'
-            );
-
-
-        if (selectedRadio) {
-
-            const selectedCard =
-                selectedRadio.closest(
-                    ".service-card"
-                );
-
-            if (selectedCard) {
-
-                selectedCard.classList.add(
-                    "selected-service"
-                );
-
-            }
-
+        if (!map) {
+            return;
         }
 
 
-        document
-            .querySelectorAll(".service-card")
-            .forEach(card => {
+        const radiusInMiles =
+            SERVICE_RADIUS_MILES;
 
-                const radio =
-                    card.querySelector(
-                        'input[name="service"]'
-                    );
+        const points = 96;
 
-                const priceElement =
-                    card.querySelector(
-                        ".service-price"
-                    );
+        const earthRadiusMiles = 3958.8;
 
+        const latitude =
+            SERVICE_CENTER.latitude *
+            Math.PI /
+            180;
 
-                if (!radio || !priceElement) {
-                    return;
-                }
+        const longitude =
+            SERVICE_CENTER.longitude *
+            Math.PI /
+            180;
 
-
-                if (
-                    !size ||
-                    !prices[size] ||
-                    prices[size][radio.value] === undefined
-                ) {
-
-                    priceElement.textContent =
-                        "Select Vehicle";
-
-                    return;
-                }
+        const angularDistance =
+            radiusInMiles /
+            earthRadiusMiles;
 
 
-                priceElement.textContent =
-                    `$${prices[size][radio.value]}`;
-
-            });
+        const coordinates = [];
 
 
-        if (
-            size &&
-            service &&
-            prices[size] &&
-            prices[size][service] !== undefined
+        for (
+            let i = 0;
+            i <= points;
+            i++
         ) {
 
-            const price =
-                prices[size][service];
+            const bearing =
+                2 *
+                Math.PI *
+                i /
+                points;
 
-            if (vehiclePrice) {
-                vehiclePrice.textContent =
-                    `Starting price: $${price}`;
-            }
 
-            if (startingPrice) {
-                startingPrice.value = price;
-            }
+            const lat2 =
+                Math.asin(
+                    Math.sin(latitude) *
+                    Math.cos(angularDistance) +
+                    Math.cos(latitude) *
+                    Math.sin(angularDistance) *
+                    Math.cos(bearing)
+                );
 
-        } else {
 
-            if (vehiclePrice) {
-                vehiclePrice.textContent =
-                    "Choose your vehicle size";
-            }
+            const lon2 =
+                longitude +
+                Math.atan2(
+                    Math.sin(bearing) *
+                    Math.sin(angularDistance) *
+                    Math.cos(latitude),
+                    Math.cos(angularDistance) -
+                    Math.sin(latitude) *
+                    Math.sin(lat2)
+                );
 
-            if (startingPrice) {
-                startingPrice.value = "";
-            }
+
+            coordinates.push([
+                lon2 * 180 / Math.PI,
+                lat2 * 180 / Math.PI
+            ]);
 
         }
+
+
+        const geojson = {
+            type: "Feature",
+            geometry: {
+                type: "Polygon",
+                coordinates: [
+                    coordinates
+                ]
+            }
+        };
+
+
+        if (map.getSource("service-radius")) {
+
+            map.getSource(
+                "service-radius"
+            ).setData(geojson);
+
+            return;
+        }
+
+
+        map.addSource(
+            "service-radius",
+            {
+                type: "geojson",
+                data: geojson
+            }
+        );
+
+
+        map.addLayer({
+            id: "service-radius-fill",
+            type: "fill",
+            source: "service-radius",
+            paint: {
+                "fill-opacity": 0.08
+            }
+        });
+
+
+        map.addLayer({
+            id: "service-radius-line",
+            type: "line",
+            source: "service-radius",
+            paint: {
+                "line-width": 2,
+                "line-opacity": 0.5
+            }
+        });
 
     }
 
 
-    if (vehicleSize) {
+    /* =========================================================
+       CREATE MAPBOX SESSION
+       ========================================================= */
 
-        vehicleSize.addEventListener(
-            "change",
-            updatePrices
+    function createSessionToken() {
+
+        if (
+            typeof crypto !== "undefined" &&
+            crypto.randomUUID
+        ) {
+            return crypto.randomUUID();
+        }
+
+
+        return (
+            Date.now().toString(36) +
+            Math.random()
+                .toString(36)
+                .substring(2)
         );
 
     }
 
 
-    document
-        .querySelectorAll(
-            'input[name="service"]'
-        )
-        .forEach(input => {
+    /* =========================================================
+       ADDRESS SUGGESTIONS
+       ========================================================= */
 
-            input.addEventListener(
-                "change",
-                updatePrices
-            );
-
-        });
-
-
-    /* =====================================================
-       SERVICE FROM URL
-    ===================================================== */
-
-    function selectServiceFromURL() {
-
-        const params =
-            new URLSearchParams(
-                window.location.search
-            );
-
-        const service =
-            params.get("service");
-
+    async function getAddressSuggestions(query) {
 
         if (
-            !service ||
-            !CAL_LINKS[service]
+            !query ||
+            query.trim().length < 3
         ) {
+            clearSuggestions();
             return;
         }
 
 
-        const input =
-            document.querySelector(
-                `input[name="service"][value="${service}"]`
-            );
-
-
-        if (input) {
-            input.checked = true;
+        if (!sessionToken) {
+            sessionToken =
+                createSessionToken();
         }
 
-    }
 
-
-    selectServiceFromURL();
-    updatePrices();
-
-
-    /* =====================================================
-       ADDRESS INPUT
-    ===================================================== */
-
-    addressInput.addEventListener(
-        "input",
-        () => {
-
-            clearTimeout(
-                debounceTimer
-            );
-
-            resetLocation();
-
-
-            const query =
-                addressInput.value.trim();
-
-
-            if (query.length < 3) {
-
-                addressSuggestions.innerHTML =
-                    "";
-
-                return;
-            }
-
-
-            debounceTimer =
-                setTimeout(() => {
-
-                    getSuggestions(query);
-
-                }, 350);
-
-        }
-    );
-
-
-    /* =====================================================
-       MAPBOX SUGGESTIONS
-    ===================================================== */
-
-    async function getSuggestions(query) {
-
-        if (
-            !MAPBOX_TOKEN ||
-            !MAPBOX_TOKEN.startsWith("pk.")
-        ) {
-            return;
-        }
+        const url =
+            "https://api.mapbox.com/search/searchbox/v1/suggest" +
+            "?q=" +
+            encodeURIComponent(query) +
+            "&language=en" +
+            "&country=US" +
+            "&limit=6" +
+            "&session_token=" +
+            encodeURIComponent(sessionToken) +
+            "&access_token=" +
+            encodeURIComponent(MAPBOX_TOKEN);
 
 
         try {
-
-            const url =
-                new URL(
-                    "https://api.mapbox.com/search/searchbox/v1/suggest"
-                );
-
-
-            url.searchParams.set(
-                "q",
-                query
-            );
-
-            url.searchParams.set(
-                "country",
-                "US"
-            );
-
-            url.searchParams.set(
-                "language",
-                "en"
-            );
-
-            url.searchParams.set(
-                "limit",
-                "6"
-            );
-
-            url.searchParams.set(
-                "session_token",
-                searchSessionToken
-            );
-
-            url.searchParams.set(
-                "proximity",
-                `${SERVICE_LNG},${SERVICE_LAT}`
-            );
-
-            url.searchParams.set(
-                "access_token",
-                MAPBOX_TOKEN
-            );
-
 
             const response =
                 await fetch(url);
 
 
             if (!response.ok) {
-
                 throw new Error(
-                    `Mapbox suggest request failed: ${response.status}`
+                    "Mapbox suggestion request failed."
                 );
-
             }
 
 
@@ -545,73 +455,87 @@ document.addEventListener("DOMContentLoaded", () => {
                 await response.json();
 
 
-            showSuggestions(
+            displaySuggestions(
                 data.suggestions || []
             );
-
 
         } catch (error) {
 
             console.error(
-                "Mapbox suggestions error:",
+                "BrightSide Booking: Address search error:",
                 error
             );
 
-            addressSuggestions.innerHTML =
-                "";
+            clearSuggestions();
 
         }
 
     }
 
 
-    /* =====================================================
+    /* =========================================================
        DISPLAY SUGGESTIONS
-    ===================================================== */
+       ========================================================= */
 
-    function showSuggestions(suggestions) {
+    function displaySuggestions(suggestions) {
 
-        addressSuggestions.innerHTML =
-            "";
+        if (!suggestionsContainer) {
+            return;
+        }
+
+
+        suggestionsContainer.innerHTML = "";
 
 
         if (!suggestions.length) {
+            suggestionsContainer.classList.remove(
+                "visible"
+            );
+
             return;
         }
 
 
         suggestions.forEach(
-            suggestion => {
+            (suggestion) => {
 
                 const button =
-                    document.createElement(
-                        "button"
-                    );
+                    document.createElement("button");
 
 
-                button.type =
-                    "button";
+                button.type = "button";
 
                 button.className =
                     "address-suggestion";
 
 
-                const name =
-                    suggestion.name || "";
+                const primaryText =
+                    suggestion.name ||
+                    suggestion.place_formatted ||
+                    "Address";
 
-                const details =
-                    suggestion.full_address ||
+
+                const secondaryText =
                     suggestion.place_formatted ||
                     "";
 
 
                 button.innerHTML = `
-                    <strong>
-                        ${escapeHTML(name)}
-                    </strong>
-                    <span>
-                        ${escapeHTML(details)}
+                    <span class="suggestion-main">
+                        ${escapeHTML(primaryText)}
                     </span>
+
+                    ${
+                        secondaryText
+                            ? `
+                                <span class="suggestion-secondary">
+                                    ${escapeHTML(
+                                        secondaryText
+                                    )}
+                                </span>
+                            `
+                            : ""
+                    }
                 `;
 
 
@@ -619,7 +543,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     "click",
                     () => {
 
-                        retrieveAddress(
+                        selectAddress(
                             suggestion
                         );
 
@@ -627,61 +551,82 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
 
-                addressSuggestions.appendChild(
+                suggestionsContainer.appendChild(
                     button
                 );
 
             }
         );
 
+
+        suggestionsContainer.classList.add(
+            "visible"
+        );
+
     }
 
 
-    /* =====================================================
-       RETRIEVE ADDRESS
-    ===================================================== */
+    /* =========================================================
+       ADDRESS SELECTION
+       ========================================================= */
 
-    async function retrieveAddress(suggestion) {
+    async function selectAddress(suggestion) {
 
-        if (
-            !suggestion ||
-            !suggestion.mapbox_id
-        ) {
+        clearSuggestions();
+
+
+        addressInput.value =
+            suggestion.full_address ||
+            suggestion.place_formatted ||
+            suggestion.name ||
+            "";
+
+
+        selectedAddress =
+            addressInput.value;
+
+
+        const mapboxId =
+            suggestion.mapbox_id;
+
+
+        if (!mapboxId) {
+
+            setStatus(
+                "error",
+                "We couldn't verify that address.",
+                "Please try selecting one of the suggested addresses."
+            );
+
             return;
         }
 
 
+        if (!sessionToken) {
+            sessionToken =
+                createSessionToken();
+        }
+
+
+        const url =
+            "https://api.mapbox.com/search/searchbox/v1/retrieve/" +
+            encodeURIComponent(mapboxId) +
+            "?session_token=" +
+            encodeURIComponent(sessionToken) +
+            "&access_token=" +
+            encodeURIComponent(MAPBOX_TOKEN);
+
+
         try {
-
-            const url =
-                new URL(
-                    `https://api.mapbox.com/search/searchbox/v1/retrieve/${encodeURIComponent(
-                        suggestion.mapbox_id
-                    )}`
-                );
-
-
-            url.searchParams.set(
-                "session_token",
-                searchSessionToken
-            );
-
-            url.searchParams.set(
-                "access_token",
-                MAPBOX_TOKEN
-            );
-
 
             const response =
                 await fetch(url);
 
 
             if (!response.ok) {
-
                 throw new Error(
-                    `Mapbox retrieve request failed: ${response.status}`
+                    "Mapbox retrieve request failed."
                 );
-
             }
 
 
@@ -694,16 +639,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 data.features[0];
 
 
-            if (
-                !feature ||
-                !feature.geometry ||
-                !feature.geometry.coordinates
-            ) {
+            if (!feature) {
 
-                throw new Error(
-                    "Mapbox did not return coordinates."
+                setStatus(
+                    "error",
+                    "We couldn't verify that address.",
+                    "Please select another suggested address."
                 );
 
+                return;
             }
 
 
@@ -711,184 +655,526 @@ document.addEventListener("DOMContentLoaded", () => {
                 feature.geometry.coordinates;
 
 
-            const longitude =
-                Number(coordinates[0]);
-
-            const latitude =
-                Number(coordinates[1]);
-
-
-            const properties =
-                feature.properties || {};
+            selectedCoordinates = {
+                longitude: coordinates[0],
+                latitude: coordinates[1]
+            };
 
 
-            const fullAddress =
-                properties.full_address ||
-                [
-                    properties.address,
-                    properties.place_formatted
-                ]
-                    .filter(Boolean)
-                    .join(", ");
+            /*
+               Calculate distance from the
+               Alief Neighborhood Center.
+            */
+
+            const distance =
+                calculateDistanceMiles(
+                    SERVICE_CENTER.latitude,
+                    SERVICE_CENTER.longitude,
+                    selectedCoordinates.latitude,
+                    selectedCoordinates.longitude
+                );
 
 
-            addressInput.value =
-                fullAddress ||
-                suggestion.full_address ||
-                suggestion.name;
-
-
-            addressSuggestions.innerHTML =
-                "";
-
-
-            updateMap(
-                longitude,
-                latitude,
-                fullAddress
+            showSelectedLocation(
+                selectedCoordinates,
+                distance
             );
 
 
-            checkServiceArea(
-                latitude,
-                longitude
+            evaluateServiceArea(
+                distance
             );
 
 
-            searchSessionToken =
-                createSessionToken();
-
+            sessionToken = null;
 
         } catch (error) {
 
             console.error(
-                "Address retrieval error:",
+                "BrightSide Booking: Address retrieval error:",
                 error
             );
 
 
-            serviceStatus.textContent =
-                "We couldn't verify that address. Please select an address from the suggestions.";
-
-            serviceStatus.className =
-                "service-status not-eligible";
-
-
-            serviceAreaStatus.value =
-                "";
-
-            distanceFromAlief.value =
-                "";
-
-
-            lockAvailability();
+            setStatus(
+                "error",
+                "We couldn't verify that address.",
+                "Please try selecting the address again."
+            );
 
         }
 
     }
 
 
-    /* =====================================================
-       UPDATE MAP
-    ===================================================== */
+    /* =========================================================
+       SERVICE AREA EVALUATION
+       ========================================================= */
 
-    function updateMap(
-        longitude,
-        latitude,
-        address
-    ) {
+    function evaluateServiceArea(distance) {
 
-        if (!map) {
+        const isEligible =
+            distance <=
+            SERVICE_RADIUS_MILES;
 
-            console.warn(
-                "Map is not ready yet."
+
+        if (isEligible) {
+
+            serviceAreaStatus.value =
+                "eligible";
+
+
+            setStatus(
+                "eligible",
+                "You're within our service area.",
+                `Your address is approximately ${distance.toFixed(
+                    1
+                )} miles from our service-area center.`
             );
+
+
+            if (distanceInformation) {
+                distanceInformation.hidden = false;
+            }
+
+
+            if (distanceDisplay) {
+                distanceDisplay.textContent =
+                    `${distance.toFixed(1)} miles`;
+            }
+
+
+            unlockCalBooking();
+
+        } else {
+
+            serviceAreaStatus.value =
+                "outside";
+
+
+            setStatus(
+                "outside",
+                "This address is outside our service area.",
+                `Your address is approximately ${distance.toFixed(
+                    1
+                )} miles away. BrightSide currently serves locations within approximately 20 miles.`
+            );
+
+
+            if (distanceInformation) {
+                distanceInformation.hidden = false;
+            }
+
+
+            if (distanceDisplay) {
+                distanceDisplay.textContent =
+                    `${distance.toFixed(1)} miles`;
+            }
+
+
+            lockCalBooking();
+
+        }
+
+    }
+
+
+    /* =========================================================
+       UNLOCK CAL.COM
+       ========================================================= */
+
+    function unlockCalBooking() {
+
+        if (!calBookingSection) {
+            return;
+        }
+
+
+        calBookingSection.hidden = false;
+
+
+        /*
+           Only initialize Cal.com once.
+        */
+
+        if (
+            calBooking.dataset.loaded === "true"
+        ) {
+            calBookingSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
 
             return;
         }
 
 
-        map.resize();
+        initializeCalBooking();
 
 
-        map.flyTo({
+        /*
+           Scroll the customer down to the booking
+           section after eligibility is confirmed.
+        */
 
-            center: [
-                longitude,
-                latitude
-            ],
+        setTimeout(() => {
 
-            zoom: 13,
+            calBookingSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
 
-            speed: 1.1,
-
-            essential: true
-
-        });
-
-
-        if (marker) {
-            marker.remove();
-        }
-
-
-        marker =
-            new mapboxgl.Marker()
-                .setLngLat([
-                    longitude,
-                    latitude
-                ])
-                .setPopup(
-                    new mapboxgl.Popup({
-                        offset: 25
-                    }).setText(
-                        address ||
-                        "Selected service address"
-                    )
-                )
-                .addTo(map);
-
-
-        marker.togglePopup();
+        }, 250);
 
     }
 
 
-    /* =====================================================
-       DISTANCE
-    ===================================================== */
+    /* =========================================================
+       LOCK CAL.COM
+       ========================================================= */
 
-    function calculateDistanceMiles(
-        lat1,
-        lng1,
-        lat2,
-        lng2
+    function lockCalBooking() {
+
+        if (!calBookingSection) {
+            return;
+        }
+
+
+        calBookingSection.hidden = true;
+
+
+        if (calBooking) {
+            calBooking.innerHTML = "";
+            calBooking.dataset.loaded = "false";
+        }
+
+    }
+
+
+    /* =========================================================
+       INITIALIZE CAL.COM
+       ========================================================= */
+
+    function initializeCalBooking() {
+
+        if (!calBooking) {
+            return;
+        }
+
+
+        /*
+           Prevent duplicate initialization.
+        */
+
+        if (
+            calBooking.dataset.loaded === "true"
+        ) {
+            return;
+        }
+
+
+        if (
+            typeof window.Cal === "undefined"
+        ) {
+
+            console.error(
+                "BrightSide Booking: Cal.com has not loaded yet."
+            );
+
+
+            calBooking.innerHTML = `
+                <div class="cal-error">
+                    <strong>
+                        Booking system is still loading.
+                    </strong>
+
+                    <p>
+                        Please wait a moment and try again.
+                    </p>
+                </div>
+            `;
+
+
+            setTimeout(
+                initializeCalBooking,
+                1000
+            );
+
+
+            return;
+        }
+
+
+        /*
+           Initialize the Cal.com booking page.
+
+           CAL_BOOKING_LINK is intentionally kept as a
+           separate constant so you can change the Cal.com
+           page without touching the Mapbox code.
+        */
+
+        Cal("inline", {
+            elementOrSelector:
+                "#cal-booking",
+
+            calLink:
+                CAL_BOOKING_LINK,
+
+            config: {
+                layout: "month_view"
+            }
+        });
+
+
+        calBooking.dataset.loaded =
+            "true";
+
+    }
+
+
+    /* =========================================================
+       SELECTED LOCATION ON MAP
+       ========================================================= */
+
+    function showSelectedLocation(
+        coordinates,
+        distance
     ) {
 
-        const earthRadius =
+        if (!map) {
+            return;
+        }
+
+
+        const lngLat = [
+            coordinates.longitude,
+            coordinates.latitude
+        ];
+
+
+        if (marker) {
+
+            marker
+                .setLngLat(lngLat);
+
+        } else {
+
+            marker =
+                new mapboxgl.Marker()
+                    .setLngLat(lngLat)
+                    .addTo(map);
+
+        }
+
+
+        const zoomLevel =
+            distance <= 20
+                ? 10
+                : 9;
+
+
+        map.flyTo({
+            center: lngLat,
+            zoom: zoomLevel,
+            duration: 900
+        });
+
+    }
+
+
+    /* =========================================================
+       STATUS DISPLAY
+       ========================================================= */
+
+    function setStatus(
+        statusType,
+        heading,
+        message
+    ) {
+
+        if (!serviceStatus) {
+            return;
+        }
+
+
+        serviceStatus.className =
+            `service-status ${statusType}`;
+
+
+        serviceStatus.innerHTML = `
+            <div class="status-icon">
+                ${
+                    statusType === "eligible"
+                        ? "✓"
+                        : statusType === "outside"
+                            ? "!"
+                            : "?"
+                }
+            </div>
+
+            <div class="status-content">
+
+                <strong>
+                    ${escapeHTML(heading)}
+                </strong>
+
+                <p>
+                    ${escapeHTML(message)}
+                </p>
+
+            </div>
+        `;
+
+    }
+
+
+    /* =========================================================
+       ADDRESS INPUT
+       ========================================================= */
+
+    addressInput.addEventListener(
+        "input",
+        () => {
+
+            /*
+               Any new typing invalidates the previous
+               address selection.
+            */
+
+            selectedCoordinates = null;
+            selectedAddress = "";
+
+            serviceAreaStatus.value =
+                "unchecked";
+
+
+            lockCalBooking();
+
+
+            if (distanceInformation) {
+                distanceInformation.hidden =
+                    true;
+            }
+
+
+            setStatus(
+                "unchecked",
+                "Enter your address",
+                "We'll check whether your location is within our 20-mile service area."
+            );
+
+
+            clearTimeout(
+                searchTimeout
+            );
+
+
+            const query =
+                addressInput.value.trim();
+
+
+            searchTimeout =
+                setTimeout(
+                    () => {
+
+                        getAddressSuggestions(
+                            query
+                        );
+
+                    },
+                    250
+                );
+
+        }
+    );
+
+
+    /* =========================================================
+       CLOSE SUGGESTIONS WHEN CLICKING ELSEWHERE
+       ========================================================= */
+
+    document.addEventListener(
+        "click",
+        (event) => {
+
+            if (
+                !addressInput.contains(event.target) &&
+                !suggestionsContainer?.contains(
+                    event.target
+                )
+            ) {
+
+                clearSuggestions();
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       CLEAR SUGGESTIONS
+       ========================================================= */
+
+    function clearSuggestions() {
+
+        if (!suggestionsContainer) {
+            return;
+        }
+
+
+        suggestionsContainer.innerHTML = "";
+
+        suggestionsContainer.classList.remove(
+            "visible"
+        );
+
+    }
+
+
+    /* =========================================================
+       HAVERSINE DISTANCE
+       ========================================================= */
+
+    function calculateDistanceMiles(
+        latitude1,
+        longitude1,
+        latitude2,
+        longitude2
+    ) {
+
+        const earthRadiusMiles =
             3958.8;
 
 
-        const dLat =
+        const latitudeDifference =
             toRadians(
-                lat2 - lat1
+                latitude2 - latitude1
             );
 
-        const dLng =
+
+        const longitudeDifference =
             toRadians(
-                lng2 - lng1
+                longitude2 - longitude1
             );
 
 
         const a =
-            Math.sin(dLat / 2) ** 2 +
+            Math.sin(
+                latitudeDifference / 2
+            ) ** 2 +
+
             Math.cos(
-                toRadians(lat1)
+                toRadians(latitude1)
             ) *
+
             Math.cos(
-                toRadians(lat2)
+                toRadians(latitude2)
             ) *
-            Math.sin(dLng / 2) ** 2;
+
+            Math.sin(
+                longitudeDifference / 2
+            ) ** 2;
 
 
         const c =
@@ -899,537 +1185,31 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-        return earthRadius * c;
+        return (
+            earthRadiusMiles * c
+        );
 
     }
 
+
+    /* =========================================================
+       DEGREES TO RADIANS
+       ========================================================= */
 
     function toRadians(degrees) {
 
-        return degrees *
-            (Math.PI / 180);
-
-    }
-
-
-    /* =====================================================
-       SERVICE AREA CHECK
-    ===================================================== */
-
-    function checkServiceArea(
-        latitude,
-        longitude
-    ) {
-
-        const distance =
-            calculateDistanceMiles(
-                SERVICE_LAT,
-                SERVICE_LNG,
-                latitude,
-                longitude
-            );
-
-
-        distanceFromAlief.value =
-            `${distance.toFixed(1)} miles`;
-
-
-        if (
-            distance <= SERVICE_RADIUS
-        ) {
-
-            serviceStatus.textContent =
-                `You're within our service area — approximately ${distance.toFixed(1)} miles away.`;
-
-            serviceStatus.className =
-                "service-status eligible";
-
-
-            serviceAreaStatus.value =
-                "Eligible";
-
-
-            unlockAvailability();
-
-        } else {
-
-            serviceStatus.textContent =
-                `This address is approximately ${distance.toFixed(1)} miles away and is outside our 30-mile service area.`;
-
-            serviceStatus.className =
-                "service-status not-eligible";
-
-
-            serviceAreaStatus.value =
-                "Outside service area";
-
-
-            lockAvailability();
-
-        }
-
-    }
-
-
-    /* =====================================================
-       UNLOCK BUTTON
-    ===================================================== */
-
-    function unlockAvailability() {
-
-        availabilityContainer.classList.remove(
-            "availability-locked"
-        );
-
-        availabilityContainer.classList.add(
-            "availability-unlocked"
-        );
-
-
-        availabilityButton.disabled =
-            false;
-
-
-        availabilityButton.classList.remove(
-            "disabled-button"
-        );
-
-
-        availabilityButton.removeAttribute(
-            "aria-disabled"
-        );
-
-
-        const message =
-            availabilityContainer.querySelector(
-                ".availability-message"
-            );
-
-
-        if (message) {
-
-            message.innerHTML = `
-                <strong>
-                    Location Confirmed
-                </strong>
-
-                <p>
-                    Your address is within our service area.
-                    Continue to choose your appointment.
-                </p>
-            `;
-
-        }
-
-    }
-
-
-    /* =====================================================
-       LOCK BUTTON
-    ===================================================== */
-
-    function lockAvailability() {
-
-        availabilityContainer.classList.add(
-            "availability-locked"
-        );
-
-        availabilityContainer.classList.remove(
-            "availability-unlocked"
-        );
-
-
-        availabilityButton.disabled =
-            true;
-
-
-        availabilityButton.classList.add(
-            "disabled-button"
-        );
-
-
-        availabilityButton.setAttribute(
-            "aria-disabled",
-            "true"
+        return (
+            degrees *
+            Math.PI /
+            180
         );
 
     }
 
 
-    /* =====================================================
-       RESET LOCATION
-    ===================================================== */
-
-    function resetLocation() {
-
-        serviceStatus.textContent =
-            "";
-
-        serviceStatus.className =
-            "service-status";
-
-
-        serviceAreaStatus.value =
-            "";
-
-        distanceFromAlief.value =
-            "";
-
-
-        lockAvailability();
-
-    }
-
-
-    /* =====================================================
-       VALIDATE FORM
-    ===================================================== */
-
-    function validateBookingForm() {
-
-        /*
-         * First make sure a service was selected.
-         */
-
-        const service =
-            getSelectedService();
-
-
-        if (!service) {
-
-            showFormStatus(
-                "Please select a service."
-            );
-
-            return false;
-
-        }
-
-
-        /*
-         * Make sure the address was actually verified.
-         */
-
-        if (
-            serviceAreaStatus.value !==
-            "Eligible"
-        ) {
-
-            showFormStatus(
-                "Please select your exact address from the Mapbox suggestions and make sure it is within our service area."
-            );
-
-            return false;
-
-        }
-
-
-        /*
-         * Check required customer and vehicle fields.
-         */
-
-        const requiredFields = [
-            "customer-name",
-            "customer-email",
-            "customer-phone",
-            "vehicle-make",
-            "vehicle-model",
-            "vehicle-year",
-            "vehicle-size",
-            "condition"
-        ];
-
-
-        for (
-            const fieldId of requiredFields
-        ) {
-
-            const field =
-                document.getElementById(
-                    fieldId
-                );
-
-
-            if (!field) {
-                continue;
-            }
-
-
-            if (!field.value.trim()) {
-
-                showFormStatus(
-                    `Please complete the "${getFieldLabel(field)}" field.`
-                );
-
-
-                field.focus();
-
-
-                return false;
-
-            }
-
-        }
-
-
-        /*
-         * Email validation.
-         */
-
-        const email =
-            document.getElementById(
-                "customer-email"
-            );
-
-
-        if (
-            email &&
-            !email.checkValidity()
-        ) {
-
-            showFormStatus(
-                "Please enter a valid email address."
-            );
-
-            email.focus();
-
-            return false;
-
-        }
-
-
-        /*
-         * Phone validation if HTML requires it.
-         */
-
-        const phone =
-            document.getElementById(
-                "customer-phone"
-            );
-
-
-        if (
-            phone &&
-            !phone.checkValidity()
-        ) {
-
-            showFormStatus(
-                "Please enter a valid phone number."
-            );
-
-            phone.focus();
-
-            return false;
-
-        }
-
-
-        /*
-         * Make sure a Cal.com link exists.
-         */
-
-        if (!CAL_LINKS[service]) {
-
-            showFormStatus(
-                "The selected service is not configured correctly."
-            );
-
-            return false;
-
-        }
-
-
-        return true;
-
-    }
-
-
-    /* =====================================================
-       CONTINUE TO CAL.COM
-    ===================================================== */
-
-    availabilityButton.addEventListener(
-        "click",
-        function () {
-
-            console.log(
-                "Continue button clicked."
-            );
-
-
-            if (!validateBookingForm()) {
-
-                console.log(
-                    "Booking validation failed."
-                );
-
-                return;
-
-            }
-
-
-            const service =
-                getSelectedService();
-
-
-            const calUrl =
-                CAL_LINKS[service];
-
-
-            console.log(
-                "Opening Cal.com:",
-                calUrl
-            );
-
-
-            /*
-             * Save information locally.
-             */
-
-            const bookingData = {
-
-                name:
-                    document
-                        .getElementById("customer-name")
-                        .value
-                        .trim(),
-
-                email:
-                    document
-                        .getElementById("customer-email")
-                        .value
-                        .trim(),
-
-                phone:
-                    document
-                        .getElementById("customer-phone")
-                        .value
-                        .trim(),
-
-                make:
-                    document
-                        .getElementById("vehicle-make")
-                        .value
-                        .trim(),
-
-                model:
-                    document
-                        .getElementById("vehicle-model")
-                        .value
-                        .trim(),
-
-                year:
-                    document
-                        .getElementById("vehicle-year")
-                        .value
-                        .trim(),
-
-                vehicleSize:
-                    vehicleSize.value,
-
-                service:
-                    service,
-
-                address:
-                    addressInput.value.trim(),
-
-                price:
-                    startingPrice.value,
-
-                condition:
-                    document
-                        .getElementById("condition")
-                        .value
-                        .trim(),
-
-                distance:
-                    distanceFromAlief.value
-
-            };
-
-
-            try {
-
-                localStorage.setItem(
-                    "brightsideBooking",
-                    JSON.stringify(
-                        bookingData
-                    )
-                );
-
-            } catch (error) {
-
-                console.warn(
-                    "Could not save booking information:",
-                    error
-                );
-
-            }
-
-
-            /*
-             * Redirect directly to Cal.com.
-             */
-
-            window.location.assign(
-                calUrl
-            );
-
-        }
-    );
-
-
-    /* =====================================================
-       FORM STATUS
-    ===================================================== */
-
-    function showFormStatus(message) {
-
-        if (!formStatus) {
-            return;
-        }
-
-
-        formStatus.textContent =
-            message;
-
-        formStatus.className =
-            "form-status";
-
-    }
-
-
-    /* =====================================================
-       FIELD LABEL HELPER
-    ===================================================== */
-
-    function getFieldLabel(field) {
-
-        const label =
-            document.querySelector(
-                `label[for="${field.id}"]`
-            );
-
-
-        if (label) {
-
-            return label.textContent
-                .replace(/\*/g, "")
-                .trim();
-
-        }
-
-
-        return field.name ||
-            field.id ||
-            "required field";
-
-    }
-
-
-    /* =====================================================
-       ESCAPE HTML
-    ===================================================== */
+    /* =========================================================
+       HTML ESCAPING
+       ========================================================= */
 
     function escapeHTML(value) {
 
@@ -1458,12 +1238,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =====================================================
-       INITIAL STATE
-    ===================================================== */
+    /* =========================================================
+       START MAPBOX
+       ========================================================= */
 
-    lockAvailability();
-    updatePrices();
-
+    waitForMapbox(
+        initializeMap
+    );
 
 });
+```
