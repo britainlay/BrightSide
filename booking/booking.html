@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Book Your Detail | BrightSide Houston Detailing
+    </title>
+
+    <meta
+        name="description"
+        content="Check your service area, view BrightSide Houston Detailing pricing, and book your mobile detail."
+    >
+
+    <!-- =========================================================
+         GOOGLE FONTS
+         ========================================================= -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =========================================================
+         SHARED WEBSITE CSS
+         ========================================================= -->
+
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+
+    <!-- =========================================================
+         MAPBOX
+         ========================================================= -->
+
+    <link
+        href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css"
+        rel="stylesheet"
+    >
+
+    <script
+        src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"
+        defer
+    ></script>
+
+
+    <!-- =========================================================
+         CAL.COM EMBED
+         ========================================================= -->
+
+    <script type="text/javascript">
+
+        (function (C, A, L) {
+
+            let p = function (a, ar) {
+                a.q.push(ar);
+            };
+
+            let d = C.document;
+
+            C.Cal = C.Cal || function () {
+
+                let cal = C.Cal;
+                let ar = arguments;
+
+                if (!cal.loaded) {
+
+                    cal.ns = {};
+                    cal.q = cal.q || [];
+
+                    d.head.appendChild(
+                        d.createElement("script")
+                    ).src = A;
+
+                    cal.loaded = true;
+                }
+
+                if (ar[0] === L) {
+
+                    const api = function () {
+                        p(api, arguments);
+                    };
+
+                    const namespace = ar[1];
+
+                    api.q = api.q || [];
+
+                    if (
+                        typeof namespace === "string"
+                    ) {
+
+                        cal.ns[namespace] =
+                            cal.ns[namespace] || api;
+
+                        p(
+                            cal.ns[namespace],
+                            ar
+                        );
+
+                        p(
+                            cal,
+                            [
+                                "initNamespace",
+                                namespace
+                            ]
+                        );
+
+                    } else {
+
+                        p(cal, ar);
+
+                    }
+
+                    return;
+                }
+
+                p(cal, ar);
+
+            };
+
+        })(
+            window,
+            "https://app.cal.com/embed/embed.js",
+            "init"
+        );
+
+
+        Cal("init", {
+            origin: "https://app.cal.com"
+        });
+
+    </script>
+
+</head>
+
+
+<body class="booking-page">
+
+
+    <!-- =========================================================
+         HEADER
+         ========================================================= -->
+
+    <header class="site-header">
+
+        <div class="container nav-container">
+
+            <a
+                href="../index.html"
+                class="logo"
+                aria-label="BrightSide Houston Detailing home"
+            >
+
+                <span class="logo-main">
+                    BRIGHTSIDE
+                </span>
+
+                <span class="logo-sub">
+                    HOUSTON DETAILING
+                </span>
+
+            </a>
+
+
+            <nav
+                class="main-nav"
+                aria-label="Main navigation"
+            >
+
+                <a href="../index.html">
+                    Home
+                </a>
+
+                <a href="../packages/index.html">
+                    Packages
+                </a>
+
+                <a href="../how-it-works/index.html">
+                    How It Works
+                </a>
+
+                <a href="../results/index.html">
+                    Results
+                </a>
+
+                <a href="../about/index.html">
+                    About
+                </a>
+
+                <a
+                    href="./booking.html"
+                    class="nav-button active"
+                >
+                    Book Now
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================================================
+         MAIN CONTENT
+         ========================================================= -->
+
+    <main>
+
+
+        <!-- =====================================================
+             HERO
+             ===================================================== -->
+
+        <section class="booking-hero">
+
+            <div class="container">
+
+                <div class="booking-hero-content">
+
+                    <p class="eyebrow">
+                        MOBILE DETAILING • ALIEF & HOUSTON
+                    </p>
+
+                    <h1>
+                        Book Your Detail
+                    </h1>
+
+                    <p class="hero-description">
+                        Check your address, review our pricing,
+                        and book your weekend appointment directly
+                        through BrightSide.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             STEP 1 — SERVICE AREA
+             ===================================================== -->
+
+        <section class="booking-section">
+
+            <div class="container">
+
+                <div class="booking-card">
+
+                    <div class="booking-card-header">
+
+                        <p class="eyebrow">
+                            STEP 1
+                        </p>
+
+                        <h2>
+                            Check Your Service Area
+                        </h2>
+
+                        <p>
+                            BrightSide currently serves customers
+                            within approximately 20 miles of the
+                            Alief Neighborhood Center.
+                        </p>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         ADDRESS
+                         ================================================= -->
+
+                    <div class="form-group">
+
+                        <label for="address">
+                            Service Address
+                        </label>
+
+                        <div class="address-input-wrapper">
+
+                            <input
+                                type="text"
+                                id="address"
+                                name="address"
+                                placeholder="Enter the address where your vehicle is located"
+                                autocomplete="off"
+                            >
+
+                            <div
+                                id="address-suggestions"
+                                class="address-suggestions"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         SERVICE STATUS
+                         ================================================= -->
+
+                    <div
+                        id="service-status"
+                        class="service-status"
+                        aria-live="polite"
+                    >
+
+                        <div class="status-icon">
+                            ?
+                        </div>
+
+                        <div class="status-content">
+
+                            <strong>
+                                Enter your address
+                            </strong>
+
+                            <p>
+                                We'll check whether your location
+                                is within our 20-mile service area.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         MAP
+                         ================================================= -->
+
+                    <div
+                        id="map"
+                        class="booking-map"
+                        aria-label="BrightSide service area map"
+                    ></div>
+
+
+                    <!-- =================================================
+                         DISTANCE
+                         ================================================= -->
+
+                    <div
+                        id="distance-information"
+                        class="distance-information"
+                        hidden
+                    >
+
+                        <span>
+                            Distance from service-area center
+                        </span>
+
+                        <strong id="distance-from-alief">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         HIDDEN STATUS
+                         ================================================= -->
+
+                    <input
+                        type="hidden"
+                        id="service-area-status"
+                        value="unchecked"
+                    >
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             STEP 2 — PRICING
+             Hidden until address is eligible
+             ===================================================== -->
+
+        <section
+            id="pricing-section"
+            class="pricing-section booking-pricing-section"
+            hidden
+        >
+
+            <div class="container">
+
+                <div class="pricing-section-header">
+
+                    <p class="eyebrow">
+                        STEP 2
+                    </p>
+
+                    <h2>
+                        Our Pricing
+                    </h2>
+
+                    <p>
+                        Review the starting prices for your vehicle
+                        before continuing to your booking.
+                    </p>
+
+                </div>
+
+
+                <!-- =================================================
+                     EXTERIOR DETAIL
+                     ================================================= -->
+
+                <article class="booking-price-card">
+
+                    <div class="booking-price-card-header">
+
+                        <div>
+
+                            <p class="price-card-label">
+                                EXTERIOR DETAIL
+                            </p>
+
+                            <h3>
+                                Exterior Detail
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="booking-price-list">
+
+                        <div>
+                            <span>
+                                Sedan/Coupe
+                            </span>
+
+                            <strong>
+                                $75
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>
+                                SUV/Crossover
+                            </span>
+
+                            <strong>
+                                $85
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>
+                                Truck
+                            </span>
+
+                            <strong>
+                                $90
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>
+                                Large SUV/Van
+                            </span>
+
+                            <strong>
+                                $100
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <ul class="booking-service-features">
+
+                        <li>
+                            Wheel & tire cleaning
+                        </li>
+
+                        <li>
+                            Exterior hand wash
+                        </li>
+
+                        <li>
+                            Microfiber dry
+                        </li>
+
+                        <li>
+                            Exterior glass cleaning
+                        </li>
+
+                        <li>
+                            Ceramic foam protection
+                        </li>
+
+                        <li>
+                            Door jamb cleaning
+                        </li>
+
+                    </ul>
+
+                </article>
+
+
+
+                <!-- =================================================
+                     INTERIOR DETAIL
+                     ================================================= -->
+
+                <article class="booking-price-card">
+
+                    <div class="booking-price-card-header">
+
+                        <div>
+
+                            <p class="price-card-label">
+                                INTERIOR DETAIL
+                            </p>
+
+                            <h3>
+                                Interior Detail
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="booking-price-list">
+
+                        <div>
+                            <span>
+                                Sedan/Coupe
+                            </span>
+
+                            <strong>
+                                $100
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>
+                                SUV/Crossover
+                            </span>
+
+                            <strong>
+                                $115
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>
+                                Truck
+                            </span>
+
+                            <strong>
+                                $125
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>
+                                Large SUV/Van
+                            </span>
+
+                            <strong>
+                                $125
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <ul class="booking-service-features">
+
+                        <li>
+                            Full interior vacuum
+                        </li>
+
+                        <li>
+                            Dashboard, console & door cleaning
+                        </li>
+
+                        <li>
+                            Cup holder cleaning
+                        </li>
+
+                        <li>
+                            Interior glass cleaning
+                        </li>
+
+                        <li>
+                            Floor mat cleaning
+                        </li>
+
+                        <li>
+                            Carpet & cloth upholstery cleaning
+                        </li>
+
+                        <li>
+                            Light spot treatment
+                        </li>
+
+                        <li>
+                            Carpet/upholstery extraction
+                        </li>
+
+                    </ul>
+
+                </article>
+
+
+
+                <!-- =================================================
+                     FULL DETAIL
+                     ================================================= -->
+
+                <article class="booking-price-card booking-price-card-featured">
+
+                    <div class="booking-price-card-header">
+
+                        <div>
+
+                            <p class="price-card-label">
+                                FULL DETAIL
+                            </p>
+
+                            <h3>
+                                Full Detail
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="booking-price-list">
+
+                        <div>
+                            <span>
+                                Sedan/Coupe
+                            </span>
+
+                            <strong>
+                                $150
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>
+                                SUV/Crossover
+                            </span>
+
+                            <strong>
+                                $175
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>
+                                Truck
+                            </span>
+
+                            <strong>
+                                $185
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>
+                                Large SUV/Van
+                            </span>
+
+                            <strong>
+                                $200
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <ul class="booking-service-features">
+
+                        <li>
+                            Complete interior and exterior detail
+                        </li>
+
+                    </ul>
+
+                </article>
+
+
+
+                <!-- =================================================
+                     MAINTENANCE — COMING SOON
+                     ================================================= -->
+
+                <article class="maintenance-coming-soon">
+
+                    <div>
+
+                        <p class="price-card-label">
+                            MAINTENANCE
+                        </p>
+
+                        <h3>
+                            Maintenance Pricing
+                        </h3>
+
+                        <p>
+                            Coming soon. We're working on
+                            maintenance detail options for
+                            returning customers.
+                        </p>
+
+                    </div>
+
+                    <span class="coming-soon-badge">
+                        COMING SOON
+                    </span>
+
+                </article>
+
+
+
+                <!-- =================================================
+                     ADD-ONS
+                     ================================================= -->
+
+                <div class="booking-addons">
+
+                    <div class="booking-addons-header">
+
+                        <p class="price-card-label">
+                            OPTIONAL ADD-ONS
+                        </p>
+
+                        <h3>
+                            Add-Ons
+                        </h3>
+
+                    </div>
+
+
+                    <div class="booking-addon-list">
+
+                        <div class="booking-addon">
+
+                            <span>
+                                Pet Hair Removal
+                            </span>
+
+                            <strong>
+                                +$25
+                            </strong>
+
+                        </div>
+
+
+                        <div class="booking-addon">
+
+                            <span>
+                                Heavy Stain Removal
+                            </span>
+
+                            <strong>
+                                +$25
+                            </strong>
+
+                        </div>
+
+
+                        <div class="booking-addon">
+
+                            <span>
+                                Ceramic 3-in-1 Protection
+                                <small>
+                                    Griot's Garage
+                                </small>
+                            </span>
+
+                            <strong>
+                                +$30
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     PRICING NOTE
+                     ================================================= -->
+
+                <div class="pricing-note">
+
+                    <strong>
+                        Pricing Note
+                    </strong>
+
+                    <p>
+                        Prices are starting prices and may vary
+                        depending on vehicle size and condition.
+                        Additional charges may apply for heavy
+                        staining, excessive pet hair, or unusually
+                        dirty vehicles. Final pricing will be
+                        confirmed before service.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             STEP 3 — CAL.COM
+             ===================================================== -->
+
+        <section
+            id="cal-booking-section"
+            class="cal-booking-section"
+            hidden
+        >
+
+            <div class="container">
+
+                <div class="cal-booking-wrapper">
+
+                    <div class="cal-booking-header">
+
+                        <p class="eyebrow">
+                            STEP 3
+                        </p>
+
+                        <h2>
+                            Choose Your Appointment
+                        </h2>
+
+                        <p>
+                            Complete your booking below through
+                            Cal.com. Select your service, vehicle,
+                            add-ons, and available weekend
+                            appointment.
+                        </p>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         CAL.COM EMBED
+                         ================================================= -->
+
+                    <div
+                        id="cal-booking"
+                        class="cal-booking"
+                    >
+
+                        <div class="cal-loading">
+
+                            Loading booking options...
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
+
+    <footer class="site-footer">
+
+        <div class="container footer-content">
+
+            <div class="footer-brand">
+
+                <span class="logo-main">
+                    BRIGHTSIDE
+                </span>
+
+                <span class="logo-sub">
+                    HOUSTON DETAILING
+                </span>
+
+            </div>
+
+            <p>
+                Mobile detailing in Alief and surrounding
+                Houston communities.
+            </p>
+
+            <p class="footer-contact">
+                Weekend appointments available.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+         ========================================================= -->
+
+    <script src="../script.js"></script>
+
+    <script src="./booking.js"></script>
+
+</body>
+
+</html>
