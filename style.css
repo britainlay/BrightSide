@@ -80,7 +80,7 @@ img {
     margin-top: 5px;
     font-size: 1.5rem;
     letter-spacing: 0.18em;
-    color: #6b7d91;
+    color: #cddb13;
 }
 
 .nav-links {
@@ -283,7 +283,7 @@ img {
 
 .benefit-number {
     color: #1769aa;
-    font-size: 0.75rem;
+    font-size: 1.1rem;
     font-weight: 700;
 }
 
@@ -317,6 +317,7 @@ img {
 }
 
 .section-heading > p:last-child {
+   font-size: larger;
     margin-top: 18px;
     color: #718296;
 }
@@ -365,17 +366,12 @@ img {
     letter-spacing: 0.08em;
 }
 
-.package-label {
-    color: #1769aa;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-}
 
 .package-card h3 {
+   font-color: #1769aa;
     margin-top: 5px;
     font-family: "Space Grotesk", sans-serif;
-    font-size: 1.45rem;
+    font-size: 1.7rem;
 }
 
 .price {
@@ -386,8 +382,8 @@ img {
 }
 
 .price span {
-    font-size: 1rem;
-    color: #718296;
+    font-size: 2rem;
+    color: cornflowerblue;
 }
 
 .package-card ul {
@@ -469,7 +465,7 @@ img {
 
 .mobile-info span {
     color: #72b8ed;
-    font-size: 0.75rem;
+    font-size: 1.1rem;
     font-weight: 700;
 }
 
@@ -587,7 +583,7 @@ img {
 
 .team-role {
     color: #1769aa;
-    font-size: 0.68rem;
+    font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -602,8 +598,8 @@ img {
 
 .team-info > p:last-child {
     margin-top: 9px;
-    color: #718296;
-    font-size: 0.88rem;
+    color: #54657a;
+    font-size: 1rem;
 }
 
 
@@ -686,7 +682,8 @@ img {
 }
 
 .faq-answer p {
-    color: #718296;
+   font-weight: bold;
+    color: black;
     font-size: 0.9rem;
 }
 
@@ -711,6 +708,7 @@ img {
 }
 
 .cta > p:not(.eyebrow) {
+   font-size: larger;
     margin: 20px auto;
     color: #65788c;
 }
@@ -740,8 +738,9 @@ footer {
 }
 
 .footer-brand p {
+   font-size: larger;
     margin-top: 14px;
-    color: #8fa2b5;
+    color: #e9e9e9;
 }
 
 .footer-links {
@@ -756,7 +755,7 @@ footer {
 .footer-links a {
     display: block;
     margin: 8px 0;
-    color: #91a5b8;
+    color: #e9e9e9;
     font-size: 0.9rem;
 }
 
@@ -768,14 +767,15 @@ footer {
     width: min(1180px, 92%);
     margin: auto;
     padding: 20px 0;
-    border-top: 1px solid #243548;
+    border-top: 1px solid #ffffff;
 
     display: flex;
     justify-content: space-between;
     gap: 20px;
 
-    color: #73889c;
-    font-size: 0.78rem;
+    color: #ffffff;
+   font-weight: bold;
+    font-size: 0.9rem;
 }
 
 
