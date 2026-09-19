@@ -8,23 +8,294 @@
 // MOBILE MENU
 // ============================================
 
-const menuButton = document.getElementById("menuButton");
-const navLinks = document.querySelector(".nav-links");
+document.addEventListener("DOMContentLoaded", () => {
 
-if (menuButton && navLinks) {
+    /*
+     * STANDARD SITE NAVIGATION
+     *
+     * Used by:
+     * - Homepage
+     * - Packages
+     * - Results
+     * - How It Works
+     * - About
+     */
 
-    menuButton.addEventListener("click", () => {
-        navLinks.classList.toggle("mobile-open");
-    });
+    const menuButton =
+        document.getElementById("menuButton");
 
-}
+    const navLinks =
+        document.querySelector(".nav-links");
+
+
+    if (menuButton && navLinks) {
+
+        menuButton.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+
+        menuButton.addEventListener(
+            "click",
+            () => {
+
+                const isOpen =
+                    navLinks.classList.toggle(
+                        "mobile-open"
+                    );
+
+
+                menuButton.setAttribute(
+                    "aria-expanded",
+                    String(isOpen)
+                );
+
+
+                menuButton.classList.toggle(
+                    "is-open",
+                    isOpen
+                );
+
+
+                document.body.classList.toggle(
+                    "mobile-menu-open",
+                    isOpen
+                );
+
+            }
+        );
+
+
+        /*
+         * Close menu when a navigation link
+         * is selected.
+         */
+
+        navLinks
+            .querySelectorAll("a")
+            .forEach(link => {
+
+                link.addEventListener(
+                    "click",
+                    () => {
+
+                        navLinks.classList.remove(
+                            "mobile-open"
+                        );
+
+                        menuButton.classList.remove(
+                            "is-open"
+                        );
+
+                        menuButton.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+
+                        document.body.classList.remove(
+                            "mobile-menu-open"
+                        );
+
+                    }
+                );
+
+            });
+
+
+        /*
+         * Close menu with Escape.
+         */
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Escape" &&
+                    navLinks.classList.contains(
+                        "mobile-open"
+                    )
+                ) {
+
+                    navLinks.classList.remove(
+                        "mobile-open"
+                    );
+
+                    menuButton.classList.remove(
+                        "is-open"
+                    );
+
+                    menuButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                    document.body.classList.remove(
+                        "mobile-menu-open"
+                    );
+
+                    menuButton.focus();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    // ========================================
+    // BOOKING PAGE MOBILE MENU
+    // ========================================
+
+    /*
+     * The booking page has its own custom header,
+     * so it uses a separate mobile menu.
+     */
+
+    const bookingMenuButton =
+        document.getElementById(
+            "bookingMenuButton"
+        );
+
+    const bookingMobileMenu =
+        document.getElementById(
+            "bookingMobileMenu"
+        );
+
+
+    if (
+        bookingMenuButton &&
+        bookingMobileMenu
+    ) {
+
+        bookingMenuButton.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+
+        bookingMenuButton.addEventListener(
+            "click",
+            () => {
+
+                const isOpen =
+                    bookingMobileMenu.classList.toggle(
+                        "mobile-open"
+                    );
+
+
+                bookingMenuButton.setAttribute(
+                    "aria-expanded",
+                    String(isOpen)
+                );
+
+
+                bookingMenuButton.classList.toggle(
+                    "is-open",
+                    isOpen
+                );
+
+
+                document.body.classList.toggle(
+                    "mobile-menu-open",
+                    isOpen
+                );
+
+            }
+        );
+
+
+        /*
+         * Close after selecting a booking
+         * navigation link.
+         */
+
+        bookingMobileMenu
+            .querySelectorAll("a")
+            .forEach(link => {
+
+                link.addEventListener(
+                    "click",
+                    () => {
+
+                        bookingMobileMenu.classList.remove(
+                            "mobile-open"
+                        );
+
+                        bookingMenuButton.classList.remove(
+                            "is-open"
+                        );
+
+                        bookingMenuButton.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+
+                        document.body.classList.remove(
+                            "mobile-menu-open"
+                        );
+
+                    }
+                );
+
+            });
+
+
+        /*
+         * Close booking menu with Escape.
+         */
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Escape" &&
+                    bookingMobileMenu.classList.contains(
+                        "mobile-open"
+                    )
+                ) {
+
+                    bookingMobileMenu.classList.remove(
+                        "mobile-open"
+                    );
+
+                    bookingMenuButton.classList.remove(
+                        "is-open"
+                    );
+
+                    bookingMenuButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                    document.body.classList.remove(
+                        "mobile-menu-open"
+                    );
+
+                    bookingMenuButton.focus();
+
+                }
+
+            }
+        );
+
+    }
+
+});
 
 
 // ============================================
 // BOOKING PAGE
 // ============================================
 
-const bookingPage = document.getElementById("booking-page");
+const bookingPage =
+    document.getElementById(
+        "booking-page"
+    );
+
 
 if (bookingPage) {
 
@@ -32,15 +303,21 @@ if (bookingPage) {
     // MAPBOX
     // ========================================
 
+
     const MAPBOX_TOKEN =
         "pk.eyJ1IjoiYnJpZ2h0c2lkZWRldGFpbGluZyIsImEiOiJjbXQ5a3FuMDUwNHVlMndweWFzNXAwMG5rIn0.HYTbUgwvgO3_fn7f0mHCDg";
 
 
     // Alief Community Center
-    const SERVICE_LAT = 29.70254;
-    const SERVICE_LNG = -95.58891;
+    const SERVICE_LAT =
+        29.70254;
 
-    const SERVICE_RADIUS = 30;
+    const SERVICE_LNG =
+        -95.58891;
+
+
+    const SERVICE_RADIUS =
+        30;
 
 
     // ========================================
@@ -51,34 +328,52 @@ if (bookingPage) {
         document.getElementById("address");
 
     const suggestionsBox =
-        document.getElementById("address-suggestions");
+        document.getElementById(
+            "address-suggestions"
+        );
 
     const serviceStatus =
-        document.getElementById("service-status");
+        document.getElementById(
+            "service-status"
+        );
 
     const availability =
-        document.getElementById("availability-container");
+        document.getElementById(
+            "availability-container"
+        );
 
     const availabilityButton =
-        document.getElementById("availability-button");
+        document.getElementById(
+            "availability-button"
+        );
 
     const mapElement =
         document.getElementById("map");
 
     const vehicleSize =
-        document.getElementById("vehicle-size");
+        document.getElementById(
+            "vehicle-size"
+        );
 
     const vehiclePrice =
-        document.getElementById("vehicle-price");
+        document.getElementById(
+            "vehicle-price"
+        );
 
     const vehicleMake =
-        document.getElementById("vehicle-make");
+        document.getElementById(
+            "vehicle-make"
+        );
 
     const vehicleModel =
-        document.getElementById("vehicle-model");
+        document.getElementById(
+            "vehicle-model"
+        );
 
     const vehicleYear =
-        document.getElementById("vehicle-year");
+        document.getElementById(
+            "vehicle-year"
+        );
 
 
     // ========================================
@@ -130,8 +425,11 @@ if (bookingPage) {
     // BOOKING STATE
     // ========================================
 
-    let selectedAddress = false;
-    let locationEligible = false;
+    let selectedAddress =
+        false;
+
+    let locationEligible =
+        false;
 
 
     // ========================================
@@ -142,6 +440,7 @@ if (bookingPage) {
 
         const vehicle =
             vehicleSize?.value;
+
 
         const priceElements =
             document.querySelectorAll(
@@ -159,12 +458,14 @@ if (bookingPage) {
             }
 
 
-            priceElements.forEach(element => {
+            priceElements.forEach(
+                element => {
 
-                element.textContent =
-                    "Select Vehicle";
+                    element.textContent =
+                        "Select Vehicle";
 
-            });
+                }
+            );
 
 
             lockAvailability();
@@ -195,46 +496,59 @@ if (bookingPage) {
         }
 
 
-        priceElements.forEach(element => {
+        priceElements.forEach(
+            element => {
 
-            const card =
-                element.closest(".service-card");
+                const card =
+                    element.closest(
+                        ".service-card"
+                    );
 
-            const radio =
-                card?.querySelector(
-                    "input[name='service']"
-                );
+                const radio =
+                    card?.querySelector(
+                        "input[name='service']"
+                    );
 
 
-            if (!radio) {
-                return;
+                if (!radio) {
+                    return;
+                }
+
+
+                if (
+                    radio.value ===
+                    "express"
+                ) {
+
+                    element.textContent =
+                        `$${selected.express}`;
+
+                }
+
+
+                if (
+                    radio.value ===
+                    "interior"
+                ) {
+
+                    element.textContent =
+                        `$${selected.interior}`;
+
+                }
+
+
+                if (
+                    radio.value ===
+                    "full-detail"
+                ) {
+
+                    element.textContent =
+                        `$${selected.full}`;
+
+                }
+
             }
-
-
-            if (radio.value === "express") {
-
-                element.textContent =
-                    `$${selected.express}`;
-
-            }
-
-
-            if (radio.value === "interior") {
-
-                element.textContent =
-                    `$${selected.interior}`;
-
-            }
-
-
-            if (radio.value === "full-detail") {
-
-                element.textContent =
-                    `$${selected.full}`;
-
-            }
-
-        });
+        );
 
 
         validateBooking();
@@ -250,11 +564,11 @@ if (bookingPage) {
 
                 updatePrices();
 
-                // If they return to the placeholder,
-                // availability is immediately locked.
 
                 if (!vehicleSize.value) {
+
                     lockAvailability();
+
                 }
 
             }
@@ -277,63 +591,111 @@ if (bookingPage) {
 
     function startMap() {
 
-    if (!mapElement) {
-        console.error("Map element #map was not found.");
-        return;
-    }
+        if (!mapElement) {
+            console.error(
+                "Map element #map was not found."
+            );
+            return;
+        }
 
-    if (!MAPBOX_TOKEN) {
-        console.error("Mapbox token is missing.");
-        return;
-    }
 
-    if (typeof mapboxgl === "undefined") {
-        console.error("Mapbox GL JS did not load.");
-        return;
-    }
-
-    mapboxgl.accessToken = MAPBOX_TOKEN;
-
-    try {
-
-        map = new mapboxgl.Map({
-            container: "map",
-            style: "mapbox://styles/mapbox/streets-v12",
-            center: [
-                SERVICE_LNG,
-                SERVICE_LAT
-            ],
-            zoom: 11
-        });
-
-        map.on("load", () => {
-
-            console.log("Mapbox map loaded successfully.");
-
-        });
-
-        map.on("error", (event) => {
+        if (
+            !MAPBOX_TOKEN ||
+            MAPBOX_TOKEN.includes(
+                "PASTE_YOUR_EXISTING"
+            )
+        ) {
 
             console.error(
-                "Mapbox map error:",
-                event
+                "Mapbox public token is missing."
             );
 
-        });
+            return;
 
-        map.addControl(
-            new mapboxgl.NavigationControl()
-        );
+        }
 
-    } catch (error) {
 
-        console.error(
-            "Mapbox initialization error:",
-            error
-        );
+        if (
+            typeof mapboxgl ===
+            "undefined"
+        ) {
+
+            console.error(
+                "Mapbox GL JS did not load."
+            );
+
+            return;
+
+        }
+
+
+        mapboxgl.accessToken =
+            MAPBOX_TOKEN;
+
+
+        try {
+
+            map =
+                new mapboxgl.Map({
+
+                    container:
+                        "map",
+
+                    style:
+                        "mapbox://styles/mapbox/streets-v12",
+
+                    center: [
+                        SERVICE_LNG,
+                        SERVICE_LAT
+                    ],
+
+                    zoom: 11
+
+                });
+
+
+            map.on(
+                "load",
+                () => {
+
+                    console.log(
+                        "Mapbox map loaded successfully."
+                    );
+
+                }
+            );
+
+
+            map.on(
+                "error",
+                event => {
+
+                    console.error(
+                        "Mapbox map error:",
+                        event
+                    );
+
+                }
+            );
+
+
+            map.addControl(
+                new mapboxgl.NavigationControl()
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Mapbox initialization error:",
+                error
+            );
+
+        }
 
     }
-}
+
+
     startMap();
 
 
@@ -341,7 +703,8 @@ if (bookingPage) {
     // SEARCH SESSION
     // ========================================
 
-    let sessionToken = null;
+    let sessionToken =
+        null;
 
 
     function createSessionToken() {
@@ -355,6 +718,7 @@ if (bookingPage) {
             return crypto.randomUUID();
 
         }
+
 
         return (
             Date.now().toString() +
@@ -381,11 +745,16 @@ if (bookingPage) {
             "input",
             () => {
 
-                clearTimeout(searchTimer);
+                clearTimeout(
+                    searchTimer
+                );
 
 
-                selectedAddress = false;
-                locationEligible = false;
+                selectedAddress =
+                    false;
+
+                locationEligible =
+                    false;
 
 
                 lockAvailability();
@@ -416,11 +785,16 @@ if (bookingPage) {
 
 
                 searchTimer =
-                    setTimeout(() => {
+                    setTimeout(
+                        () => {
 
-                        getSuggestions(query);
+                            getSuggestions(
+                                query
+                            );
 
-                    }, 300);
+                        },
+                        300
+                    );
 
             }
         );
@@ -432,30 +806,25 @@ if (bookingPage) {
     // MAPBOX ADDRESS SUGGESTIONS
     // ========================================
 
-    async function getSuggestions(query) {
+    async function getSuggestions(
+        query
+    ) {
 
         try {
 
             const url =
                 "https://api.mapbox.com/search/searchbox/v1/suggest" +
-
                 "?q=" +
                 encodeURIComponent(query) +
-
                 "&country=US" +
-
                 "&language=en" +
-
                 "&limit=6" +
-
                 "&session_token=" +
                 sessionToken +
-
                 "&proximity=" +
                 SERVICE_LNG +
                 "," +
                 SERVICE_LAT +
-
                 "&access_token=" +
                 MAPBOX_TOKEN;
 
@@ -479,7 +848,8 @@ if (bookingPage) {
 
 
             showSuggestions(
-                data.suggestions || []
+                data.suggestions ||
+                []
             );
 
 
@@ -501,14 +871,17 @@ if (bookingPage) {
     // SHOW SUGGESTIONS
     // ========================================
 
-    function showSuggestions(suggestions) {
+    function showSuggestions(
+        suggestions
+    ) {
 
         if (!suggestionsBox) {
             return;
         }
 
 
-        suggestionsBox.innerHTML = "";
+        suggestionsBox.innerHTML =
+            "";
 
 
         if (!suggestions.length) {
@@ -524,10 +897,14 @@ if (bookingPage) {
             suggestion => {
 
                 const button =
-                    document.createElement("button");
+                    document.createElement(
+                        "button"
+                    );
 
 
-                button.type = "button";
+                button.type =
+                    "button";
+
 
                 button.className =
                     "address-suggestion";
@@ -537,7 +914,8 @@ if (bookingPage) {
 
                     <strong>
                         ${escapeHTML(
-                            suggestion.name || ""
+                            suggestion.name ||
+                            ""
                         )}
                     </strong>
 
@@ -582,7 +960,9 @@ if (bookingPage) {
     // RETRIEVE ADDRESS
     // ========================================
 
-    async function retrieveAddress(suggestion) {
+    async function retrieveAddress(
+        suggestion
+    ) {
 
         if (
             !suggestion ||
@@ -598,14 +978,11 @@ if (bookingPage) {
 
             const url =
                 "https://api.mapbox.com/search/searchbox/v1/retrieve/" +
-
                 encodeURIComponent(
                     suggestion.mapbox_id
                 ) +
-
                 "?session_token=" +
                 sessionToken +
-
                 "&access_token=" +
                 MAPBOX_TOKEN;
 
@@ -646,15 +1023,23 @@ if (bookingPage) {
 
 
             const longitude =
-                Number(coordinates[0]);
+                Number(
+                    coordinates[0]
+                );
 
             const latitude =
-                Number(coordinates[1]);
+                Number(
+                    coordinates[1]
+                );
 
 
             if (
-                !Number.isFinite(longitude) ||
-                !Number.isFinite(latitude)
+                !Number.isFinite(
+                    longitude
+                ) ||
+                !Number.isFinite(
+                    latitude
+                )
             ) {
 
                 throw new Error(
@@ -672,21 +1057,16 @@ if (bookingPage) {
                 "";
 
 
-            // Put selected address into input.
-
             addressInput.value =
                 address;
 
 
-            // Mark as a real selected address.
-
-            selectedAddress = true;
+            selectedAddress =
+                true;
 
 
             hideSuggestions();
 
-
-            // Show address on map.
 
             updateMap(
                 longitude,
@@ -695,16 +1075,11 @@ if (bookingPage) {
             );
 
 
-            // Check 30-mile radius.
-
             checkServiceArea(
                 latitude,
                 longitude
             );
 
-
-            // Generate a new session for the
-            // next address search.
 
             sessionToken =
                 createSessionToken();
@@ -771,11 +1146,11 @@ if (bookingPage) {
                     latitude
                 ])
                 .setPopup(
-
                     new mapboxgl.Popup({
                         offset: 25
-                    }).setText(address)
-
+                    }).setText(
+                        address
+                    )
                 )
                 .addTo(map);
 
@@ -796,7 +1171,8 @@ if (bookingPage) {
         lon2
     ) {
 
-        const radius = 3958.8;
+        const radius =
+            3958.8;
 
 
         const latDifference =
@@ -880,7 +1256,8 @@ if (bookingPage) {
             SERVICE_RADIUS
         ) {
 
-            locationEligible = true;
+            locationEligible =
+                true;
 
 
             serviceStatus.className =
@@ -903,7 +1280,8 @@ if (bookingPage) {
 
         } else {
 
-            locationEligible = false;
+            locationEligible =
+                false;
 
 
             serviceStatus.className =
@@ -1040,12 +1418,9 @@ if (bookingPage) {
 
         if (!getSelectedService()) {
 
-            const firstService =
-                document.querySelector(
-                    "input[name='service']"
-                );
-
-            return firstService;
+            return document.querySelector(
+                "input[name='service']"
+            );
 
         }
 
@@ -1082,27 +1457,31 @@ if (bookingPage) {
 
         field.scrollIntoView({
 
-            behavior: "smooth",
+            behavior:
+                "smooth",
 
-            block: "center"
+            block:
+                "center"
 
         });
 
 
-        setTimeout(() => {
+        setTimeout(
+            () => {
 
-            try {
+                try {
 
-                field.focus();
+                    field.focus();
 
-            } catch (error) {
+                } catch (error) {
 
-                // Radio inputs and other
-                // non-focusable elements.
+                    // Intentionally ignored.
 
-            }
+                }
 
-        }, 500);
+            },
+            500
+        );
 
     }
 
@@ -1128,7 +1507,9 @@ if (bookingPage) {
 
 
         const calendlyURL =
-            calendlyLinks[service];
+            calendlyLinks[
+                service
+            ];
 
 
         if (!calendlyURL) {
@@ -1260,18 +1641,20 @@ if (bookingPage) {
         .querySelectorAll(
             "input[name='service']"
         )
-        .forEach(radio => {
+        .forEach(
+            radio => {
 
-            radio.addEventListener(
-                "change",
-                () => {
+                radio.addEventListener(
+                    "change",
+                    () => {
 
-                    validateBooking();
+                        validateBooking();
 
-                }
-            );
+                    }
+                );
 
-        });
+            }
+        );
 
 
     // ========================================
@@ -1282,23 +1665,25 @@ if (bookingPage) {
         vehicleMake,
         vehicleModel,
         vehicleYear
-    ].forEach(field => {
+    ].forEach(
+        field => {
 
-        if (!field) {
-            return;
-        }
-
-
-        field.addEventListener(
-            "input",
-            () => {
-
-                validateBooking();
-
+            if (!field) {
+                return;
             }
-        );
 
-    });
+
+            field.addEventListener(
+                "input",
+                () => {
+
+                    validateBooking();
+
+                }
+            );
+
+        }
+    );
 
 
     // ========================================
@@ -1415,6 +1800,7 @@ if (bookingPage) {
     // ========================================
 
     updatePrices();
+
     lockAvailability();
 
 }
