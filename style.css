@@ -446,6 +446,7 @@ img {
 }
 
 .mobile-text > p:not(.eyebrow) {
+   font-size: large;
     margin-top: 22px;
     color: #b6c6d6;
 }
@@ -807,6 +808,7 @@ footer {
 }
 
 .booking-hero-content > p:last-child {
+   font-size: larger;
     max-width: 600px;
     margin-top: 18px;
     color: #627589;
